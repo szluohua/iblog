@@ -8,6 +8,6 @@ module.exports = {
     },
     /* 获取一个期限为4小时的token */
     getToken(payload = {}) {
-        return jwt.sign(payload, secret, { expiresIn: '4h' })
+        return jwt.sign(payload, secret, { expiresIn: '7d' })
     }
 }

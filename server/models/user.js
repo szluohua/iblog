@@ -1,5 +1,3 @@
-'use strict'
-
 const Mongoose = require('mongoose')
 const bcrypt = require('bcrypt-nodejs')
 const validate = require('mongoose-validate')

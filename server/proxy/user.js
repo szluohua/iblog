@@ -1,15 +1,12 @@
 const UserModel = require('../models/user')
-module.exports = {
-    async create(data) {
-        const res = await UserModel.create(data)
-        return res
-    },
-    async findOne(data, option = {}) {
-        const res = await UserModel.findOne(data, option)
-        return res
-    },
-    async findById(id) {
-        const res = await UserModel.findById(id)
+const Base = require('./base')
+class UserServiceModel extends Base {
+    constructor() {
+        super(UserModel)
+    }
+    async findByUserName(username) {
+        const res = await this.model.findOne({ username })
         return res
     }
 }
+module.exports = new UserServiceModel()
