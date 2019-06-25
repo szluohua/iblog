@@ -15,14 +15,19 @@ module.exports = {
             const checkPassword = await user.validatePassword(req.password)
             if (checkPassword) {
                 ctx.body = {
-                    ok: true,
-                    msg: '登录成功',
-                    token: auth.getToken({ user: req.username, password: req.password })
+                    jwt: auth.getToken({ user: req.username, password: req.password }),
+                    expires: 7
                 }
             } else {
                 ctx.body = {
+                    errorCode: 1,
                     msg: '密码不正确'
                 }
+            }
+        } else {
+            ctx.body = {
+                errorCode: 0,
+                msg: '找不到用户'
             }
         }
     }

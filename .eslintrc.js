@@ -20,7 +20,16 @@ module.exports = {
     'no-var': 0, // 禁用var，用let和const代替
     'indent': [2, 4], // 缩进风格
     'no-mixed-spaces-and-tabs': [2, false], // 禁止混用tab和空格,
-    'no-tabs': 'off'
+    'no-tabs': 'off',
+    'vue/no-v-html': 'off',
+    'vue/html-indent': 'off'
+  },
+  globals: {
+    'Stackedit': true,
+    'Swal': true,
+    'Quill': true,
+    'markdownit': true,
+    'marked': true
   }
 }
 

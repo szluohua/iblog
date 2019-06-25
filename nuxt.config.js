@@ -1,8 +1,16 @@
 const pkg = require('./package')
-
+const env =
+    process.env.NODE_ENV === 'production'
+        ? require('./config.json').prod
+        : require('./config.json').dev
 module.exports = {
     mode: 'universal',
-
+    vue: {
+        config: {
+            lintOnSave: process.env.NODE_ENV !== 'production'
+        }
+    },
+    env,
     /*
   ** Headers of the page
   */
@@ -14,7 +22,10 @@ module.exports = {
             { hid: 'description', name: 'description', content: pkg.description }
         ],
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+            { rel: 'icon', type: 'image/png', href: '/favicon.png' }
+        ],
+        script: [
+            { src: 'https://cdn.jsdelivr.net/npm/sweetalert2@8', async: true, defer: true }
         ]
     },
 
@@ -27,7 +38,16 @@ module.exports = {
   ** Global CSS
   */
     css: [
-        'ant-design-vue/dist/antd.css'
+        'ant-design-vue/lib/style/index.css',
+        'ant-design-vue/lib/button/style/index.css',
+        'ant-design-vue/lib/form/style/index.css',
+        'ant-design-vue/lib/input/style/index.css',
+        'ant-design-vue/lib/icon/style/index.css',
+        'ant-design-vue/lib/avatar/style/index.css',
+        'ant-design-vue/lib/select/style/index.css',
+        'ant-design-vue/lib/layout/style/index.css',
+        'ant-design-vue/lib/menu/style/index.css',
+        'ant-design-vue/lib/spin/style/index.css'
     ],
 
     /*
@@ -36,21 +56,20 @@ module.exports = {
     plugins: [
         '@/plugins/antd-ui'
     ],
-
+    router: {
+        middleware: ['auth']
+    },
     /*
   ** Nuxt.js modules
   */
     modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-        '@nuxtjs/axios'
+        '@nuxtjs/style-resources'
     ],
-    /*
-  ** Axios module configuration
-  */
-    axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+    styleResources: {
+        scss: [
+            './assets/vars/*.scss' // 自己项目中的样式文件的路径
+        ]
     },
-
     /*
   ** Build configuration
   */

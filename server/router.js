@@ -9,4 +9,5 @@ router.post('/api/register', UserController.register)
 /* GET /api/login 登录 */
 router.post('/api/login', UserController.login)
 router.post('/api/createArticle', ArticleController.createArticle)
+router.get('/api/v1/getArticle', ArticleController.getArticleList)
 module.exports = router

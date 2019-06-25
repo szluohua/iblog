@@ -69,10 +69,11 @@ async function start() {
         }
     })
     /* 路由权限控制 */
-    app.use(jwtKoa({ secret: secret }).unless({
+    app.use(jwtKoa({ secret: secret, cookie: 'auth' }).unless({
     // 设置login、register接口，可以不需要认证访问
         path: [
             /^\/api\/login/,
+            /^\/api\/v1/,
             /^\/api\/register/,
             /^((?!\/api).)*$/ // 设置除了私有接口外的其它资源，可以不需要认证访问, 即nuxt的路由不需要认证
         ]
