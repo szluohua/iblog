@@ -10,8 +10,7 @@ const UserSchema = new Mongoose.Schema({
         required: true
     },
     desc: {
-        type: String,
-        required: true
+        type: String
     },
     type: {
         type: String,

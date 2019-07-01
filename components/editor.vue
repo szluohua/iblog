@@ -21,14 +21,11 @@ export default {
     },
     head() {
         return {
-            script: [{
-                src: 'https://unpkg.com/stackedit-js@1.0.7/docs/lib/stackedit.min.js',
-                async: true
-            },
-            {
-                src: 'http://localhost:3000/editor.js',
-                async: true
-            }
+            script: [
+                {
+                    src: 'http://localhost:3000/editor.js',
+                    async: true
+                }
             ]
         }
     },
@@ -42,23 +39,31 @@ export default {
             this.stackedit = new Stackedit({
                 targetDom: '#editor-container'
             })
-            this.stackedit.openFile({
-                name: 'Filename', // with an optional filename
-                content: {
-                    text: '' // and the Markdown content.
-                }
-            })
+            this.resetEditor()
             this.stackedit.on('fileChange', (file) => {
                 this.data = file.content.text
             })
         })
     },
-    methods: {}
+    methods: {
+        resetEditor() {
+            this.stackedit.openFile({
+                name: 'Filename',
+                content: {
+                    text: ''
+                }
+            })
+        }
+    }
 }
 </script>
 
 <style scoped lang="scss">
     .editor-container {
-        width: 1000px;
+        width: 100%;
+        height: 800px;
+        .stackedit-container {
+            height: 100%;
+        }
     }
 </style>

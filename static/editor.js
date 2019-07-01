@@ -175,9 +175,9 @@ class Stackedit {
                       this.close()
                   }
                   break
-              case 'close':
-              default:
-                  this.close()
+              // case 'close':
+              // default:
+              //     this.close()
               }
           }
       }
@@ -190,6 +190,7 @@ class Stackedit {
   }
 
   close() {
+      console.log('sss')
       if (this.$messageHandler) {
       // Clean everything
           window.removeEventListener('message', this.$messageHandler)

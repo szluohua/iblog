@@ -4,8 +4,17 @@ class ArticleServiceModel extends Base {
     constructor() {
         super(ArticleModel)
     }
-    async find(data = {}) {
-        const res = await this.model.find(data)
+    async findList(data = {}) {
+        if (data.lastId) {
+            data = Object.assign({
+                '_id': { '$lt': data.lastId }
+            }, data)
+            delete data.lastId
+        }
+        const fields = {
+            content: false
+        }
+        const res = await this.model.find(data, fields).sort({ _id: -1 }).limit(30)
         return res
     }
 }

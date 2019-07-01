@@ -25,7 +25,9 @@ module.exports = {
             { rel: 'icon', type: 'image/png', href: '/favicon.png' }
         ],
         script: [
-            { src: 'https://cdn.jsdelivr.net/npm/sweetalert2@8', async: true, defer: true }
+            { src: 'https://cdn.jsdelivr.net/npm/sweetalert2@8', async: true, defer: true },
+            { src: 'https://cdn.staticfile.org/markdown-it/8.4.2/markdown-it.min.js', async: true, defer: true },
+            { src: 'https://cdn.staticfile.org/marked/0.6.2/marked.min.js', async: true, defer: true }
         ]
     },
 
@@ -84,7 +86,10 @@ module.exports = {
                     enforce: 'pre',
                     test: /\.(js|vue)$/,
                     loader: 'eslint-loader',
-                    exclude: /(node_modules)/
+                    exclude: /(node_modules)/,
+                    options: {
+                        fix: true
+                    }
                 })
             }
         }

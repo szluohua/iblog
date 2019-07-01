@@ -9,6 +9,14 @@ export function register(params) {
 export function createArticle(params) {
     return request({ url: '/createArticle', params, method: 'post' })
 }
-export function getArticle(params) {
-    return request({ url: '/v1/getArticle', params, method: 'get' })
+export function getArticleList(params) {
+    return request({ url: '/v1/getArticleList', params, method: 'get' })
+}
+
+export function getArticleDetail(params) {
+    return request({ url: '/v1/getArticleDetail', params, method: 'get' })
+}
+
+export function getCategoryList(params) {
+    return request({ url: '/v1/getCategoryList', params, method: 'get' })
 }
