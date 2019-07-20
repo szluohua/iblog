@@ -5,11 +5,13 @@ const jwtKoa = require('koa-jwt') // 用于路由权限控制
 const koaBody = require('koa-body') // 用于查询字符串解析到`ctx.request.query`
 const app = new Koa()
 const Mongoose = require('mongoose')
+const ratelimit = require('koa-ratelimit')
+const Redis = require('ioredis')
 const config = require('../nuxt.config.js')
 const router = require('./router')
 // const dbURI = `mongodb://${encodeURIComponent(config.PRIMARY.username)}:${encodeURIComponent(config.PRIMARY.password)}@${config.SECONDARY1},${config.SECONDARY2},${config.PRIMARY.host}/${config.dbName}?slaveOk=true&replicaSet=${config.replicaSet}`;
 const dbURI = 'mongodb://127.0.0.1:27017/iblog'
-
+Mongoose.set('useCreateIndex', true)
 Mongoose.connect(dbURI, {
     keepAlive: true,
     useNewUrlParser: true
@@ -68,6 +70,19 @@ async function start() {
             ctx.app.emit('error', err, ctx)
         }
     })
+    app.use(ratelimit({
+        db: new Redis(),
+        duration: 60000,
+        errorMessage: 'Sometimes You Just Have to Slow Down.',
+        id: ctx => ctx.ip,
+        headers: {
+            remaining: 'Rate-Limit-Remaining',
+            reset: 'Rate-Limit-Reset',
+            total: 'Rate-Limit-Total'
+        },
+        max: 100,
+        disableHeader: false
+    }))
     /* 路由权限控制 */
     app.use(jwtKoa({ secret: secret, cookie: 'auth' }).unless({
     // 设置login、register接口，可以不需要认证访问

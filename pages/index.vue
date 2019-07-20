@@ -4,95 +4,128 @@
             <a
                 v-for="value in list"
                 :key="value._id"
-                class="card"
+                class="article-container"
                 :href="`/article_detail/${value._id}`"
                 target="_blank"
             >
-                <img class="card-image" :src="imageStyle(value)">
-                <div class="card-content">
-                    <div class="card-content-title">
-                        {{ value.title }}
-                    </div>
-                    <div class="card-content-desc">
-                        {{ value.desc }}
-                    </div>
-                    <div class="card-content-count">
-                        <span><a-icon type="eye" />20</span>
-                        <span><a-icon type="message" />30</span>
+                <img class="article-background" src="../static/photo.jpeg">
+                <div class="article-content">
+                    <h3 class="article-content-title">{{ value.title }}</h3>
+                    <div class="article-content-desc">{{ value.desc }}</div>
+                    <div class="article-content-info">
+                        <div class="article-content-info-user">
+                            <a-avatar style="color: #f56a00; backgroundColor: #fde3cf">U</a-avatar>
+                            <span class="username">Leo Luo</span>
+                            <span class="time">{{ $dayjs().from(value.createdAt) }}</span>
+                        </div>
+                        <div class="article-content-info-count">
+                            <span><a-icon type="eye" />{{ value.viewed }}</span>
+                            <span><a-icon type="message" />{{ value.comment }}</span>
+                            <span><a-icon type="star" />{{ value.stared }}</span>
+                        </div>
                     </div>
                 </div>
             </a>
-            <!-- <button class="button" @click="viewContent(value)">Click Here</button> -->
         </div>
+        <rightSidebar />
     </section>
 </template>
 
 <script>
+import rightSidebar from '@/components/rightSidebar'
 import { getArticleList } from '@/api/index'
 export default {
+    components: {
+        rightSidebar
+    },
     data() {
         return {
             list: []
         }
     },
-    async asyncData() {
-        const res = await getArticleList({ page: 2 })
-        return {
-            list: res || []
+    watch: {
+        $route(value) {
+            console.log('value', value)
         }
+    },
+    mounted() {
+        this.getArticle()
+        console.log('this', this)
     },
     methods: {
         imageStyle(value) {
             return value.urls.small.replace(/w=400/, 'w=450')
+        },
+        async getArticle() {
+            const res = await getArticleList({ page: 2 })
+            if (res) {
+                this.list = res
+            }
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.content {
-    margin: 0 auto;
-    column-count: 6;
-    column-gap: 40px;
-    column-width: 400px;
-}
-
-.card {
-    cursor: pointer;
-    break-inside: avoid;
-    // width: 400px;
-    margin-bottom: 40px;
+.container {
     display: flex;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    &-image {
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-        opacity: 0.8;
-        &:hover {
-            opacity: 1;
-        }
-    }
-    &-content {
-        width: 100%;
-        position: absolute;
-        padding: 20px;
-        left: 0;
-        bottom: 0;
-        color: #fff;
-        &-title {
-            font-size: 24px;
-            font-weight: 500;
-        }
-        &-desc {
-            margin-top: 5px;
-        }
-        &-count {
-            margin-top: 5px;
-            & > span {
-                margin-right: 10px;
-                & > i {
-                    margin-right: 5px;
+    min-height: 500px;
+    .content {
+        flex: 1;
+        margin-right: 40px;
+        overflow: hidden;
+        .article-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 40px;
+            &:hover {
+                .article-content-title {
+                    color: #e42c64;
+                }
+            }
+            .article-background {
+                width: 100%;
+            }
+            .article-content {
+                display: flex;
+                flex-direction: column;
+                margin-top: 40px;
+                padding: 20px;
+                color: #7d7d7d;
+                &-title {
+                    font-size: 24px;
+                }
+                &-desc {
+                    height: 60px;
+                    margin-bottom: 20px;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
+                }
+                &-info {
+                    display: flex;
+                    align-items: center;
+                    height: 32px;
+                    font-size: 13px;
+                    &-user {
+                        flex: 1;
+                        .username,.time {
+                            margin-left: 10px;
+                        }
+                    }
+                    &-count {
+                        flex: 2;
+                        display: flex;
+                        flex-direction: row-reverse;
+                        & span {
+                            margin-left: 20px;
+                            & i {
+                                margin-right: 5px;
+                            }
+                        }
+                    }
                 }
             }
         }

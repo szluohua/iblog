@@ -17,8 +17,20 @@ const UserSchema = new Mongoose.Schema({
         required: true
     },
     category: {
-        type: String,
+        type: Array,
         required: true
+    },
+    viewed: {
+        type: Number,
+        default: 0
+    },
+    stared: {
+        type: Number,
+        default: 0
+    },
+    comment: {
+        type: Number,
+        default: 0
     }
 }, {
     usePushEach: true,

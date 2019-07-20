@@ -30,5 +30,11 @@ module.exports = {
                 msg: '找不到用户'
             }
         }
+    },
+    getUploadToken(ctx) {
+        const token = auth.getQiniuUploadToken()
+        ctx.body = {
+            token
+        }
     }
 }

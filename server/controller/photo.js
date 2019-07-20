@@ -1,6 +1,7 @@
 const axios = require('axios')
 const qs = require('qs')
 const key = '7b5bc72cfd053d5ed225f73e07e7e5d8908c6a450c01ac2611eff51b9b4c65ac'
+const auth = require('../auth')
 const request = ({ url, params = {}, method = 'post' }) => {
     const config = {
         method,
@@ -41,5 +42,13 @@ module.exports = {
                 per_page
             }
         })
+    },
+    fileSignatures(ctx) {
+        const req = ctx.request.query
+        if (req && req.key) {
+            const url = auth.fileSign(req.key)
+            ctx.status = 301
+            ctx.redirect(url)
+        }
     }
 }

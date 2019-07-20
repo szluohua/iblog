@@ -2,7 +2,7 @@
     <a-layout class="layout">
         <Header />
         <a-layout-content
-            :style="{ background: '#fff', padding: '40px', minHeight: '280px' }"
+            class="layout-container"
         >
             <nuxt />
         </a-layout-content>
@@ -21,3 +21,10 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+.layout-container {
+    background: #fff;
+    padding: 40px;
+    max-width: 1440px;
+}
+</style>

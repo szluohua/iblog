@@ -49,14 +49,17 @@ module.exports = {
         'ant-design-vue/lib/select/style/index.css',
         'ant-design-vue/lib/layout/style/index.css',
         'ant-design-vue/lib/menu/style/index.css',
-        'ant-design-vue/lib/spin/style/index.css'
+        'ant-design-vue/lib/spin/style/index.css',
+        'ant-design-vue/lib/upload/style/index.css',
+        'ant-design-vue/lib/switch/style/index.css'
     ],
 
     /*
   ** Plugins to load before mounting the App
   */
     plugins: [
-        '@/plugins/antd-ui'
+        '@/plugins/antd-ui',
+        '@/plugins/dayjs'
     ],
     router: {
         middleware: ['auth']
@@ -69,7 +72,7 @@ module.exports = {
     ],
     styleResources: {
         scss: [
-            './assets/vars/*.scss' // 自己项目中的样式文件的路径
+            '@/assets/vars/*.scss' // 自己项目中的样式文件的路径
         ]
     },
     /*

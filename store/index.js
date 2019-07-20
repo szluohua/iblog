@@ -4,7 +4,6 @@ export const state = () => ({
 })
 export const mutations = {
     setAuth(state, auth) {
-        console.log('xx', auth)
         state.auth = auth
     }
 }

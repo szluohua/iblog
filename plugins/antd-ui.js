@@ -8,7 +8,9 @@ import {
     Avatar,
     Layout,
     Menu,
-    Spin
+    Spin,
+    Upload,
+    Switch
 } from 'ant-design-vue/lib'
 export default () => {
     Vue.use(Input)
@@ -20,4 +22,6 @@ export default () => {
     Vue.use(Menu)
     Vue.use(Layout)
     Vue.use(Spin)
+    Vue.use(Upload)
+    Vue.use(Switch)
 }
