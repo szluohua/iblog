@@ -1,6 +1,6 @@
 const CategoryModel = require('../models/category')
 const Base = require('./base')
-class ArticleServiceModel extends Base {
+class CategoryServiceModel extends Base {
     constructor() {
         super(CategoryModel)
     }
@@ -9,4 +9,4 @@ class ArticleServiceModel extends Base {
         return res
     }
 }
-module.exports = new ArticleServiceModel()
+module.exports = new CategoryServiceModel()
