@@ -10,7 +10,9 @@ import {
     Menu,
     Spin,
     Upload,
-    Switch
+    Switch,
+    Comment,
+    List
 } from 'ant-design-vue/lib'
 export default () => {
     Vue.use(Input)
@@ -24,4 +26,6 @@ export default () => {
     Vue.use(Spin)
     Vue.use(Upload)
     Vue.use(Switch)
+    Vue.use(Comment)
+    Vue.use(List)
 }

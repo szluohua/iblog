@@ -51,7 +51,9 @@ module.exports = {
         'ant-design-vue/lib/menu/style/index.css',
         'ant-design-vue/lib/spin/style/index.css',
         'ant-design-vue/lib/upload/style/index.css',
-        'ant-design-vue/lib/switch/style/index.css'
+        'ant-design-vue/lib/switch/style/index.css',
+        'ant-design-vue/lib/comment/style/index.css',
+        'ant-design-vue/lib/List/style/index.css'
     ],
 
     /*

@@ -2,16 +2,19 @@
     <div class="article-detail-container">
         <h3 />
         <mdRender :content="article.content" />
+        <comment />
     </div>
 </template>
 
 <script>
 import mdRender from '@/components/mdRender'
+import comment from './comment'
 import { getArticleDetail } from '@/api/index'
 export default {
     name: 'ArticleDetail',
     components: {
-        mdRender
+        mdRender,
+        comment
     },
     data() {
         return {
