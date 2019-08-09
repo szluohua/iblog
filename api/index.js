@@ -30,3 +30,10 @@ export function getCategoryList(params) {
 export function findHotArticleList(params) {
     return request({ url: '/v1/findHotArticleList', params, method: 'get' })
 }
+
+export function getComment(params) {
+    return request({ url: '/v1/getComment', params, method: 'get' })
+}
+export function createComment(params) {
+    return request({ url: '/createComment', params, method: 'post' })
+}

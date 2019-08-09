@@ -1,11 +1,12 @@
 <template>
     <div class="MdRender-contaienr">
         <div class="markdown-body" v-html="renderContent" />
+        <comment />
     </div>
 </template>
 
 <script>
-//
+import comment from './comment'
 export default {
     name: 'MdRender',
     head() {
@@ -30,7 +31,9 @@ export default {
             ]
         }
     },
-    components: {},
+    components: {
+        comment
+    },
     props: {
         content: {
             type: String,
@@ -57,16 +60,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.markdown-body {
+.MdRender-contaienr {
     box-sizing: border-box;
-    min-width: 200px;
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 45px;
+    flex: 1 0 auto;
+    // min-width: 200px;
+    // max-width: 980px;
+    // margin: 0 auto;
+    padding: 40px;
 }
 
 @media (max-width: 767px) {
-    .markdown-body {
+    .MdRender-contaienr {
         padding: 15px;
     }
 }

@@ -1,20 +1,19 @@
 <template>
     <div class="article-detail-container">
-        <h3 />
         <mdRender :content="article.content" />
-        <comment />
+        <rightSidebar />
     </div>
 </template>
 
 <script>
 import mdRender from '@/components/mdRender'
-import comment from './comment'
+import rightSidebar from '@/components/rightSidebar'
 import { getArticleDetail } from '@/api/index'
 export default {
     name: 'ArticleDetail',
     components: {
         mdRender,
-        comment
+        rightSidebar
     },
     data() {
         return {
@@ -37,4 +36,9 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.article-detail-container {
+    display: flex;
+    box-sizing: border-box;
+}
+</style>

@@ -8,14 +8,17 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
+    // 此次评论的用户
     commentBy: {
         type: Object,
         required: true
     },
+    // 被回复评论的用户
     replyBy: {
         type: Object,
         required: false
     },
+    // 被回复评论的评论id
     parentId: {
         type: String,
         required: false

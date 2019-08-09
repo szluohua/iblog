@@ -1,10 +1,17 @@
 const cookieparser = process.server ? require('cookieparser') : undefined
 export const state = () => ({
-    auth: ''
+    auth: '',
+    comment: ''
 })
 export const mutations = {
     setAuth(state, auth) {
         state.auth = auth
+    },
+    replyComment(state, comment) {
+        state.comment = Object.assign({}, comment)
+    },
+    clearComment(state) {
+        state.comment = ''
     }
 }
 export const actions = {
