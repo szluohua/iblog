@@ -8,7 +8,7 @@
 					<a-textarea ref="replyContainer" :placeholder="r_comment ? `你正在回复${r_comment.commentBy.username}` : ''" :rows="4" :value="value" @change="handleChange" />
 				</a-form-item>
 				<a-form-item>
-					<a-button v-if="r_comment" html-type="submit" style="margin-right: 20px;" @click="cancelSubmit">
+					<a-button v-if="r_comment || value.length" html-type="submit" style="margin-right: 20px;" @click="cancelSubmit">
 						Cancel
 					</a-button>
 					<a-button html-type="submit" :loading="submitting" type="primary" @click="handleSubmit">
