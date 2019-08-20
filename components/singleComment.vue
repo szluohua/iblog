@@ -27,6 +27,7 @@
             </span>
             <span @click="reply">Reply to</span>
         </template>
+        <singleComment v-for="(item, index) in comment.children" :key="index" :comment="item" />
     </a-comment>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-    <section class="container">
+    <div class="container">
         <div class="content">
             <a
                 v-for="value in list"
@@ -28,7 +28,7 @@
             </a>
         </div>
         <rightSidebar />
-    </section>
+    </div>
 </template>
 
 <script>
@@ -63,11 +63,9 @@ export default {
 <style lang="scss" scoped>
 .container {
     display: flex;
-    min-height: 500px;
     .content {
         flex: 1;
         margin-right: 40px;
-        overflow: hidden;
         .article-container {
             width: 100%;
             display: flex;

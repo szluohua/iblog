@@ -73,6 +73,7 @@ export default {
 <style scoped lang="scss">
 .MdRender-contaienr {
     box-sizing: border-box;
+    width: calc(100% - 360px);
     flex: 1;
     // min-width: 200px;
     // max-width: 980px;

@@ -25,6 +25,11 @@ export default {
 .layout-container {
     background: #fff;
     padding: 40px;
-    max-width: 1440px;
+    display: flex;
+    justify-content: center;
+    &>div {
+        width: 1440px;
+        margin: 0 auto;
+    }
 }
 </style>

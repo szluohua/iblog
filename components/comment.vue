@@ -17,7 +17,7 @@
 				</a-form-item>
 			</div>
 		</a-comment>
-		<a-list v-if="comments.length" :data-source="comments" :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`" item-layout="horizontal">
+		<a-list v-if="comments.length" :data-source="filterList" :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`" item-layout="horizontal">
 			<a-list-item slot="renderItem" slot-scope="item">
 				<singleComment :comment="item" />
 			</a-list-item>
@@ -28,13 +28,13 @@
 <script>
 import moment from 'moment'
 import {
-    getComment,
-    createComment
-} from '@/api/index'
-import {
     mapState
 } from 'vuex'
 import singleComment from './singleComment'
+import {
+    getComment,
+    createComment
+} from '@/api/index'
 import { toastr } from '@/utils/index'
 export default {
     components: {
@@ -57,7 +57,23 @@ export default {
             user: (state) => {
                 return state.user
             }
-        })
+        }),
+        filterList() {
+            const allChildList = []; const firstList = []
+            this.comments.forEach((v) => {
+                if (v.parentId) {
+                    allChildList.push(v)
+                } else {
+                    firstList.push(v)
+                }
+            })
+            firstList.forEach((v) => {
+                v.children = allChildList.filter((val) => {
+                    return val.parentId === v._id
+                })
+            })
+            return firstList
+        }
     },
     watch: {
         r_comment(value) {
@@ -101,7 +117,7 @@ export default {
             if (r_comment) {
                 params = Object.assign({
                     replyBy: r_comment.commentBy,
-                    parentId: r_comment._id
+                    parentId: r_comment.parentId || r_comment._id
                 }, params)
             }
             const res = await createComment(params)
