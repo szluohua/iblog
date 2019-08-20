@@ -40,6 +40,7 @@ module.exports = {
   ** Global CSS
   */
     css: [
+        '~assets/style/common.scss',
         'ant-design-vue/lib/style/index.css',
         'ant-design-vue/lib/button/style/index.css',
         'ant-design-vue/lib/form/style/index.css',
@@ -53,7 +54,9 @@ module.exports = {
         'ant-design-vue/lib/upload/style/index.css',
         'ant-design-vue/lib/switch/style/index.css',
         'ant-design-vue/lib/comment/style/index.css',
-        'ant-design-vue/lib/List/style/index.css'
+        'ant-design-vue/lib/list/style/index.css',
+        'ant-design-vue/lib/tooltip/style/index.css',
+        'ant-design-vue/lib/divider/style/index.css'
     ],
 
     /*

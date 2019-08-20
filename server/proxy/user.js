@@ -8,5 +8,9 @@ class UserServiceModel extends Base {
         const res = await this.model.findOne({ username })
         return res
     }
+    async findUserById(query, option) {
+        const res = await this.model.findOne(query, { password: false })
+        return res
+    }
 }
 module.exports = new UserServiceModel()

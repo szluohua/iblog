@@ -1,8 +1,17 @@
 <template>
     <div class="MdRender-contaienr">
+        <div class="article-header">
+            <h2>{{ article.title }}</h2>
+            <div class="article-header-info">
+                <span><a-icon type="eye" />{{ article.viewed }}</span>
+                <span><a-icon type="message" />{{ article.comment }}</span>
+                <span><a-icon type="star" />{{ article.stared }}</span>
+                <span><a-icon type="user" />Leo Luo</span>
+            </div>
+        </div>
         <div class="markdown-body" v-html="renderContent" />
         <comment />
-    </div>
+</div>
 </template>
 
 <script>
@@ -35,9 +44,11 @@ export default {
         comment
     },
     props: {
-        content: {
-            type: String,
-            default: ''
+        article: {
+            type: Object,
+            default: () => {
+                return {}
+            }
         }
     },
     data() {
@@ -53,7 +64,7 @@ export default {
                     return hljs.highlightAuto(code).value
                 }
             })
-            this.renderContent = marked(this.content)
+            this.renderContent = marked(this.article.content)
         })
     }
 }
@@ -62,11 +73,31 @@ export default {
 <style scoped lang="scss">
 .MdRender-contaienr {
     box-sizing: border-box;
-    flex: 1 0 auto;
+    flex: 1;
     // min-width: 200px;
     // max-width: 980px;
     // margin: 0 auto;
     padding: 40px;
+    .markdown-body {
+        margin: 80px 0;
+    }
+    .article-header {
+        text-align: center;
+        &-info {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            & span {
+                margin-left: 20px;
+                &:last-of-type{
+                    margin-left: 0;
+                }
+                & i {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
 }
 
 @media (max-width: 767px) {

@@ -1,11 +1,15 @@
 const cookieparser = process.server ? require('cookieparser') : undefined
 export const state = () => ({
     auth: '',
-    comment: ''
+    comment: '',
+    user: ''
 })
 export const mutations = {
     setAuth(state, auth) {
         state.auth = auth
+    },
+    setUserInfo(state, user) {
+        state.user = user
     },
     replyComment(state, comment) {
         state.comment = Object.assign({}, comment)
@@ -22,6 +26,10 @@ export const actions = {
                 parsed = JSON.parse(parsed)
             }
             commit('setAuth', parsed.auth)
+            const user = parsed.user
+            if (user) {
+                commit('setUserInfo', typeof user === 'string' ? JSON.parse(user) : user)
+            }
         }
     }
 }

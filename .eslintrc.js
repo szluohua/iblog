@@ -22,7 +22,8 @@ module.exports = {
     'no-mixed-spaces-and-tabs': [2, false], // 禁止混用tab和空格,
     'no-tabs': 'off',
     'vue/no-v-html': 'off',
-    'vue/html-indent': 'off'
+    'vue/html-indent': 'off',
+    'standard/no-callback-literal': 0
   },
   globals: {
     'Stackedit': true,

@@ -1,6 +1,6 @@
 <template>
     <div class="article-detail-container">
-        <mdRender :content="article.content" />
+        <mdRender :article="article" />
         <rightSidebar />
     </div>
 </template>

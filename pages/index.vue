@@ -43,14 +43,8 @@ export default {
             list: []
         }
     },
-    watch: {
-        $route(value) {
-            console.log('value', value)
-        }
-    },
     mounted() {
         this.getArticle()
-        console.log('this', this)
     },
     methods: {
         imageStyle(value) {

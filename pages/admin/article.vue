@@ -193,7 +193,6 @@ export default {
             e.preventDefault()
             this.form.validateFields(async (err, values) => {
                 if (!err) {
-                    console.log('Received values of form: ', values)
                     values.category = values.category.map((v) => {
                         return v.key
                     })

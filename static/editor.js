@@ -161,7 +161,6 @@ class Stackedit {
 
       // Add message handler
       this.$messageHandler = (event) => {
-          console.log('event', event.data.type)
           if (event.origin === this.$origin && event.source === iframeEl.contentWindow) {
               switch (event.data.type) {
               case 'ready':
@@ -190,7 +189,6 @@ class Stackedit {
   }
 
   close() {
-      console.log('sss')
       if (this.$messageHandler) {
       // Clean everything
           window.removeEventListener('message', this.$messageHandler)

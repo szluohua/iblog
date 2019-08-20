@@ -1,10 +1,6 @@
 <template>
 	<div class="comment-container">
-		<a-list v-if="comments.length" :data-source="comments" :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`" item-layout="horizontal">
-			<a-list-item slot="renderItem" slot-scope="item">
-				<singleComment :comment="item" />
-			</a-list-item>
-		</a-list>
+        <a-divider>发表评论</a-divider>
 		<a-comment>
 			<a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" />
 			<div slot="content">
@@ -21,6 +17,11 @@
 				</a-form-item>
 			</div>
 		</a-comment>
+		<a-list v-if="comments.length" :data-source="comments" :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`" item-layout="horizontal">
+			<a-list-item slot="renderItem" slot-scope="item">
+				<singleComment :comment="item" />
+			</a-list-item>
+		</a-list>
 	</div>
 </template>
 
@@ -34,6 +35,7 @@ import {
     mapState
 } from 'vuex'
 import singleComment from './singleComment'
+import { toastr } from '@/utils/index'
 export default {
     components: {
         singleComment
@@ -51,6 +53,9 @@ export default {
         ...mapState({
             r_comment: (state) => {
                 return state.comment
+            },
+            user: (state) => {
+                return state.user
             }
         })
     },
@@ -77,6 +82,9 @@ export default {
             this.$store.commit('clearComment')
         },
         async handleSubmit() {
+            if (!this.user) {
+                toastr(Swal, 'info', '请先登录，再进行评论！')
+            }
             if (!this.value) {
                 return
             }
@@ -85,8 +93,8 @@ export default {
                 articleId: this.articleId,
                 content: this.value,
                 commentBy: {
-                    username: 'Han Solo',
-                    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
+                    username: this.user.username,
+                    avatar: this.user.avatar
                 }
             }
             const r_comment = this.r_comment

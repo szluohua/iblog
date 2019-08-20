@@ -35,7 +35,12 @@ export default {
     name: 'SingleComment',
     components: {},
     props: {
-        comment: Object
+        comment: {
+            type: Object,
+            default: () => {
+                return {}
+            }
+        }
     },
     data() {
         return {

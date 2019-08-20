@@ -12,7 +12,10 @@ import {
     Upload,
     Switch,
     Comment,
-    List
+    List,
+    Checkbox,
+    Tooltip,
+    Divider
 } from 'ant-design-vue/lib'
 export default () => {
     Vue.use(Input)
@@ -28,4 +31,7 @@ export default () => {
     Vue.use(Switch)
     Vue.use(Comment)
     Vue.use(List)
+    Vue.use(Checkbox)
+    Vue.use(Tooltip)
+    Vue.use(Divider)
 }

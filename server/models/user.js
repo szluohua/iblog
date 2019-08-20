@@ -20,11 +20,13 @@ const UserSchema = new Mongoose.Schema({
     },
     mobile: {
         type: String,
-        trim: true
+        trim: true,
+        default: ''
     },
     sex: {
         type: String,
-        trim: true
+        trim: true,
+        default: ''
     },
     email: {
         type: String,
