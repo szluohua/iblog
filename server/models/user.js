@@ -5,12 +5,11 @@ const validate = require('mongoose-validate')
 // 加密密码计算强度
 const SALT_WORK_FACTOR = 10
 // 默认图片
-const DEFAULT_USER_PICTURE = '/images/user.jpg'
 
 const UserSchema = new Mongoose.Schema({
     avatar: {
         type: String,
-        default: DEFAULT_USER_PICTURE
+        default: ''
     },
     username: {
         type: String,

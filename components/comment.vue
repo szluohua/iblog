@@ -2,7 +2,8 @@
 	<div class="comment-container">
         <a-divider>发表评论</a-divider>
 		<a-comment>
-			<a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" />
+            <avatar slot="avatar" :user="user" />
+			<!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" /> -->
 			<div slot="content">
 				<a-form-item>
 					<a-textarea ref="replyContainer" :placeholder="r_comment ? `你正在回复${r_comment.commentBy.username}` : ''" :rows="4" :value="value" @change="handleChange" />
@@ -17,7 +18,7 @@
 				</a-form-item>
 			</div>
 		</a-comment>
-		<a-list v-if="comments.length" :data-source="filterList" :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`" item-layout="horizontal">
+		<a-list v-if="filterList.length" :data-source="filterList" :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`" item-layout="horizontal">
 			<a-list-item slot="renderItem" slot-scope="item">
 				<singleComment :comment="item" />
 			</a-list-item>
@@ -27,6 +28,7 @@
 
 <script>
 import moment from 'moment'
+import avatar from './avatar'
 import {
     mapState
 } from 'vuex'
@@ -38,7 +40,8 @@ import {
 import { toastr } from '@/utils/index'
 export default {
     components: {
-        singleComment
+        singleComment,
+        avatar
     },
     data() {
         return {
@@ -68,11 +71,12 @@ export default {
                 }
             })
             firstList.forEach((v) => {
-                v.children = allChildList.filter((val) => {
+                this.$set(v, 'children', allChildList.filter((val) => {
                     return val.parentId === v._id
-                })
+                }))
             })
-            return firstList
+            console.log('s', firstList)
+            return firstList.slice()
         }
     },
     watch: {
@@ -83,16 +87,19 @@ export default {
         }
     },
     mounted() {
-        this.articleId = this.$route.params.id
-        getComment({
-            articleId: this.articleId
-        }).then((res) => {
-            if (res) {
-                this.comments = res
-            }
-        })
+        this.getCommentList()
     },
     methods: {
+        getCommentList() {
+            this.articleId = this.$route.params.id
+            getComment({
+                articleId: this.articleId
+            }).then((res) => {
+                if (res) {
+                    this.comments = res
+                }
+            })
+        },
         cancelSubmit() {
             this.value = ''
             this.$store.commit('clearComment')
@@ -125,6 +132,7 @@ export default {
             if (res) {
                 this.comments = [res, ...this.comments]
                 this.value = ''
+                this.$store.commit('clearComment')
             }
         },
         reply(comment) {
