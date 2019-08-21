@@ -75,7 +75,6 @@ export default {
                     return val.parentId === v._id
                 }))
             })
-            console.log('s', firstList)
             return firstList.slice()
         }
     },

@@ -119,6 +119,9 @@
 </template>
 
 <script>
+import {
+    mapState
+} from 'vuex'
 import MarkdownEditor from '@/components/markdown-editor'
 import { createArticle, getCategoryList, getUploadToken, createCategory } from '@/api/index'
 import { toastr } from '@/utils/index'
@@ -142,6 +145,11 @@ export default {
         }
     },
     computed: {
+        ...mapState({
+            user: (state) => {
+                return state.user
+            }
+        }),
         filteredOptions() {
             const keys = this.selectedCategory.map((v) => { return v.key })
             return this.categoryList.filter((o) => {
@@ -199,7 +207,12 @@ export default {
                     values = Object.assign(
                         {
                             type: this.type,
-                            content: this.content
+                            content: this.content,
+                            createBy: {
+                                _id: this.user._id,
+                                avatar: this.user.avatar,
+                                username: this.user.username
+                            }
                         },
                         values
                     )

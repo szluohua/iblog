@@ -14,8 +14,8 @@
                     <div class="article-content-desc">{{ value.desc }}</div>
                     <div class="article-content-info">
                         <div class="article-content-info-user">
-                            <a-avatar style="color: #f56a00; backgroundColor: #fde3cf">U</a-avatar>
-                            <span class="username">Leo Luo</span>
+                            <avatar :user="value.createBy" />
+                            <span class="username">{{ value.createBy.username }}</span>
                             <span class="time">{{ $dayjs().from(value.createdAt) }}</span>
                         </div>
                         <div class="article-content-info-count">
@@ -33,10 +33,12 @@
 
 <script>
 import rightSidebar from '@/components/rightSidebar'
+import avatar from '@/components/avatar'
 import { getArticleList } from '@/api/index'
 export default {
     components: {
-        rightSidebar
+        rightSidebar,
+        avatar
     },
     data() {
         return {

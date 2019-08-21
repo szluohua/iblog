@@ -31,6 +31,10 @@ const UserSchema = new Mongoose.Schema({
     comment: {
         type: Number,
         default: 0
+    },
+    createBy: {
+        type: Object,
+        required: true
     }
 }, {
     usePushEach: true,
