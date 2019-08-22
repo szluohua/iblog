@@ -26,6 +26,7 @@ module.exports = {
         ],
         script: [
             { src: 'https://cdn.jsdelivr.net/npm/sweetalert2@8', async: true, defer: true },
+            { src: 'https://cdn.staticfile.org/particles.js/2.0.0/particles.min.js' },
             { src: 'https://cdn.staticfile.org/markdown-it/8.4.2/markdown-it.min.js', async: true, defer: true },
             { src: 'https://cdn.staticfile.org/marked/0.6.2/marked.min.js', async: true, defer: true }
         ]
