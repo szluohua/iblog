@@ -1,8 +1,8 @@
 const pkg = require('./package')
 const env =
     process.env.NODE_ENV === 'production'
-        ? require('./config.json').prod
-        : require('./config.json').dev
+        ? require('./front-config.json').prod
+        : require('./front-config.json').dev
 module.exports = {
     mode: 'universal',
     vue: {

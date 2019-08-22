@@ -8,9 +8,11 @@ const Mongoose = require('mongoose')
 const ratelimit = require('koa-ratelimit')
 const Redis = require('ioredis')
 const config = require('../nuxt.config.js')
+let allConfig = require('../config.json')
 const router = require('./router')
+allConfig = process.env.NODE_ENV === 'production' ? allConfig.prod : allConfig.dev
 // const dbURI = `mongodb://${encodeURIComponent(config.PRIMARY.username)}:${encodeURIComponent(config.PRIMARY.password)}@${config.SECONDARY1},${config.SECONDARY2},${config.PRIMARY.host}/${config.dbName}?slaveOk=true&replicaSet=${config.replicaSet}`;
-const dbURI = 'mongodb://127.0.0.1:27017/iblog'
+const dbURI = `mongodb://${encodeURIComponent(allConfig.mongodbUser)}:${encodeURIComponent(allConfig.mongodbPassword)}@127.0.0.1:27017/iblog`
 Mongoose.set('useCreateIndex', true)
 Mongoose.connect(dbURI, {
     keepAlive: true,
@@ -37,7 +39,7 @@ async function start() {
 
     const {
         host = process.env.HOST || '127.0.0.1',
-        port = process.env.PORT || 3000
+        port = allConfig.port || 3000
     } = nuxt.options.server
 
     // Build in development
@@ -71,7 +73,7 @@ async function start() {
         }
     })
     app.use(ratelimit({
-        db: new Redis(),
+        db: new Redis({ password: allConfig.redisPass }),
         duration: 60000,
         errorMessage: 'Sometimes You Just Have to Slow Down.',
         id: ctx => ctx.ip,
