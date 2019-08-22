@@ -26,7 +26,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .admin-layout {
-    min-height: 100%;
+    min-height: 100vh;
     &-content {
         display: flex;
     }
