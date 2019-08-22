@@ -1,31 +1,37 @@
 <template>
     <div class="container">
         <div class="content">
-            <a
+            <a-card
                 v-for="value in list"
                 :key="value._id"
-                class="article-container"
-                :href="`/article_detail/${value._id}`"
-                target="_blank"
+                hoverable
+                style="width: 950px; border-radius: 5px; margin-bottom: 40px;"
+                @click="clickArticle(value)"
             >
-                <img class="article-background" src="../static/photo.jpeg">
-                <div class="article-content">
-                    <h3 class="article-content-title">{{ value.title }}</h3>
-                    <div class="article-content-desc">{{ value.desc }}</div>
-                    <div class="article-content-info">
-                        <div class="article-content-info-user">
-                            <avatar :user="value.createBy" />
-                            <span class="username">{{ value.createBy.username }}</span>
-                            <span class="time">{{ $dayjs().from(value.createdAt) }}</span>
+                <div class="article-container">
+                    <img class="article-background" src="../static/photo.jpeg">
+                    <div class="article-content">
+                        <h3 class="article-content-title">
+                            {{ value.title }}
+                        </h3>
+                        <div class="article-content-desc">
+                            {{ value.desc }}
                         </div>
-                        <div class="article-content-info-count">
-                            <span><a-icon type="eye" />{{ value.viewed }}</span>
-                            <span><a-icon type="message" />{{ value.comment }}</span>
-                            <span><a-icon type="star" />{{ value.stared }}</span>
+                        <div class="article-content-info">
+                            <div class="article-content-info-user">
+                                <avatar :user="value.createBy" />
+                                <span class="username">{{ value.createBy.username }}</span>
+                                <span class="time">{{ $dayjs().from(value.createdAt) }}</span>
+                            </div>
+                            <div class="article-content-info-count">
+                                <span><a-icon type="eye" />{{ value.viewed }}</span>
+                                <span><a-icon type="message" />{{ value.comment }}</span>
+                                <span><a-icon type="star" />{{ value.stared }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </a>
+            </a-card>
         </div>
         <rightSidebar />
     </div>
@@ -49,6 +55,9 @@ export default {
         this.getArticle()
     },
     methods: {
+        clickArticle(value) {
+            return this.$router.push(`/article_detail/${value._id}`)
+        },
         imageStyle(value) {
             return value.urls.small.replace(/w=400/, 'w=450')
         },
@@ -71,21 +80,22 @@ export default {
         .article-container {
             width: 100%;
             display: flex;
-            flex-direction: column;
-            margin-bottom: 40px;
+            height: 160px;
             &:hover {
                 .article-content-title {
                     color: #e42c64;
                 }
             }
             .article-background {
-                width: 100%;
+                display: inline-block;
+                height: 160px;
+                width: 160px;
             }
             .article-content {
+                flex: 1 0 auto;
                 display: flex;
                 flex-direction: column;
-                margin-top: 40px;
-                padding: 20px;
+                padding-left: 20px;
                 color: #7d7d7d;
                 &-title {
                     font-size: 24px;

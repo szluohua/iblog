@@ -26,9 +26,9 @@ export default {
 </script>
 <style scoped lang="scss">
 .admin-layout {
+    min-height: 100%;
     &-content {
         display: flex;
-        padding-bottom: 40px;
     }
     &-container {
         background: #fff;

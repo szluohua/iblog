@@ -22,6 +22,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.layout {
+    min-height: 100%;
+}
 .layout-container {
     background: #fff;
     padding: 40px;
