@@ -32,9 +32,9 @@
                     登录
                 </nuxt-link>
                 <a-divider type="vertical" />
-                <nuxt-link to="/register">
+                <!-- <nuxt-link to="/register">
                     注册
-                </nuxt-link>
+                </nuxt-link> -->
             </div>
         </div>
     </a-layout-header>
