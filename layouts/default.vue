@@ -9,6 +9,9 @@
             </a-layout-content>
             <a-layout-footer style="text-align: center; background: transparent;">
                 Blog ©2019 Created by Leo
+                <nuxt-link to="http://beian.miit.gov.cn" style="color: inherit; margin-left: 10px;">
+                    粤ICP备18003965号-1
+                </nuxt-link>
             </a-layout-footer>
         </a-layout>
     </div>
@@ -32,10 +35,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 #particles-js {
-    min-height: 100%;
     position: relative;
 }
 .layout {
+    min-height: 100vh;
     background: transparent;
 }
 .layout-container {

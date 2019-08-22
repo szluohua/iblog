@@ -15,14 +15,14 @@
                 <a-menu-item key="3">
                     关于
                 </a-menu-item>
-                <a-sub-menu v-if="userInfo">
+                <a-sub-menu v-if="userInfo" @click="changeMenu">
                     <span slot="title" class="submenu-title-wrapper">
                         <a-avatar slot="avatar" rel="noopener noreferrer" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" />
                     </span>
-                    <a-menu-item key="setting:1">
+                    <a-menu-item key="article">
                         文章管理
                     </a-menu-item>
-                    <a-menu-item key="logout" @click="logout">
+                    <a-menu-item key="logout">
                         注销
                     </a-menu-item>
                 </a-sub-menu>
@@ -62,6 +62,13 @@ export default {
         })
     },
     methods: {
+        changeMenu(value) {
+            if (value.key === 'logout') {
+                this.logout()
+            } else if (value.key === 'article') {
+                this.$router.push({ path: '/admin/article' })
+            }
+        },
         setRoute(route) {
             this.$router.push(route)
         },
