@@ -84,3 +84,4 @@ dist
 sw.*
 .vscode
 package-lock.json
+config.json
