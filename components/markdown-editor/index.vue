@@ -7,38 +7,6 @@
 import defaultOptions from './default-options' // editor content
 export default {
     name: 'MarddownEditor',
-    head() {
-        return {
-            script: [
-                {
-                    src:
-                        'https://cdn.staticfile.org/tui-editor/1.4.1/tui-editor-Editor-full.min.js'
-                }
-            ],
-            link: [
-                {
-                    href:
-                        'https://cdn.staticfile.org/tui-editor/1.4.1/tui-editor.min.css',
-                    rel: 'stylesheet'
-                },
-                {
-                    href:
-                        'https://cdn.staticfile.org/tui-editor/1.4.1/tui-editor-contents.min.css',
-                    rel: 'stylesheet'
-                },
-                {
-                    href:
-                        'https://cdn.staticfile.org/codemirror/5.47.0/codemirror.css',
-                    rel: 'stylesheet'
-                },
-                {
-                    href:
-                        'https://cdn.staticfile.org/highlight.js/9.15.8/styles/monokai-sublime.min.css',
-                    rel: 'stylesheet'
-                }
-            ]
-        }
-    },
     props: {
         value: {
             type: String,

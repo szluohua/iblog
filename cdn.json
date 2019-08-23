@@ -1,0 +1,55 @@
+{
+    "js": [
+        {
+            "src": "https://cdn.staticfile.org/particles.js/2.0.0/particles.min.js"
+        },
+        {
+            "src": "https://cdn.staticfile.org/tui-editor/1.4.1/tui-editor-Editor-full.min.js",
+            "async": true,
+            "defer": true
+        },
+        {
+            "src": "https://cdn.jsdelivr.net/npm/sweetalert2@8",
+            "async": true,
+            "defer": true
+        },
+        {
+            "src": "https://cdn.staticfile.org/markdown-it/8.4.2/markdown-it.min.js",
+            "async": true,
+            "defer": true
+        },
+        {
+            "src": "https://cdn.staticfile.org/marked/0.6.2/marked.min.js",
+            "async": true,
+            "defer": true
+        },
+        {
+            "src":
+                "https://cdn.staticfile.org/highlight.js/9.15.8/highlight.min.js"
+        }
+    ],
+    "css": [
+        {
+            "href": "https://cdn.staticfile.org/tui-editor/1.4.1/tui-editor.min.css",
+            "rel": "stylesheet"
+        },
+        {
+            "href": "https://cdn.staticfile.org/tui-editor/1.4.1/tui-editor-contents.min.css",
+            "rel": "stylesheet"
+        },
+        {
+            "href": "https://cdn.staticfile.org/codemirror/5.47.0/codemirror.css",
+            "rel": "stylesheet"
+        },
+        {
+            "href":
+                "https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css",
+            "rel": "stylesheet"
+        },
+        {
+            "href":
+                "https://cdn.staticfile.org/highlight.js/9.15.8/styles/monokai-sublime.min.css",
+            "rel": "stylesheet"
+        }
+    ]
+}

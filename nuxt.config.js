@@ -3,6 +3,7 @@ const env =
     process.env.NODE_ENV === 'production'
         ? require('./front-config.json').prod
         : require('./front-config.json').dev
+const cdnConfig = require('./cdn.json')
 module.exports = {
     mode: 'universal',
     vue: {
@@ -21,15 +22,8 @@ module.exports = {
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
             { hid: 'description', name: 'description', content: pkg.description }
         ],
-        link: [
-            { rel: 'icon', type: 'image/png', href: '/favicon.png' }
-        ],
-        script: [
-            { src: 'https://cdn.jsdelivr.net/npm/sweetalert2@8', async: true, defer: true },
-            { src: 'https://cdn.staticfile.org/particles.js/2.0.0/particles.min.js' },
-            { src: 'https://cdn.staticfile.org/markdown-it/8.4.2/markdown-it.min.js', async: true, defer: true },
-            { src: 'https://cdn.staticfile.org/marked/0.6.2/marked.min.js', async: true, defer: true }
-        ]
+        link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }].concat(cdnConfig.css),
+        script: cdnConfig.js
     },
 
     /*

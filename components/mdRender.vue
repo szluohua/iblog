@@ -18,28 +18,6 @@
 import comment from './comment'
 export default {
     name: 'MdRender',
-    head() {
-        return {
-            link: [
-                {
-                    href:
-                        'https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css',
-                    rel: 'stylesheet'
-                },
-                {
-                    href:
-                        'https://cdn.staticfile.org/highlight.js/9.15.8/styles/monokai-sublime.min.css',
-                    rel: 'stylesheet'
-                }
-            ],
-            script: [
-                {
-                    src:
-                        'https://cdn.staticfile.org/highlight.js/9.15.8/highlight.min.js'
-                }
-            ]
-        }
-    },
     components: {
         comment
     },
