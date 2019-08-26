@@ -28,10 +28,6 @@ class ArticleServiceModel extends Base {
         const res = await this.model.find({}, { content: false }).sort({ viewed: -1, comment: -1 }).limit(5)
         return res
     }
-    async deleteArticleById(id) {
-        const res = await this.model.remove({ _id: id })
-        return res
-    }
     async updateArticle(id, data) {
         const res = await this.model.updateOne({ _id: id }, { $set: data })
         return res

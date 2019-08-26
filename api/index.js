@@ -41,3 +41,19 @@ export function getComment(params) {
 export function createComment(params) {
     return request({ url: '/createComment', params, method: 'post' })
 }
+
+export function createRole(params) {
+    return request({ url: '/createRole', params, method: 'post' })
+}
+
+export function getRole(params) {
+    return request({ url: '/getRole', params, method: 'get' })
+}
+
+export function updateRole(params) {
+    return request({ url: '/updateRole', params, method: 'post' })
+}
+
+export function removeRole(params) {
+    return request({ url: '/removeRole', params, method: 'post' })
+}

@@ -14,5 +14,9 @@ class ProxyBase {
         const res = await this.model.findById(id)
         return res
     }
+    async removeById(id) {
+        const res = await this.model.deleteOne({ _id: id })
+        return res
+    }
 }
 module.exports = ProxyBase

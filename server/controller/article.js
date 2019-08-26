@@ -42,7 +42,7 @@ module.exports = {
         ctx.body = articleList
     },
     async deleteArticleById(ctx) {
-        const result = await ArticleService.deleteArticleById(ctx.request.body._id)
+        const result = await ArticleService.removeById(ctx.request.body._id)
         ctx.body = result
     }
 }

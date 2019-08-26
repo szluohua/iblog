@@ -5,6 +5,7 @@ const ArticleController = require('./controller/article')
 const CategoryController = require('./controller/category')
 const CommentController = require('./controller/comment')
 const PhotoController = require('./controller/photo')
+const RoleController = require('./controller/role')
 const router = new Router()
 /* POST /api/register 注册 */
 router.post('/api/register', UserController.register)
@@ -23,4 +24,9 @@ router.post('/api/deleteArticle', ArticleController.deleteArticleById)
 router.get('/api/v1/getCategoryList', CategoryController.getCategoryList)
 router.get('/api/v1/getFile', PhotoController.fileSignatures)
 router.get('/api/v1/findHotArticleList', ArticleController.findHotArticleList)
+
+router.post('/api/createRole', RoleController.createRole)
+router.get('/api/getRole', RoleController.getRole)
+router.post('/api/removeRole', RoleController.removeRole)
+
 module.exports = router

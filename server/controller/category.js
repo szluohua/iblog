@@ -6,7 +6,7 @@ module.exports = {
     },
     async getCategoryList(ctx) {
         const req = ctx.request.query
-        const articleList = await CategoryService.find(req)
-        ctx.body = articleList
+        const categoryList = await CategoryService.find(req)
+        ctx.body = categoryList
     }
 }
