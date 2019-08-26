@@ -16,7 +16,9 @@ import {
     Checkbox,
     Tooltip,
     Divider,
-    Card
+    Card,
+    Table,
+    Pagination
 } from 'ant-design-vue/lib'
 export default () => {
     Vue.use(Input)
@@ -36,4 +38,6 @@ export default () => {
     Vue.use(Tooltip)
     Vue.use(Divider)
     Vue.use(Card)
+    Vue.use(Table)
+    Vue.use(Pagination)
 }

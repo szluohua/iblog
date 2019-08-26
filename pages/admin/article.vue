@@ -94,7 +94,7 @@
                 <a-switch v-model="showUpload" />
             </a-form-item>
             <a-form-item v-if="showUpload">
-                <a-upload-dragger :show-upload-list="false" name="file" action="https://upload-z2.qiniup.com" :data="uploadToken" @change="handleChange">
+                <a-upload-dragger :show-upload-list="false" name="file" action="https://upload-z2.qiniup.com" :data="uploadToken" @change="uploadImageChange">
                     <p class="ant-upload-drag-icon">
                     <a-icon type="inbox" />
                     </p>
@@ -123,7 +123,7 @@ import {
     mapState
 } from 'vuex'
 import MarkdownEditor from '@/components/markdown-editor'
-import { createArticle, getCategoryList, getUploadToken, createCategory } from '@/api/index'
+import { createArticle, getCategoryList, getUploadToken, createCategory, getArticleDetail } from '@/api/index'
 import { toastr } from '@/utils/index'
 export default {
     name: 'Article',
@@ -141,7 +141,8 @@ export default {
             showUpload: false,
             addCategory: false,
             newCategory: '',
-            categoryList: []
+            categoryList: [],
+            editId: ''
         }
     },
     computed: {
@@ -158,11 +159,28 @@ export default {
         }
     },
     async mounted() {
+        const articleId = this.$route.query._id
+        if (articleId) {
+            this.setArticleDetail(articleId)
+        }
         this.getAllCategory()
         const token = await getUploadToken()
         this.uploadToken = token
     },
     methods: {
+        async setArticleDetail(_id) {
+            this.editId = _id
+            const res = await getArticleDetail({ _id })
+            if (res) {
+                const { title, category, desc } = res
+                this.form.setFieldsValue({
+                    title,
+                    category: category.map((v) => { return { label: v.name, key: v.id } }),
+                    desc
+                })
+                this.content = res.content
+            }
+        },
         async addNewCategory() {
             const value = this.newCategory.trim()
             if (value) {
@@ -180,11 +198,11 @@ export default {
                 }
             }
         },
-        handleChange(event) {
+        uploadImageChange(event) {
             const res = event.file.response
             if (res && res.key) {
                 toastr(Swal, 'success', '上传成功！')
-                const api = 'http://localhost:3000/api'
+                const api = process.env.apiUrl
                 this.content += `\n![image]( ${api}/v1/getFile?key=${res.key})`
             }
         },
@@ -204,6 +222,9 @@ export default {
                     values.category = values.category.map((v) => {
                         return v.key
                     })
+                    if (this.editId) {
+                        values._id = this.editId
+                    }
                     values = Object.assign(
                         {
                             type: this.type,
@@ -218,15 +239,17 @@ export default {
                     )
                     const res = await createArticle(values)
                     if (res) {
-                        toastr(Swal, 'success', '创建文章成功！')
+                        toastr(Swal, 'success', `${this.editId ? '编辑' : '创建'}文章成功！`)
                         this.form.resetFields([
                             'title',
                             'desc',
-                            'category',
-                            'content'
+                            'category'
                         ])
-                        this.$refs.markdownEditor.resetEditor()
                         this.content = ''
+                        if (this.editId) {
+                            this.editId = ''
+                            this.$router.push({ path: '/admin/article' })
+                        }
                     }
                 }
             })

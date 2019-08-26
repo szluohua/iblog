@@ -20,6 +20,10 @@ export function getArticleDetail(params) {
     return request({ url: '/v1/getArticleDetail', params, method: 'get' })
 }
 
+export function deleteArticle(params) {
+    return request({ url: '/deleteArticle', params, method: 'post' })
+}
+
 export function createCategory(params) {
     return request({ url: '/createCategory', params, method: 'post' })
 }

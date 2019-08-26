@@ -11,9 +11,9 @@
 slot="title"
 ><a-icon type="book" /><span>内容管理</span></span>
             <a-menu-item key="/admin/article">
-                创建文章
+                创建/编辑文章
             </a-menu-item>
-            <a-menu-item key="/admin/article_list">
+            <a-menu-item key="/admin/article-manage">
                 文章管理
             </a-menu-item>
         </a-sub-menu>
@@ -30,8 +30,8 @@ export default {
         }
     },
     watch: {
-        openKeys(val) {
-            console.log('openKeys', val)
+        '$route'(value) {
+            this.current.push(value.path)
         }
     },
     beforeMount() {

@@ -3,13 +3,21 @@ const CategoryService = require('../proxy/category')
 // const PhotoController = require('./photo')
 module.exports = {
     async createArticle(ctx) {
-        const createResult = await ArticleService.create(ctx.request.body)
+        const req = ctx.request.body
+        let createResult
+        const id = req._id
+        if (id) {
+            delete req._id
+            createResult = await ArticleService.updateArticle(id, req)
+        } else {
+            createResult = await ArticleService.create(ctx.request.body)
+        }
         ctx.body = createResult
     },
     async getArticleList(ctx) {
         const req = ctx.request.body
         // const page = req.page
-        delete req.page
+        // delete req.page
         const articleList = await ArticleService.findList(req)
         // const photoList = await PhotoController.getPhotoList(page, articleList.length)
         // articleList = articleList.map((val, index) => {
@@ -32,5 +40,9 @@ module.exports = {
     async findHotArticleList(ctx) {
         const articleList = await ArticleService.findHotArticleList()
         ctx.body = articleList
+    },
+    async deleteArticleById(ctx) {
+        const result = await ArticleService.deleteArticleById(ctx.request.body._id)
+        ctx.body = result
     }
 }

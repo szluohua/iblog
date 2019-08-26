@@ -29,6 +29,8 @@ export default {
     min-height: 100vh;
     &-content {
         display: flex;
+        flex: 1 0 auto;
+        background: #fff;
     }
     &-container {
         background: #fff;
