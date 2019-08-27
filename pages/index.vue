@@ -2,14 +2,14 @@
     <div class="container">
         <div class="content">
             <a-card
-                v-for="value in list"
+                v-for="(value, index) in list"
                 :key="value._id"
                 hoverable
                 style="width: 950px; border-radius: 5px; margin-bottom: 40px;"
                 @click="clickArticle(value)"
             >
                 <div class="article-container">
-                    <img class="article-background" src="../static/photo.jpeg">
+                    <img class="article-background" :src="`https://source.unsplash.com/${400 + index}x${400 + index}/?nature,water`">
                     <div class="article-content">
                         <h3 class="article-content-title">
                             {{ value.title }}
