@@ -12,6 +12,9 @@
                 <nuxt-link to="http://beian.miit.gov.cn" style="color: inherit; margin-left: 10px;">
                     粤ICP备18003965号-1
                 </nuxt-link>
+                <a class="youpai-link" target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
+                    <img src="../assets/logo/youpaiyun.svg">
+                </a>
             </a-layout-footer>
         </a-layout>
     </div>
@@ -50,6 +53,22 @@ export default {
     &>div {
         width: 1440px;
         margin: 0 auto;
+    }
+}
+.youpai-link {
+    color: inherit;
+    margin-left: 10px;
+    display: inline-block;
+    width: 45px;
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+    overflow: hidden;
+    & img {
+        position: absolute;
+        top: -20px;
+        left: -17px;
+        width: 80px;
     }
 }
 </style>
