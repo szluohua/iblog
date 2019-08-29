@@ -11,6 +11,10 @@ class ArticleServiceModel extends Base {
             }, data)
             delete data.lastId
         }
+        const category = data.category
+        if (category) {
+            data.category = { $in: [category] }
+        }
         const fields = {
             content: false
         }

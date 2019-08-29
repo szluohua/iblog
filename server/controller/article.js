@@ -15,7 +15,7 @@ module.exports = {
         ctx.body = createResult
     },
     async getArticleList(ctx) {
-        const req = ctx.request.body
+        const req = ctx.request.query
         // const page = req.page
         // delete req.page
         const articleList = await ArticleService.findList(req)
@@ -30,6 +30,7 @@ module.exports = {
     },
     async getArticleDetail(ctx) {
         const req = ctx.request.query
+        await ArticleService.updateOne(req, { $inc: { viewed: 1 } })
         const article = await ArticleService.findOne(req)
         if (article) {
             const categorys = await CategoryService.find({ _id: { $in: article.category } })

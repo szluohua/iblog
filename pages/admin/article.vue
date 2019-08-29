@@ -1,6 +1,10 @@
 <template>
     <div class="create-article-container">
-        <a-form :form="form" @submit="handleSubmit">
+        <a-form :form="form" style="position: relative" @submit="handleSubmit">
+            <div v-if="titlePhoto" class="review-img">
+                <img :src="titlePhoto" width="200" height="200">
+                <a-icon type="delete" @click="titlePhoto = ''" />
+            </div>
             <a-form-item
                 style="text-align: right; margin-right: 16px;"
                 :wrapper-col="{ span: 12, offset: 5 }"
@@ -90,6 +94,24 @@
                 </a-select>
             </a-form-item>
             <a-form-item>
+                上传文章标题图片：
+                <a-switch v-model="uploadTitlePhoto" />
+            </a-form-item>
+            <a-form-item v-if="uploadTitlePhoto">
+                <a-upload-dragger :show-upload-list="false" name="file" action="https://upload-z2.qiniup.com" :data="uploadToken" @change="uploadTilteImage">
+                    <p class="ant-upload-drag-icon">
+                    <a-icon type="inbox" />
+                    </p>
+                    <p class="ant-upload-text">
+                        Click or drag file to this area to upload
+                    </p>
+                    <p class="ant-upload-hint">
+                        Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
+                    </p>
+                </a-upload-dragger>
+                <div />
+            </a-form-item>
+            <a-form-item>
                 上传附件：
                 <a-switch v-model="showUpload" />
             </a-form-item>
@@ -140,9 +162,11 @@ export default {
             uploadToken: {},
             showUpload: false,
             addCategory: false,
+            titlePhoto: '',
             newCategory: '',
             categoryList: [],
-            editId: ''
+            editId: '',
+            uploadTitlePhoto: false
         }
     },
     computed: {
@@ -202,8 +226,14 @@ export default {
             const res = event.file.response
             if (res && res.key) {
                 toastr(Swal, 'success', '上传成功！')
-                const api = process.env.apiUrl
-                this.content += `\n![image]( ${api}/v1/getFile?key=${res.key})`
+                this.content += `\n![image]( ${process.env.apiUrl}/v1/getFile?key=${res.key})`
+            }
+        },
+        uploadTilteImage(event) {
+            const res = event.file.response
+            if (res && res.key) {
+                toastr(Swal, 'success', '上传成功！')
+                this.titlePhoto = `${process.env.apiUrl}/v1/getFile?key=${res.key}`
             }
         },
         categoryChange(value) {
@@ -229,6 +259,7 @@ export default {
                         {
                             type: this.type,
                             content: this.content,
+                            titlePhoto: this.titlePhoto,
                             createBy: {
                                 _id: this.user._id,
                                 avatar: this.user.avatar,
@@ -246,6 +277,7 @@ export default {
                             'category'
                         ])
                         this.content = ''
+                        this.titlePhoto = ''
                         if (this.editId) {
                             this.editId = ''
                             this.$router.push({ path: '/admin/article' })
@@ -261,5 +293,15 @@ export default {
 <style scoped lang="scss">
 .form-item-limit {
     max-width: 600px;
+}
+.review-img {
+    position: absolute;
+    left: 650px;
+    top: 40px;
+    & i {
+        font-size: 25px;
+        margin-left: 20px;
+        cursor: pointer;
+    }
 }
 </style>

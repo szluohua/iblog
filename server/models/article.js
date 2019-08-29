@@ -5,6 +5,10 @@ const UserSchema = new Mongoose.Schema({
         trim: true,
         required: true
     },
+    titlePhoto: {
+        type: String,
+        default: ''
+    },
     content: {
         type: String,
         required: true

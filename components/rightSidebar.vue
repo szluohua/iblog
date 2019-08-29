@@ -5,7 +5,7 @@
                 热门标签
             </h3>
             <div class="hot-tag-content">
-                <nuxt-link v-for="value in tags" :key="value._id" class="tag" :to="{query: {category: value._id}}">
+                <nuxt-link v-for="value in tags" :key="value._id" :class="{ hightlight: $route.query.category === value._id }" class="tag" :to="{query: {category: value._id}}">
                     {{ value.name }}
                 </nuxt-link>
             </div>
@@ -63,15 +63,19 @@ export default {
             margin-bottom: 20px;
         }
         .hot-article {
-            &-content .hot-article-item {
-                margin-bottom: 20px;
-                line-height: 20px;
-                cursor: pointer;
-                color: #7d7d7d; // white-space: nowrap;
-                // text-overflow: ellipsis;
-                // overflow: hidden;
-                &:hover {
-                    color: #e42c64;
+            &-content {
+                display: flex;
+                flex-direction: column;
+                .hot-article-item {
+                    margin-bottom: 20px;
+                    line-height: 20px;
+                    cursor: pointer;
+                    color: #7d7d7d; // white-space: nowrap;
+                    // text-overflow: ellipsis;
+                    // overflow: hidden;
+                    &:hover {
+                        color: #e42c64;
+                    }
                 }
             }
         }
@@ -115,11 +119,11 @@ export default {
                     right: 0;
                     top: 0;
                 }
-                .tag:hover {
+                .tag:hover,.tag.hightlight {
                     background-color: #e42c64;
                     color: white;
                 }
-                .tag:hover::after {
+                .tag:hover::after,.tag.hightlight::after {
                     border-left-color: #e42c64;
                 }
             }

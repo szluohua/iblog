@@ -18,5 +18,9 @@ class ProxyBase {
         const res = await this.model.deleteOne({ _id: id })
         return res
     }
+    async updateOne(query, data) {
+        const res = await this.model.updateOne(query, data)
+        return res
+    }
 }
 module.exports = ProxyBase

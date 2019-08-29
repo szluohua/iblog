@@ -9,7 +9,7 @@
                 @click="clickArticle(value)"
             >
                 <div class="article-container">
-                    <img class="article-background" :src="`https://source.unsplash.com/${400 + index}x${400 + index}/?nature,water`">
+                    <img class="article-background" :src="showPhoto(value, index)">
                     <div class="article-content">
                         <h3 class="article-content-title">
                             {{ value.title }}
@@ -51,10 +51,21 @@ export default {
             list: []
         }
     },
+    watch: {
+        $route() {
+            this.getArticle()
+        }
+    },
     mounted() {
         this.getArticle()
     },
     methods: {
+        showPhoto(value, index) {
+            if (value.titlePhoto) {
+                return value.titlePhoto
+            }
+            return `https://source.unsplash.com/${300 + index}x${300 + index}/?nature,water`
+        },
         clickArticle(value) {
             return this.$router.push(`/article_detail/${value._id}`)
         },
@@ -62,7 +73,12 @@ export default {
             return value.urls.small.replace(/w=400/, 'w=450')
         },
         async getArticle() {
-            const res = await getArticleList({ page: 2 })
+            const category = this.$route.query.category
+            const params = {}
+            if (category) {
+                params.category = category
+            }
+            const res = await getArticleList(params)
             if (res) {
                 this.list = res
             }
