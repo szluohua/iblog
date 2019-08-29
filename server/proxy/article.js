@@ -21,7 +21,7 @@ class ArticleServiceModel extends Base {
         let res
         let limit = data.limit
         if (limit && limit === 'all') {
-            res = await this.model.find(data, fields).sort({ _id: -1 })
+            res = await this.model.find({}, fields).sort({ _id: -1 })
         } else {
             limit = Number(limit) > 0 ? Number(limit) : 30
             res = await this.model.find(data, fields).sort({ _id: -1 }).limit(limit)
