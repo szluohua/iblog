@@ -1,7 +1,9 @@
 const CommentService = require('../proxy/comment')
+const ArticleService = require('../proxy/article')
 module.exports = {
     async createComment(ctx) {
         const createResult = await CommentService.create(ctx.request.body)
+        await ArticleService.updateOne({ _id: ctx.request.body.articleId }, { $inc: { comment: 1 } })
         ctx.body = createResult
     },
     async getComment(ctx) {
