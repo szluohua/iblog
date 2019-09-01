@@ -54,7 +54,9 @@ module.exports = {
         'ant-design-vue/lib/divider/style/index.css',
         'ant-design-vue/lib/card/style/index.css',
         'ant-design-vue/lib/table/style/index.css',
-        'ant-design-vue/lib/pagination/style/index.css'
+        'ant-design-vue/lib/pagination/style/index.css',
+        'ant-design-vue/lib/tag/style/index.css',
+        'ant-design-vue/lib/modal/style/index.css'
     ],
 
     /*

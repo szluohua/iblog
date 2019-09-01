@@ -18,6 +18,9 @@
         <a-menu-item key="/admin/role">
             <a-icon type="safety-certificate" /><span>角色管理</span>
         </a-menu-item>
+        <a-menu-item key="/admin/users">
+            <a-icon type="user" /><span>用户管理</span>
+        </a-menu-item>
     </a-menu>
 </template>
 

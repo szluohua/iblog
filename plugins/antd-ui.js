@@ -18,7 +18,9 @@ import {
     Divider,
     Card,
     Table,
-    Pagination
+    Pagination,
+    Tag,
+    Modal
 } from 'ant-design-vue/lib'
 export default () => {
     Vue.use(Input)
@@ -40,4 +42,6 @@ export default () => {
     Vue.use(Card)
     Vue.use(Table)
     Vue.use(Pagination)
+    Vue.use(Tag)
+    Vue.use(Modal)
 }

@@ -3,6 +3,7 @@ const UserService = require('../proxy/user')
 module.exports = {
     async register(ctx) {
         const body = ctx.request.body
+        body.role = ['user']
         let createResult = await UserService.create(body)
         createResult = createResult.toObject()
         delete createResult.password
@@ -11,6 +12,10 @@ module.exports = {
     async findUserById(ctx) {
         const body = ctx.request.body
         const res = await UserService.findUserById(body)
+        ctx.body = res
+    },
+    async findAllUser(ctx) {
+        const res = await UserService.findAllUser()
         ctx.body = res
     },
     async login(ctx) {

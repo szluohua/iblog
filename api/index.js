@@ -57,3 +57,6 @@ export function updateRole(params) {
 export function removeRole(params) {
     return request({ url: '/removeRole', params, method: 'post' })
 }
+export function findAllUser(params) {
+    return request({ url: '/findAllUser', params, method: 'get' })
+}

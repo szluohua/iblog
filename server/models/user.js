@@ -17,6 +17,10 @@ const UserSchema = new Mongoose.Schema({
         unique: true,
         required: true
     },
+    role: {
+        type: Array,
+        require: true
+    },
     mobile: {
         type: String,
         trim: true,
