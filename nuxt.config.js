@@ -102,6 +102,6 @@ module.exports = {
                 })
             }
         },
-        publicPath: 'http://cdn1.jscode.top/blog'
+        publicPath: 'https://cdn1.jscode.top/blog'
     }
 }
