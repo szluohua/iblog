@@ -6,9 +6,6 @@ const env =
 const cdnConfig = require('./cdn.json')
 module.exports = {
     mode: 'universal',
-    build: {
-        publicPath: 'http://cdn1.jscode.top/blog'
-    },
     vue: {
         config: {
             lintOnSave: process.env.NODE_ENV !== 'production'
@@ -104,6 +101,7 @@ module.exports = {
                     }
                 })
             }
-        }
+        },
+        publicPath: 'http://cdn1.jscode.top/blog'
     }
 }
