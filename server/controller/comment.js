@@ -10,5 +10,10 @@ module.exports = {
         const req = ctx.request.query
         const comments = await CommentService.find(req)
         ctx.body = comments
+    },
+    async getAllCount(ctx) {
+        const allArticle = await ArticleService.count()
+        const allComment = await CommentService.count()
+        ctx.body = { allArticle, allComment }
     }
 }

@@ -5,7 +5,7 @@
                 热门标签
             </h3>
             <div class="hot-tag-content">
-                <nuxt-link v-for="value in tags" :key="value._id" :class="{ hightlight: $route.query.category === value._id }" class="tag" :to="{query: {category: value._id}}">
+                <nuxt-link v-for="value in tags" :key="value._id" :class="{ hightlight: $route.query.category === value._id }" class="tag" :to="{path: '/', query: {category: value._id}}">
                     {{ value.name }}
                 </nuxt-link>
             </div>

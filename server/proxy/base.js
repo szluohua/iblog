@@ -6,6 +6,10 @@ class ProxyBase {
         const res = await this.model.create(data)
         return res
     }
+    async count() {
+        const res = await this.model.count()
+        return res
+    }
     async findOne(data, option = {}) {
         const res = await this.model.findOne(data, option)
         return res

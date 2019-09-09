@@ -25,6 +25,7 @@ router.post('/api/deleteArticle', ArticleController.deleteArticleById)
 router.get('/api/v1/getCategoryList', CategoryController.getCategoryList)
 router.get('/api/v1/getFile', PhotoController.fileSignatures)
 router.get('/api/v1/findHotArticleList', ArticleController.findHotArticleList)
+router.get('/api/v1/getAllCount', CommentController.getAllCount)
 
 router.post('/api/createRole', RoleController.createRole)
 router.get('/api/getRole', RoleController.getRole)

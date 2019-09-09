@@ -60,3 +60,7 @@ export function removeRole(params) {
 export function findAllUser(params) {
     return request({ url: '/findAllUser', params, method: 'get' })
 }
+
+export function getAllCount(params) {
+    return request({ url: '/v1/getAllCount', params, method: 'get' })
+}
