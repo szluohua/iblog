@@ -24,18 +24,18 @@
                     <div class="profile-card-inf">
                         <div class="profile-card-inf__item">
                             <div class="profile-card-inf__title">
-                                {{ time }} 天
+                                {{ time }} DAY
                             </div>
                             <div class="profile-card-inf__txt">
-                                网站已运行
+                                Running Time
                             </div>
                         </div>
                         <div class="profile-card-inf__item">
                             <div class="profile-card-inf__title">
-                                65
+                                {{ pv }}
                             </div>
                             <div class="profile-card-inf__txt">
-                                访问量
+                                PV
                             </div>
                         </div>
                         <div class="profile-card-inf__item">
@@ -43,7 +43,7 @@
                                 {{ articleCount }}
                             </div>
                             <div class="profile-card-inf__txt">
-                                文章
+                                Posts
                             </div>
                         </div>
                         <div class="profile-card-inf__item">
@@ -51,27 +51,27 @@
                                 {{ commentCount }}
                             </div>
                             <div class="profile-card-inf__txt">
-                                评论
+                                Comments
                             </div>
                         </div>
                     </div>
                     <div class="profile-card-social">
-                        <a href="https://www.facebook.com/iaMuhammedErdem" class="profile-card-social__item facebook" target="_blank">
+                        <a href="https://github.com/szluohua" class="profile-card-social__item facebook" target="_blank">
                             <a-icon type="github" />
                         </a>
-                        <a href="https://twitter.com/iaMuhammedErdem" class="profile-card-social__item twitter" target="_blank">
+                        <a href="mailto:luohuasz@163.com" class="profile-card-social__item twitter" target="_blank">
                             <a-icon type="mail" />
                         </a>
-                        <a href="https://www.instagram.com/iamuhammederdem" class="profile-card-social__item instagram" target="_blank">
+                        <!-- <a href="https://www.instagram.com/iamuhammederdem" class="profile-card-social__item instagram" target="_blank">
                             <a-icon type="wechat" />
-                        </a>
+                        </a> -->
                     </div>
                     <div class="profile-card-ctr">
                         <button class="profile-card__button button--blue js-message-btn" @click="active = true">
-                            留言
+                            Message
                         </button>
                         <button class="profile-card__button button--orange">
-                            关注
+                            Follow
                         </button>
                     </div>
                 </div>
@@ -82,10 +82,10 @@
                         </div>
                         <div class="profile-card-form__bottom">
                             <button class="profile-card__button button--blue js-message-close">
-                                发送
+                                Send
                             </button>
                             <button class="profile-card__button button--gray js-message-close">
-                                取消
+                                Cancel
                             </button>
                         </div>
                     </form>
@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { getAllCount } from '@/api/index'
+import { getAllCount, getSettingByKey } from '@/api/index'
 export default {
     name: 'About',
     components: {},
@@ -106,7 +106,8 @@ export default {
             active: false,
             time: '',
             articleCount: 0,
-            commentCount: 0
+            commentCount: 0,
+            pv: 0
         }
     },
     beforeMount() {
@@ -115,6 +116,11 @@ export default {
             if (res) {
                 this.articleCount = res.allArticle
                 this.commentCount = res.allComment
+            }
+        })
+        getSettingByKey({ key: 'pv' }).then((res) => {
+            if (res && res.value) {
+                this.pv = res.value
             }
         })
     },

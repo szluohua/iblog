@@ -5,23 +5,30 @@
             <a-input-search placeholder="input search text" style="width: 200px" @search="fetchUser">
                 <a-spin v-if="fetching" slot="notFoundContent" size="small" />
             </a-input-search>
-            <a-menu theme="light" mode="horizontal" :default-selected-keys="['2']" :style="{ lineHeight: '64px' }">
+            <a-menu
+                v-model="current"
+                theme="light"
+                mode="horizontal"
+                :default-selected-keys="['2']"
+                :style="{ lineHeight: '64px' }"
+                @click="changeMenu"
+                >
                 <!-- <a-menu-item key="">
                     文章
                 </a-menu-item> -->
-                <!-- <a-menu-item key="about">
-                    关于
-                </a-menu-item> -->
-                <a-sub-menu v-if="userInfo" @click="changeMenu">
+                <a-menu-item key="/about">
+                    About
+                </a-menu-item>
+                <a-sub-menu v-if="userInfo">
                     <span slot="title" class="submenu-title-wrapper">
                         <a-avatar slot="avatar" rel="noopener noreferrer" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" />
                     </span>
-                    <a-menu-item key="article">
+                    <a-menu-item key="/admin/article">
                         文章管理
                     </a-menu-item>
-                    <a-menu-item key="about">
+                    <!-- <a-menu-item key="about">
                         关于
-                    </a-menu-item>
+                    </a-menu-item> -->
                     <a-menu-item key="logout">
                         注销
                     </a-menu-item>
@@ -53,7 +60,8 @@ export default {
         return {
             data: [],
             value: [],
-            fetching: false
+            fetching: false,
+            current: []
         }
     },
     computed: {
@@ -61,15 +69,22 @@ export default {
             userInfo: (state) => { return state.user }
         })
     },
+    watch: {
+        '$route'(value) {
+            const router = []
+            router.push(value.path)
+            this.current = router
+        }
+    },
+    beforeMount() {
+        this.current.push(this.$route.path)
+    },
     methods: {
         changeMenu(value) {
             if (value.key === 'logout') {
-                this.logout()
-            } else if (value.key === 'article') {
-                this.$router.push({ path: '/admin/article' })
-            } else if (value.key === 'about') {
-                this.$router.push({ path: '/about' })
+                return this.logout()
             }
+            return this.$router.push({ path: value.key })
         },
         setRoute(route) {
             this.$router.push(route)

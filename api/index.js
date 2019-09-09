@@ -64,3 +64,10 @@ export function findAllUser(params) {
 export function getAllCount(params) {
     return request({ url: '/v1/getAllCount', params, method: 'get' })
 }
+export function updatePV(params) {
+    return request({ url: '/v1/updatePV', params, method: 'get' })
+}
+
+export function getSettingByKey(params) {
+    return request({ url: '/v1/getSettingByKey', params, method: 'get' })
+}

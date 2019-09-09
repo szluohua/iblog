@@ -29,7 +29,6 @@ export default {
         Header
     },
     mounted() {
-        console.log(particlesConfig)
         this.$nextTick(function () {
             window.particlesJS('particles-js', particlesConfig)
         })

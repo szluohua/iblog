@@ -35,7 +35,9 @@ export default {
     },
     watch: {
         '$route'(value) {
-            this.current.push(value.path)
+            const router = []
+            router.push(value.path)
+            this.current = router
         }
     },
     beforeMount() {

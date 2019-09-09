@@ -28,10 +28,10 @@
 
 <script>
 import moment from 'moment'
-import avatar from './avatar'
 import {
     mapState
 } from 'vuex'
+import avatar from './avatar'
 import singleComment from './singleComment'
 import {
     getComment,

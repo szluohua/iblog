@@ -5,8 +5,17 @@ module.exports = {
         const createResult = await SettingService.updateOne(key, value)
         ctx.body = createResult
     },
-    async updatePV() {
+    async updatePV(ctx) {
         const res = await SettingService.updatePV()
-        return res
+        ctx.body = res
+    },
+    async getSettingByKey(ctx) {
+        const key = ctx.request.query.key
+        if (!key) {
+            ctx.body = {}
+            return
+        }
+        const res = await SettingService.getSettingByKey(key)
+        ctx.body = res
     }
 }

@@ -40,7 +40,7 @@
 <script>
 import rightSidebar from '@/components/rightSidebar'
 import avatar from '@/components/avatar'
-import { getArticleList } from '@/api/index'
+import { getArticleList, updatePV } from '@/api/index'
 export default {
     components: {
         rightSidebar,
@@ -58,6 +58,7 @@ export default {
     },
     mounted() {
         this.getArticle()
+        updatePV()
     },
     methods: {
         showPhoto(value, index) {
