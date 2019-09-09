@@ -7,7 +7,7 @@ class ProxyBase {
         return res
     }
     async count() {
-        const res = await this.model.count()
+        const res = await this.model.countDocuments()
         return res
     }
     async findOne(data, option = {}) {
