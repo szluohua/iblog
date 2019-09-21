@@ -1,13 +1,33 @@
 const jwt = require('jsonwebtoken') // 用于签发、解析`token`
-const secret = 'secret'
 const qiniu = require('qiniu')
+const otplib = require('otplib')
+const qrcode = require('qrcode')
+
+const secret = 'secret'
+
 const accessKey = '2ggKxYmve6LqD4Y0QfgW0T3Yx192-WvEMaCxWrwy'
 const secretKey = '0Tm6lAuHvTXvBYqs3_ULGoPYJ-Z4ebSxHx6UySM4'
 // 时间戳防盗链密钥
 const encryptKey = '099ae9b9d5b8bca877987fb8cd9b6e8a61a9119a'
 const domain = 'http://cdn.jscode.top'
 
+const otp_secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD'
+// Alternatively: const secret = otplib.authenticator.generateSecret();
+
 module.exports = {
+    async signQRCode(ctx) {
+        const user = 'jscode'
+        const service = 'service name'
+        let url = otplib.authenticator.keyuri(user, service, otp_secret)
+        url = await qrcode.toDataURL(url)
+        ctx.body = { url }
+    },
+    generateOtpToken() {
+        return otplib.authenticator.generate(otp_secret)
+    },
+    verifyOtpToken(token) {
+        return otplib.authenticator.verify({ token, secret: otp_secret })
+    },
     /* 通过token获取JWT的payload部分 */
     getJWTPayload(token) {
     // 验证并解析JWT

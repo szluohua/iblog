@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <img :src="qrurl" width="200" height="200" alt="">
         <div class="content">
             <a-card
                 v-for="(value, index) in list"
@@ -40,7 +41,7 @@
 <script>
 import rightSidebar from '@/components/rightSidebar'
 import avatar from '@/components/avatar'
-import { getArticleList, updatePV } from '@/api/index'
+import { getArticleList, updatePV, signQRCode } from '@/api/index'
 export default {
     components: {
         rightSidebar,
@@ -48,7 +49,8 @@ export default {
     },
     data() {
         return {
-            list: []
+            list: [],
+            qrurl: ''
         }
     },
     watch: {
@@ -59,6 +61,11 @@ export default {
     mounted() {
         this.getArticle()
         updatePV()
+        signQRCode().then((res) => {
+            if (res) {
+                this.qrurl = res.url
+            }
+        })
     },
     methods: {
         showPhoto(value, index) {

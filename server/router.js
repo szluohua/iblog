@@ -7,6 +7,7 @@ const CommentController = require('./controller/comment')
 const PhotoController = require('./controller/photo')
 const RoleController = require('./controller/role')
 const SettingController = require('./controller/setting')
+const Auth = require('./auth')
 const router = new Router()
 /* POST /api/register 注册 */
 router.post('/api/register', UserController.register)
@@ -29,6 +30,8 @@ router.get('/api/v1/findHotArticleList', ArticleController.findHotArticleList)
 router.get('/api/v1/getAllCount', CommentController.getAllCount)
 router.get('/api/v1/updatePV', SettingController.updatePV)
 router.get('/api/v1/getSettingByKey', SettingController.getSettingByKey)
+
+router.get('/api/v1/signQRCode', Auth.signQRCode)
 
 router.post('/api/createRole', RoleController.createRole)
 router.get('/api/getRole', RoleController.getRole)

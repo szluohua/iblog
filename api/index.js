@@ -71,3 +71,7 @@ export function updatePV(params) {
 export function getSettingByKey(params) {
     return request({ url: '/v1/getSettingByKey', params, method: 'get' })
 }
+
+export function signQRCode(params) {
+    return request({ url: '/v1/signQRCode', params, method: 'get' })
+}
