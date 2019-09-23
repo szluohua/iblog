@@ -1,4 +1,5 @@
 <template>
+<div>
     <a-table
     bordered
     :data-source="dataSource"
@@ -22,15 +23,30 @@
             </a-button>
         </template>
     </a-table>
+    <editUser
+      v-if="userData"
+      ref="collectionForm"
+      :visible="visible"
+      :user="userData"
+      @cancel="handleCancel"
+      @create="handleCreate"
+/>
+</div>
 </template>
 
 <script>
 import { findAllUser } from '@/api/index'
+import editUser from '@/components/editUser'
 export default {
     layout: 'adminLayout',
+    components: {
+        editUser
+    },
     data() {
         return {
             dataSource: [],
+            visible: false,
+            userData: null,
             loading: false,
             columns: [{
                 title: '用户名',
@@ -74,7 +90,24 @@ export default {
             }
         },
         editRecord(record) {
-            this.$router.push({ path: '/admin/article', query: { _id: record._id } })
+            this.userData = record
+            this.visible = true
+        },
+        handleCancel() {
+            this.visible = false
+            this.userData = null
+        },
+        handleCreate() {
+            const form = this.$refs.collectionForm.form
+            form.validateFields((err, values) => {
+                if (err) {
+                    return
+                }
+                console.log('Received values of form: ', values)
+                form.resetFields()
+                this.visible = false
+                this.userData = null
+            })
         }
     }
 }
