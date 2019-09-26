@@ -20,21 +20,20 @@ router.post('/api/createCategory', CategoryController.createCategory)
 router.post('/api/createComment', CommentController.createComment)
 router.post('/api/findUserById', UserController.findUserById)
 router.get('/api/findAllUser', UserController.findAllUser)
+router.post('/api/deleteArticle', ArticleController.deleteArticleById)
+router.post('/api/createRole', RoleController.createRole)
+router.get('/api/getRole', RoleController.getRole)
+router.post('/api/removeRole', RoleController.removeRole)
+router.post('/api/updateUser', UserController.updateUser)
+
 router.get('/api/v1/getComment', CommentController.getComment)
 router.get('/api/v1/getArticleList', ArticleController.getArticleList)
 router.get('/api/v1/getArticleDetail', ArticleController.getArticleDetail)
-router.post('/api/deleteArticle', ArticleController.deleteArticleById)
 router.get('/api/v1/getCategoryList', CategoryController.getCategoryList)
 router.get('/api/v1/getFile', PhotoController.fileSignatures)
 router.get('/api/v1/findHotArticleList', ArticleController.findHotArticleList)
 router.get('/api/v1/getAllCount', CommentController.getAllCount)
 router.get('/api/v1/updatePV', SettingController.updatePV)
 router.get('/api/v1/getSettingByKey', SettingController.getSettingByKey)
-
 router.get('/api/v1/signQRCode', Auth.signQRCode)
-
-router.post('/api/createRole', RoleController.createRole)
-router.get('/api/getRole', RoleController.getRole)
-router.post('/api/removeRole', RoleController.removeRole)
-
 module.exports = router

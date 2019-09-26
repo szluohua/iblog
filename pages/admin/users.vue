@@ -19,7 +19,7 @@
         </template>
         <template slot="operation" slot-scope="text, record">
             <a-button type="primary" @click="editRecord(record)">
-                Edit
+                编辑
             </a-button>
         </template>
     </a-table>
@@ -35,8 +35,9 @@
 </template>
 
 <script>
-import { findAllUser } from '@/api/index'
+import { findAllUser, updateUser } from '@/api/index'
 import editUser from '@/components/editUser'
+import { toastr } from '@/utils/index'
 export default {
     layout: 'adminLayout',
     components: {
@@ -99,14 +100,25 @@ export default {
         },
         handleCreate() {
             const form = this.$refs.collectionForm.form
-            form.validateFields((err, values) => {
+            form.validateFields(async (err, values) => {
                 if (err) {
                     return
                 }
-                console.log('Received values of form: ', values)
-                form.resetFields()
-                this.visible = false
-                this.userData = null
+                const { email, role } = values
+                const res = await updateUser({
+                    userId: this.userData._id,
+                    email,
+                    role: role.map((v) => {
+                        return v.key
+                    })
+                })
+                if (res) {
+                    form.resetFields()
+                    this.visible = false
+                    this.userData = null
+                    toastr(Swal, 'success', '更新用户信息成功！')
+                    this.getAllUsers()
+                }
             })
         }
     }

@@ -18,6 +18,16 @@ module.exports = {
         const res = await UserService.findAllUser()
         ctx.body = res
     },
+    async updateUser(ctx) {
+        const { userId, email, role } = ctx.request.body
+        const res = await UserService.updateUser(userId, {
+            $set: {
+                email,
+                role
+            }
+        })
+        ctx.body = res
+    },
     async login(ctx) {
         const req = ctx.request.body
         let user = await UserService.findOne({

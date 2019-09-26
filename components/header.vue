@@ -2,7 +2,7 @@
     <a-layout-header class="header-container">
         <nuxt-link class="logo" to="/" />
         <div class="right-header">
-            <a-input-search placeholder="input search text" style="width: 200px" @search="fetchUser">
+            <a-input-search placeholder="搜索..." style="width: 200px" @search="fetchUser">
                 <a-spin v-if="fetching" slot="notFoundContent" size="small" />
             </a-input-search>
             <a-menu
@@ -17,14 +17,14 @@
                     文章
                 </a-menu-item> -->
                 <a-menu-item key="/about">
-                    About
+                    关于
                 </a-menu-item>
                 <a-sub-menu v-if="userInfo">
                     <span slot="title" class="submenu-title-wrapper">
                         <a-avatar slot="avatar" rel="noopener noreferrer" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" />
                     </span>
                     <a-menu-item key="/admin/article">
-                        文章管理
+                        系统管理
                     </a-menu-item>
                     <!-- <a-menu-item key="about">
                         关于

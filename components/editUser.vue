@@ -1,24 +1,26 @@
 <template>
   <a-modal
     :visible="visible"
-    title="Create a new collection"
-    ok-text="Create"
+    title="更新用户信息"
+    ok-text="保存"
+    cancel-text="取消"
     @cancel="() => { $emit('cancel') }"
     @ok="() => { $emit('create') }"
   >
     <a-form :form="form" @submit="handleSubmit">
       <a-form-item v-bind="formItemLayout" label="E-mail">
         <a-input
-          v-decorator="[
-              'email',
-              {
+            v-decorator="[
+                'email',
+                {
                 rules: [{
-                  type: 'email', message: 'The input is not valid E-mail!',
+                    type: 'email', message: 'The input is not valid E-mail!',
                 }, {
-                  required: true, message: 'Please input your E-mail!',
+                    required: true, message: 'Please input your E-mail!',
                 }]
-              }
+                }
             ]"
+            :disabled="true"
         />
       </a-form-item>
       <a-form-item
@@ -53,14 +55,14 @@
             </a-select-option>
         </a-select>
       </a-form-item>
-      <a-form-item v-bind="formItemLayout" label="新密码">
+      <!-- <a-form-item v-bind="formItemLayout" label="新密码">
         <a-input
           v-decorator="[
               'password'
             ]"
           type="password"
         />
-      </a-form-item>
+      </a-form-item> -->
     </a-form>
   </a-modal>
 </template>
@@ -128,7 +130,6 @@ export default {
     mounted() {
         const email = this.user.email
         const role = this.user.role || []
-        console.log(email, role)
         if (email) {
             this.form.setFieldsValue({
                 email
@@ -166,10 +167,6 @@ export default {
                     console.log('Received values of form: ', values)
                 }
             })
-        },
-        handleConfirmBlur(e) {
-            const value = e.target.value
-            this.confirmDirty = this.confirmDirty || !!value
         }
     }
 }

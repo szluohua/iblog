@@ -6,6 +6,9 @@ export function login(params) {
 export function register(params) {
     return request({ url: '/register', params, method: 'post' })
 }
+export function updateUser(params) {
+    return request({ url: '/updateUser', params, method: 'post' })
+}
 export function getUploadToken(params) {
     return request({ url: '/getUploadToken', params, method: 'get' })
 }

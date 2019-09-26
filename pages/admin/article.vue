@@ -15,7 +15,7 @@
             </a-form-item>
             <a-form-item
                 class="form-item-limit"
-                label="Title"
+                label="标题"
                 :label-col="{ span: 5 }"
                 :wrapper-col="{ span: 12 }"
             >
@@ -35,7 +35,7 @@
             </a-form-item>
             <a-form-item
                 class="form-item-limit"
-                label="Desc"
+                label="文章简介"
                 :label-col="{ span: 5 }"
                 :wrapper-col="{ span: 12 }"
             >
@@ -51,7 +51,6 @@
                             ]
                         }
                     ]"
-                    placeholder="Basic usage"
                     :rows="4"
                 />
             </a-form-item>
@@ -67,7 +66,7 @@
             </a-form-item>
             <a-form-item
                 class="form-item-limit"
-                label="Category"
+                label="标签"
                 :label-col="{ span: 5 }"
                 :wrapper-col="{ span: 12 }"
             >
@@ -130,7 +129,7 @@
                 <div />
             </a-form-item>
             <a-form-item
-                label="Content"
+                label="文章内容"
                 :label-col="{ span: 5 }"
                 :wrapper-col="{ span: 12 }"
             >

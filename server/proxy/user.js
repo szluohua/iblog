@@ -16,5 +16,10 @@ class UserServiceModel extends Base {
         const res = await this.model.find({}, { password: false })
         return res
     }
+
+    async updateUser(userId, data) {
+        const res = await this.model.updateOne({ _id: userId }, data)
+        return res
+    }
 }
 module.exports = new UserServiceModel()

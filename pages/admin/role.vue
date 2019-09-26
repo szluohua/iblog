@@ -3,7 +3,7 @@
     <a-form :form="form" :layout="'inline'" style="height: 80px;" @submit="handleSubmit">
     <a-form-item
         class="form-item-limit"
-        label="Name"
+        label="名称"
         style="width: 250px;"
     >
         <a-input
@@ -65,7 +65,8 @@
     </template>
     <template slot="operation" slot-scope="text, record">
       <div class="editable-row-operations">
-            <a-button style="margin-left: 1rem;" type="danger" @click="deleteRecord(record)">
+            <!-- Todo: 暂未关联用户model，暂时不能删除          -->
+            <a-button :disabled="true" style="margin-left: 1rem;" type="danger" @click="deleteRecord(record)">
                 Delete
             </a-button>
       </div>
@@ -87,7 +88,7 @@ const columns = [{
     width: '15%',
     scopedSlots: { customRender: 'roleId' }
 }, {
-    title: 'operation',
+    title: '操作',
     dataIndex: 'operation',
     scopedSlots: { customRender: 'operation' }
 }]

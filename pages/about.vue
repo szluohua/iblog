@@ -10,8 +10,7 @@
                         Leo Luo
                     </div>
                     <div class="profile-card__txt">
-                        Front-end Developer from
-                        <strong>ShenZhen, China</strong>
+                        <strong>涸辙遗鲋，旦暮成枯；人而无志，与彼何殊</strong>
                     </div>
                     <!-- <div class="profile-card-loc">
                         <span class="profile-card-loc__icon">
@@ -24,10 +23,10 @@
                     <div class="profile-card-inf">
                         <div class="profile-card-inf__item">
                             <div class="profile-card-inf__title">
-                                {{ time }} DAY
+                                {{ time }} 天
                             </div>
                             <div class="profile-card-inf__txt">
-                                Running Time
+                                运行时间
                             </div>
                         </div>
                         <div class="profile-card-inf__item">
@@ -35,7 +34,7 @@
                                 {{ pv }}
                             </div>
                             <div class="profile-card-inf__txt">
-                                PV
+                                访问量
                             </div>
                         </div>
                         <div class="profile-card-inf__item">
@@ -43,7 +42,7 @@
                                 {{ articleCount }}
                             </div>
                             <div class="profile-card-inf__txt">
-                                Posts
+                                总文章
                             </div>
                         </div>
                         <div class="profile-card-inf__item">
@@ -51,7 +50,7 @@
                                 {{ commentCount }}
                             </div>
                             <div class="profile-card-inf__txt">
-                                Comments
+                                总评论
                             </div>
                         </div>
                     </div>
@@ -68,10 +67,10 @@
                     </div>
                     <div class="profile-card-ctr">
                         <button class="profile-card__button button--blue js-message-btn" @click="active = true">
-                            Message
+                            留言
                         </button>
                         <button class="profile-card__button button--orange">
-                            Follow
+                            关注
                         </button>
                     </div>
                 </div>
@@ -82,10 +81,10 @@
                         </div>
                         <div class="profile-card-form__bottom">
                             <button class="profile-card__button button--blue js-message-close">
-                                Send
+                                发送
                             </button>
                             <button class="profile-card__button button--gray js-message-close">
-                                Cancel
+                                取消
                             </button>
                         </div>
                     </form>
