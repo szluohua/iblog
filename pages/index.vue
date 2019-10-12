@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <img :src="qrurl" width="200" height="200" alt="">
         <div class="content">
             <a-card
                 v-for="(value, index) in list"
@@ -41,7 +40,7 @@
 <script>
 import rightSidebar from '@/components/rightSidebar'
 import avatar from '@/components/avatar'
-import { getArticleList, updatePV, signQRCode } from '@/api/index'
+import { getArticleList, updatePV } from '@/api/index'
 export default {
     components: {
         rightSidebar,
@@ -49,8 +48,7 @@ export default {
     },
     data() {
         return {
-            list: [],
-            qrurl: ''
+            list: []
         }
     },
     watch: {
@@ -61,18 +59,15 @@ export default {
     mounted() {
         this.getArticle()
         updatePV()
-        signQRCode().then((res) => {
-            if (res) {
-                this.qrurl = res.url
-            }
-        })
     },
     methods: {
         showPhoto(value, index) {
+            const imageWidth = 640 + 16 * index
+            const imageHeight = 360 + 9 * index
             if (value.titlePhoto) {
                 return value.titlePhoto
             }
-            return `https://source.unsplash.com/${300 + index}x${300 + index}/?nature,water`
+            return `https://source.unsplash.com/${imageWidth}x${imageHeight}/?wallpapers`
         },
         clickArticle(value) {
             return this.$router.push(`/article_detail/${value._id}`)
@@ -112,8 +107,8 @@ export default {
             }
             .article-background {
                 display: inline-block;
-                height: 160px;
-                width: 160px;
+                height: 100%;
+                width: auto;
             }
             .article-content {
                 flex: 1 0 auto;

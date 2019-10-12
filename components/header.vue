@@ -23,6 +23,9 @@
                     <span slot="title" class="submenu-title-wrapper">
                         <a-avatar slot="avatar" rel="noopener noreferrer" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" />
                     </span>
+                    <a-menu-item key="/personal-setting">
+                        个人设置
+                    </a-menu-item>
                     <a-menu-item key="/admin/article">
                         系统管理
                     </a-menu-item>
@@ -114,6 +117,7 @@ export default {
         },
         logout(value) {
             Cookie.remove('auth')
+            Cookie.remove('otp_token')
             Cookie.remove('user')
             this.$store.commit('setAuth', '')
             this.$store.commit('setUserInfo', '')

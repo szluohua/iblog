@@ -82,23 +82,33 @@ export default {
             this.form.validateFields((err, values) => {
                 if (!err) {
                     login(values).then((res) => {
-                        if (res && res.jwt) {
-                            const { jwt, expires, ...user } = res
-                            this.$store.commit('setAuth', jwt) // 存储在vuex中用来进行客户端渲染
-                            this.$store.commit('setUserInfo', user)
-                            Cookie.set('auth', jwt, {
-                                expires: new Date(
-                                    new Date().getTime() +
-                                        expires * 86400000
-                                )
-                            }) // 在cookie中保存token用来进行服务器端渲染
-                            Cookie.set('user', user, {
-                                expires: new Date(
-                                    new Date().getTime() +
-                                        expires * 86400000
-                                )
-                            }) // 在cookie中保存token用来进行服务器端渲染
-                            this.$router.push('/')
+                        if (res) {
+                            if (res.jwt) {
+                                const { jwt, expires, ...user } = res
+                                this.$store.commit('setAuth', jwt) // 存储在vuex中用来进行客户端渲染
+                                this.$store.commit('setUserInfo', user)
+                                Cookie.set('auth', jwt, {
+                                    expires: new Date(
+                                        new Date().getTime() +
+                                            expires * 86400000
+                                    )
+                                }) // 在cookie中保存token用来进行服务器端渲染
+                                Cookie.set('user', user, {
+                                    expires: new Date(
+                                        new Date().getTime() +
+                                            expires * 86400000
+                                    )
+                                })
+                                this.$router.push('/')
+                            } else if (res.otp_token) {
+                                Cookie.set('otp_token', res.otp_token, {
+                                    expires: new Date(
+                                        new Date().getTime() +
+                                            res.expires * 86400000
+                                    )
+                                }) // 在cookie中保存token用来进行服务器端渲染
+                                this.$router.push('/session')
+                            }
                         }
                     })
                 }

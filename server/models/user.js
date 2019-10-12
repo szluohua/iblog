@@ -43,6 +43,14 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    token: {
+        type: String,
+        default: ''
+    },
+    otpAuth: {
+        type: Boolean,
+        default: false
     }
 }, {
     usePushEach: true,

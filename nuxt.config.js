@@ -56,7 +56,8 @@ module.exports = {
         'ant-design-vue/lib/table/style/index.css',
         'ant-design-vue/lib/pagination/style/index.css',
         'ant-design-vue/lib/tag/style/index.css',
-        'ant-design-vue/lib/modal/style/index.css'
+        'ant-design-vue/lib/modal/style/index.css',
+        'ant-design-vue/lib/steps/style/index.css'
     ],
 
     /*

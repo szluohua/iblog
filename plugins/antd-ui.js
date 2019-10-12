@@ -20,7 +20,8 @@ import {
     Table,
     Pagination,
     Tag,
-    Modal
+    Modal,
+    Steps
 } from 'ant-design-vue/lib'
 export default () => {
     Vue.use(Input)
@@ -44,4 +45,5 @@ export default () => {
     Vue.use(Pagination)
     Vue.use(Tag)
     Vue.use(Modal)
+    Vue.use(Steps)
 }

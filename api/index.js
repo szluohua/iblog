@@ -76,5 +76,12 @@ export function getSettingByKey(params) {
 }
 
 export function signQRCode(params) {
-    return request({ url: '/v1/signQRCode', params, method: 'get' })
+    return request({ url: '/signQRCode', params, method: 'post' })
+}
+export function setOtpAuth(params) {
+    return request({ url: '/setOtpAuth', params, method: 'post' })
+}
+
+export function verifyOTPToken(params) {
+    return request({ url: '/verifyOTPToken', params, method: 'post' })
 }

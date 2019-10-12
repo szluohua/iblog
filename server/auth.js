@@ -4,38 +4,40 @@ const otplib = require('otplib')
 const qrcode = require('qrcode')
 
 const secret = 'secret'
-
+const otp_redirect_secret = 'otp_redirect_secret'
 const accessKey = '2ggKxYmve6LqD4Y0QfgW0T3Yx192-WvEMaCxWrwy'
 const secretKey = '0Tm6lAuHvTXvBYqs3_ULGoPYJ-Z4ebSxHx6UySM4'
 // 时间戳防盗链密钥
 const encryptKey = '099ae9b9d5b8bca877987fb8cd9b6e8a61a9119a'
 const domain = 'http://cdn.jscode.top'
 
-const otp_secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD'
-// Alternatively: const secret = otplib.authenticator.generateSecret();
-
 module.exports = {
-    async signQRCode(ctx) {
+    async signQRCode(otp_secret) {
         const user = 'jscode'
         const service = 'service name'
         let url = otplib.authenticator.keyuri(user, service, otp_secret)
         url = await qrcode.toDataURL(url)
-        ctx.body = { url }
+        return url
     },
-    generateOtpToken() {
+    generateOtpToken(otp_secret) {
         return otplib.authenticator.generate(otp_secret)
     },
-    verifyOtpToken(token) {
+    verifyOtpToken(token, otp_secret) {
         return otplib.authenticator.verify({ token, secret: otp_secret })
     },
-    /* 通过token获取JWT的payload部分 */
-    getJWTPayload(token) {
-    // 验证并解析JWT
-        return jwt.verify(token.split(' ')[1], secret)
+    generateOTPSecret() {
+        return otplib.authenticator.generateSecret()
     },
-    /* 获取一个期限为4小时的token */
+    /* 通过token获取JWT的payload部分 */
+    getJWTPayload(token, secret) {
+    // 验证并解析JWT
+        return jwt.verify(token, secret)
+    },
     getToken(payload = {}) {
         return jwt.sign(payload, secret, { expiresIn: '7d' })
+    },
+    getRedirectToken(payload = {}) {
+        return jwt.sign(payload, otp_redirect_secret, { expiresIn: '6h' })
     },
     getQiniuUploadToken() {
         const mac = new qiniu.auth.digest.Mac(accessKey, secretKey)
