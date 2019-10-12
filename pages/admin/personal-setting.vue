@@ -1,5 +1,23 @@
 <template>
 <div class="personal-setting-container">
+    <h3>更改用户头像: </h3>
+    <a-upload
+        name="file"
+        list-type="picture-card"
+        class="avatar-uploader"
+        :show-upload-list="false"
+        action="https://upload-z2.qiniup.com"
+        :data="uploadToken"
+        @change="handleChange"
+    >
+        <img v-if="imageUrl" :src="imageUrl" width="100" height="100" alt="avatar">
+        <div v-else>
+            <a-icon :type="loading ? 'loading' : 'plus'" />
+            <div class="ant-upload-text">
+                Upload
+            </div>
+        </div>
+    </a-upload>
     <div class="switch-wrapper">
         <h3>
             双因素认证
@@ -52,7 +70,7 @@
 </template>
 
 <script>
-import { signQRCode, setOtpAuth } from '@/api/index'
+import { signQRCode, setOtpAuth, getUploadToken, updateUser } from '@/api/index'
 import { mapState } from 'vuex'
 import { toastr } from '@/utils/index'
 const Cookie = process.client ? require('js-cookie') : undefined
@@ -61,7 +79,10 @@ export default {
         return {
             current: 0,
             authSwitch: false,
+            imageUrl: '',
+            uploadToken: {},
             password: '',
+            loading: false,
             showContainer: '',
             qrurl: '',
             code: '',
@@ -77,10 +98,39 @@ export default {
             userInfo: (state) => { return state.user }
         })
     },
-    mounted() {
+    async mounted() {
         this.authSwitch = this.userInfo.otpAuth
+        this.imageUrl = this.userInfo.avatar
+        const token = await getUploadToken()
+        this.uploadToken = token
     },
     methods: {
+        async handleChange(event) {
+            if (event.file.status === 'uploading') {
+                this.loading = true
+                return
+            }
+            const res = event.file.response
+            if (res && res.key) {
+                const imageUrl = `${process.env.apiUrl}/v1/getFile?key=${res.key}`
+                const result = await updateUser({
+                    userId: this.userInfo._id,
+                    avatar: imageUrl
+                })
+                this.loading = false
+                if (result) {
+                    this.imageUrl = imageUrl
+                    toastr(Swal, 'success', '上传成功！')
+                    const user = Object.assign({}, this.userInfo, { avatar: imageUrl })
+                    Cookie.set('user', user, {
+                        expires: new Date(
+                            new Date().getTime() +
+                                7 * 86400000
+                        )
+                    })
+                }
+            }
+        },
         async changeAuthSwitch(value) {
             if (value) {
                 const res = await signQRCode({ userId: this.userInfo._id })
@@ -134,6 +184,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .avatar-uploader > .ant-upload {
+    width: 128px;
+    height: 128px;
+  }
+  .ant-upload-select-picture-card i {
+    font-size: 32px;
+    color: #999;
+  }
+
+  .ant-upload-select-picture-card .ant-upload-text {
+    margin-top: 8px;
+    color: #666;
+  }
     .personal-setting-container {
         width: 900px !important;
         background-color: #fff;
@@ -144,6 +207,7 @@ export default {
     }
     .switch-wrapper {
         display: flex;
+        margin-top: 40px;
     }
     .otp-container {
         // width: 900px !important;

@@ -21,9 +21,9 @@
                 </a-menu-item>
                 <a-sub-menu v-if="userInfo">
                     <span slot="title" class="submenu-title-wrapper">
-                        <a-avatar slot="avatar" rel="noopener noreferrer" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" />
+                        <a-avatar slot="avatar" rel="noopener noreferrer" :src="userInfo.avatar" />
                     </span>
-                    <a-menu-item key="/personal-setting">
+                    <a-menu-item key="/admin/personal-setting">
                         个人设置
                     </a-menu-item>
                     <a-menu-item key="/admin/article">

@@ -3,7 +3,6 @@
         <a-divider>发表评论</a-divider>
 		<a-comment>
             <avatar slot="avatar" :user="user" />
-			<!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" /> -->
 			<div slot="content">
 				<a-form-item>
 					<a-textarea ref="replyContainer" :placeholder="r_comment ? `你正在回复${r_comment.commentBy.username}` : ''" :rows="4" :value="value" @change="handleChange" />

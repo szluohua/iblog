@@ -32,5 +32,10 @@ class ProxyBase {
         const res = await this.model.updateOne(query, data)
         return res
     }
+
+    async updateMany(query, data) {
+        const res = await this.model.updateMany(query, data)
+        return res
+    }
 }
 module.exports = ProxyBase

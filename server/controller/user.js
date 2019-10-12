@@ -1,5 +1,6 @@
 const auth = require('../auth')
 const UserService = require('../proxy/user')
+const ArticleService = require('../proxy/article')
 const otp_redirect_secret = 'otp_redirect_secret'
 module.exports = {
     async register(ctx) {
@@ -20,12 +21,22 @@ module.exports = {
         ctx.body = res
     },
     async updateUser(ctx) {
-        const { userId, email, role } = ctx.request.body
+        const { userId, email, role, avatar } = ctx.request.body
+        const data = {}
+        if (email) {
+            data.email = email
+        }
+        if (role) {
+            data.role = role
+        }
+        if (avatar) {
+            data.avatar = avatar
+            await ArticleService.updateMany({ 'createBy._id': userId }, { $set: {
+                'createBy.avatar': avatar
+            } })
+        }
         const res = await UserService.updateUser(userId, {
-            $set: {
-                email,
-                role
-            }
+            $set: data
         })
         ctx.body = res
     },
