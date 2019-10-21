@@ -9,7 +9,7 @@ const accessKey = '2ggKxYmve6LqD4Y0QfgW0T3Yx192-WvEMaCxWrwy'
 const secretKey = '0Tm6lAuHvTXvBYqs3_ULGoPYJ-Z4ebSxHx6UySM4'
 // 时间戳防盗链密钥
 const encryptKey = '099ae9b9d5b8bca877987fb8cd9b6e8a61a9119a'
-const domain = 'http://cdn.jscode.top'
+const domain = '//cdn.jscode.top'
 
 module.exports = {
     async signQRCode(otp_secret) {
