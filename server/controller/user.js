@@ -145,5 +145,9 @@ module.exports = {
             jwt: auth.getToken({ user: user.user }),
             expires: 7
         }, user)
+    },
+    async youpaiSignHeader(ctx) {
+        const res = await auth.youpaiSignHeader(ctx.request.query)
+        ctx.body = res
     }
 }

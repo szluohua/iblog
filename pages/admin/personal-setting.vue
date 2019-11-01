@@ -6,11 +6,9 @@
         list-type="picture-card"
         class="avatar-uploader"
         :show-upload-list="false"
-        action="https://upload-z2.qiniup.com"
-        :data="uploadToken"
-        @change="handleChange"
+        :custom-request="customRequest"
     >
-        <img v-if="imageUrl" :src="imageUrl" width="100" height="100" alt="avatar">
+        <img v-if="imageUrl" :src="`${config.cdnUrl}${imageUrl}`" width="100" height="100" alt="avatar">
         <div v-else>
             <a-icon :type="loading ? 'loading' : 'plus'" />
             <div class="ant-upload-text">
@@ -70,9 +68,11 @@
 </template>
 
 <script>
-import { signQRCode, setOtpAuth, getUploadToken, updateUser } from '@/api/index'
+import { signQRCode, setOtpAuth, getUploadToken, updateUser, youpaiSignHeader } from '@/api/index'
 import { mapState } from 'vuex'
 import { toastr } from '@/utils/index'
+import config from '@/front-config.json'
+import upyun from 'upyun'
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
     data() {
@@ -82,10 +82,12 @@ export default {
             imageUrl: '',
             uploadToken: {},
             password: '',
+            config: {},
             loading: false,
             showContainer: '',
             qrurl: '',
             code: '',
+            isClient: false,
             steps: [{
                 title: '第一步'
             }, {
@@ -103,25 +105,36 @@ export default {
         this.imageUrl = this.userInfo.avatar
         const token = await getUploadToken()
         this.uploadToken = token
+        this.config = process.env.NODE_ENV === 'production' ? config.prod : config.dev
     },
     methods: {
-        async handleChange(event) {
-            if (event.file.status === 'uploading') {
-                this.loading = true
-                return
-            }
-            const res = event.file.response
-            if (res && res.key) {
-                const imageUrl = `${process.env.apiUrl}/v1/getFile?key=${res.key}`
-                const result = await updateUser({
-                    userId: this.userInfo._id,
-                    avatar: imageUrl
+        customRequest(data) {
+            const file = data.file
+            const bucket = new upyun.Service('jscode-top')
+            const client = new upyun.Client(bucket, function (bucket, method, path) {
+                const params = {
+                    bucket: bucket.bucketName,
+                    method,
+                    path
+                }
+                return youpaiSignHeader(params).then((res) => {
+                    return res
                 })
-                this.loading = false
+            })
+            const suffixArray = file.name.split('.')
+            const suffix = suffixArray[suffixArray.length - 1]
+            const path = `/avatar/${file.uid}.${suffix}`
+            const _this = this
+            client.putFile(path, file).then(async function (res) {
+                const result = await updateUser({
+                    userId: _this.userInfo._id,
+                    avatar: path
+                })
+                _this.loading = false
                 if (result) {
-                    this.imageUrl = imageUrl
+                    _this.imageUrl = path
                     toastr(Swal, 'success', '上传成功！')
-                    const user = Object.assign({}, this.userInfo, { avatar: imageUrl })
+                    const user = Object.assign({}, _this.userInfo, { avatar: path })
                     Cookie.set('user', user, {
                         expires: new Date(
                             new Date().getTime() +
@@ -129,8 +142,37 @@ export default {
                         )
                     })
                 }
-            }
+                return true
+            }).catch((err) => {
+                console.log('err', err)
+            })
         },
+        // async handleChange(event) {
+        //     if (event.file.status === 'uploading') {
+        //         this.loading = true
+        //         return
+        //     }
+        //     const res = event.file.response
+        //     if (res && res.key) {
+        //         const imageUrl = `${process.env.apiUrl}/v1/getFile?key=${res.key}`
+        //         const result = await updateUser({
+        //             userId: this.userInfo._id,
+        //             avatar: imageUrl
+        //         })
+        //         this.loading = false
+        //         if (result) {
+        //             this.imageUrl = imageUrl
+        //             toastr(Swal, 'success', '上传成功！')
+        //             const user = Object.assign({}, this.userInfo, { avatar: imageUrl })
+        //             Cookie.set('user', user, {
+        //                 expires: new Date(
+        //                     new Date().getTime() +
+        //                         7 * 86400000
+        //                 )
+        //             })
+        //         }
+        //     }
+        // },
         async changeAuthSwitch(value) {
             if (value) {
                 const res = await signQRCode({ userId: this.userInfo._id })

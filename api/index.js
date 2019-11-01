@@ -85,3 +85,7 @@ export function setOtpAuth(params) {
 export function verifyOTPToken(params) {
     return request({ url: '/verifyOTPToken', params, method: 'post' })
 }
+
+export function youpaiSignHeader(params) {
+    return request({ url: '/v1/youpaiSignHeader', params, method: 'get' })
+}

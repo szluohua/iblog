@@ -37,4 +37,5 @@ router.get('/api/v1/findHotArticleList', ArticleController.findHotArticleList)
 router.get('/api/v1/getAllCount', CommentController.getAllCount)
 router.get('/api/v1/updatePV', SettingController.updatePV)
 router.get('/api/v1/getSettingByKey', SettingController.getSettingByKey)
+router.get('/api/v1/youpaiSignHeader', UserController.youpaiSignHeader)
 module.exports = router

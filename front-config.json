@@ -1,8 +1,10 @@
 {
     "dev": {
-        "apiUrl": "http://localhost:3000/api"
+        "apiUrl": "http://localhost:3000/api",
+        "cdnUrl": "https://cdn1.jscode.top"
     },
     "prod": {
-        "apiUrl": "https://jscode.top/api"
+        "apiUrl": "https://jscode.top/api",
+        "cdnUrl": "https://cdn1.jscode.top"
     }
 }
