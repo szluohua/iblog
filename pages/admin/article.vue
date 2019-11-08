@@ -97,7 +97,13 @@
                 <a-switch v-model="uploadTitlePhoto" />
             </a-form-item>
             <a-form-item v-if="uploadTitlePhoto">
-                <a-upload-dragger :show-upload-list="false" name="file" action="https://upload-z2.qiniup.com" :data="uploadToken" @change="uploadTilteImage">
+                <a-upload-dragger
+                    name="file"
+                    list-type="picture-card"
+                    class="avatar-uploader"
+                    :show-upload-list="false"
+                    :custom-request="customRequest('title')"
+                >
                     <p class="ant-upload-drag-icon">
                     <a-icon type="inbox" />
                     </p>
@@ -115,7 +121,13 @@
                 <a-switch v-model="showUpload" />
             </a-form-item>
             <a-form-item v-if="showUpload">
-                <a-upload-dragger :show-upload-list="false" name="file" action="https://upload-z2.qiniup.com" :data="uploadToken" @change="uploadImageChange">
+                <a-upload-dragger
+                    name="file"
+                    list-type="picture-card"
+                    class="avatar-uploader"
+                    :show-upload-list="false"
+                    :custom-request="customRequest('photo')"
+                >
                     <p class="ant-upload-drag-icon">
                     <a-icon type="inbox" />
                     </p>
@@ -144,7 +156,8 @@ import {
     mapState
 } from 'vuex'
 import MarkdownEditor from '@/components/markdown-editor'
-import { createArticle, getCategoryList, getUploadToken, createCategory, getArticleDetail } from '@/api/index'
+import { createArticle, getCategoryList, getUploadToken, createCategory, getArticleDetail, youpaiSignHeader } from '@/api/index'
+import upyun from 'upyun'
 import { toastr } from '@/utils/index'
 export default {
     name: 'Article',
@@ -221,19 +234,33 @@ export default {
                 }
             }
         },
-        uploadImageChange(event) {
-            const res = event.file.response
-            if (res && res.key) {
+        customRequest(data, type) {
+            const file = data.file
+            const bucket = new upyun.Service('jscode-top')
+            const client = new upyun.Client(bucket, function (bucket, method, path) {
+                const params = {
+                    bucket: bucket.bucketName,
+                    method,
+                    path
+                }
+                return youpaiSignHeader(params).then((res) => {
+                    return res
+                })
+            })
+            const suffixArray = file.name.split('.')
+            const suffix = suffixArray[suffixArray.length - 1]
+            const path = `/article/${file.uid}.${suffix}`
+            const _this = this
+            client.putFile(path, file).then(async function (res) {
                 toastr(Swal, 'success', '上传成功！')
-                this.content += `\n![image]( ${process.env.apiUrl}/v1/getFile?key=${res.key})`
-            }
-        },
-        uploadTilteImage(event) {
-            const res = event.file.response
-            if (res && res.key) {
-                toastr(Swal, 'success', '上传成功！')
-                this.titlePhoto = `${process.env.apiUrl}/v1/getFile?key=${res.key}`
-            }
+                if (type === 'photo') {
+                    this.content += `\n![image](${path})`
+                } else {
+                    this.titlePhoto = path
+                }
+            }).catch((err) => {
+                console.log('err', err)
+            })
         },
         categoryChange(value) {
             this.selectedCategory = value

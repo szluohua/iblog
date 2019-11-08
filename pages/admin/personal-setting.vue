@@ -8,7 +8,7 @@
         :show-upload-list="false"
         :custom-request="customRequest"
     >
-        <img v-if="imageUrl" :src="`${config.cdnUrl}${imageUrl}`" width="100" height="100" alt="avatar">
+        <img v-if="imageUrl" :src="`${cdnUrl}${imageUrl}`" width="100" height="100" alt="avatar">
         <div v-else>
             <a-icon :type="loading ? 'loading' : 'plus'" />
             <div class="ant-upload-text">
@@ -71,7 +71,6 @@
 import { signQRCode, setOtpAuth, getUploadToken, updateUser, youpaiSignHeader } from '@/api/index'
 import { mapState } from 'vuex'
 import { toastr } from '@/utils/index'
-import config from '@/front-config.json'
 import upyun from 'upyun'
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
@@ -82,7 +81,7 @@ export default {
             imageUrl: '',
             uploadToken: {},
             password: '',
-            config: {},
+            cdnUrl: process.env.cdnUrl,
             loading: false,
             showContainer: '',
             qrurl: '',
@@ -105,7 +104,6 @@ export default {
         this.imageUrl = this.userInfo.avatar
         const token = await getUploadToken()
         this.uploadToken = token
-        this.config = process.env.NODE_ENV === 'production' ? config.prod : config.dev
     },
     methods: {
         customRequest(data) {
@@ -147,32 +145,6 @@ export default {
                 console.log('err', err)
             })
         },
-        // async handleChange(event) {
-        //     if (event.file.status === 'uploading') {
-        //         this.loading = true
-        //         return
-        //     }
-        //     const res = event.file.response
-        //     if (res && res.key) {
-        //         const imageUrl = `${process.env.apiUrl}/v1/getFile?key=${res.key}`
-        //         const result = await updateUser({
-        //             userId: this.userInfo._id,
-        //             avatar: imageUrl
-        //         })
-        //         this.loading = false
-        //         if (result) {
-        //             this.imageUrl = imageUrl
-        //             toastr(Swal, 'success', '上传成功！')
-        //             const user = Object.assign({}, this.userInfo, { avatar: imageUrl })
-        //             Cookie.set('user', user, {
-        //                 expires: new Date(
-        //                     new Date().getTime() +
-        //                         7 * 86400000
-        //                 )
-        //             })
-        //         }
-        //     }
-        // },
         async changeAuthSwitch(value) {
             if (value) {
                 const res = await signQRCode({ userId: this.userInfo._id })

@@ -48,7 +48,8 @@ export default {
     },
     data() {
         return {
-            list: []
+            list: [],
+            cdnUrl: process.env.cdnUrl
         }
     },
     watch: {
@@ -65,7 +66,7 @@ export default {
             const imageWidth = 640 + 16 * index
             const imageHeight = 360 + 9 * index
             if (value.titlePhoto) {
-                return value.titlePhoto
+                return this.cdnUrl + value.titlePhoto
             }
             return `https://source.unsplash.com/${imageWidth}x${imageHeight}/?wallpapers`
         },
