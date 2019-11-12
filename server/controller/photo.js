@@ -50,7 +50,7 @@ module.exports = {
         const req = ctx.request.query
         if (req && req.path) {
             // const url = auth.fileSign(req.key)
-            const url = allConfig.cdnUrl + req.path
+            const url = allConfig.youpaiCdnUrl + req.path
             ctx.status = 301
             ctx.redirect(url)
         }

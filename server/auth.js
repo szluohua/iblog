@@ -5,7 +5,7 @@ const qrcode = require('qrcode')
 const upyun = require('upyun')
 let allConfig = require('../config.json')
 allConfig = process.env.NODE_ENV === 'production' ? allConfig.prod : allConfig.dev
-const { secret, otp_redirect_secret, otp_user, otp_service, accessKey, secretKey, encryptKey, domain, youpaiBucket, youpaiUser, youpaiPass } = allConfig
+const { secret, otp_redirect_secret, otp_user, otp_service, qiniuAccessKey, qiniuSecretKey, qiniuEncryptKey, qiniuDomain, youpaiBucket, youpaiUser, youpaiPass } = allConfig
 module.exports = {
     async signQRCode(otp_secret) {
         let url = otplib.authenticator.keyuri(otp_user, otp_service, otp_secret)
@@ -33,7 +33,7 @@ module.exports = {
         return jwt.sign(payload, otp_redirect_secret, { expiresIn: '6h' })
     },
     getQiniuUploadToken() {
-        const mac = new qiniu.auth.digest.Mac(accessKey, secretKey)
+        const mac = new qiniu.auth.digest.Mac(qiniuAccessKey, qiniuSecretKey)
         // 自定义凭证有效期（示例2小时，expires单位为秒，为上传凭证的有效时间）
         const putPolicy = new qiniu.rs.PutPolicy({
             scope: 'jscode',
@@ -44,7 +44,7 @@ module.exports = {
     fileSign(key) {
         const cdnManager = new qiniu.cdn.CdnManager(null)
         const deadline = parseInt(Date.now() / 1000) + 3600
-        return cdnManager.createTimestampAntiLeechUrl(domain, key, null, encryptKey, deadline)
+        return cdnManager.createTimestampAntiLeechUrl(qiniuDomain, key, null, qiniuEncryptKey, deadline)
     },
     youpaiSignHeader(payload) {
         const bucket = new upyun.Service(youpaiBucket, youpaiUser, youpaiPass)

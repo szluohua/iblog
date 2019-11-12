@@ -1,12 +1,12 @@
 {
     "dev": {
         "apiUrl": "http://localhost:3000/api",
-        "cdnUrl": "https://cdn1.jscode.top",
+        "youpaiCdnUrl": "https://cdn1.jscode.top",
         "bucket": "jscode-top"
     },
     "prod": {
         "apiUrl": "https://jscode.top/api",
-        "cdnUrl": "https://cdn1.jscode.top",
+        "youpaiCdnUrl": "https://cdn1.jscode.top",
         "bucket": "jscode-top"
     }
 }
