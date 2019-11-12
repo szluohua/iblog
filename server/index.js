@@ -29,7 +29,6 @@ Mongoose.connect(dbURI, {
 })
 Mongoose.Promise = global.Promise
 
-const secret = 'secret'
 // Import and Set Nuxt.js options
 config.dev = !(app.env === 'production')
 
@@ -85,7 +84,7 @@ async function start() {
         max: 100,
         disableHeader: false
     }))
-    app.use(jwtKoa({ secret: secret, cookie: 'auth' }).unless({
+    app.use(jwtKoa({ secret: allConfig.secret, cookie: 'auth' }).unless({
     // 设置login、register接口，可以不需要认证访问
         path: [
             /^\/api\/login/,

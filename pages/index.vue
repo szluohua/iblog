@@ -48,8 +48,7 @@ export default {
     },
     data() {
         return {
-            list: [],
-            cdnUrl: process.env.cdnUrl
+            list: []
         }
     },
     watch: {
@@ -65,10 +64,7 @@ export default {
         showPhoto(value, index) {
             const imageWidth = 640 + 16 * index
             const imageHeight = 360 + 9 * index
-            if (value.titlePhoto) {
-                return this.cdnUrl + value.titlePhoto
-            }
-            return `https://source.unsplash.com/${imageWidth}x${imageHeight}/?wallpapers`
+            return value.titlePhoto ? value.titlePhoto : `https://source.unsplash.com/${imageWidth}x${imageHeight}/?wallpapers`
         },
         clickArticle(value) {
             return this.$router.push(`/article_detail/${value._id}`)

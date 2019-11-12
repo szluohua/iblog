@@ -24,13 +24,10 @@ export default {
         return params.id && /^\S+$/.test(params.id)
     },
     async asyncData({ params, redirect }) {
-        let res = await getArticleDetail({ _id: params.id })
+        const res = await getArticleDetail({ _id: params.id })
         if (!res) {
             return redirect('/404')
         }
-        const regexp = new RegExp('![image](/article', 'g')
-        const path = `![image](${process.env.cdnUrl}/article`
-        res = res.replace(regexp, path)
         return {
             article: res
         }

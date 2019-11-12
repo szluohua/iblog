@@ -8,7 +8,7 @@
         :show-upload-list="false"
         :custom-request="customRequest"
     >
-        <img v-if="imageUrl" :src="`${cdnUrl}${imageUrl}`" width="100" height="100" alt="avatar">
+        <img v-if="imageUrl" :src="$getFile(imageUrl)" width="100" height="100" alt="avatar">
         <div v-else>
             <a-icon :type="loading ? 'loading' : 'plus'" />
             <div class="ant-upload-text">
@@ -81,7 +81,6 @@ export default {
             imageUrl: '',
             uploadToken: {},
             password: '',
-            cdnUrl: process.env.cdnUrl,
             loading: false,
             showContainer: '',
             qrurl: '',
@@ -108,7 +107,7 @@ export default {
     methods: {
         customRequest(data) {
             const file = data.file
-            const bucket = new upyun.Service('jscode-top')
+            const bucket = new upyun.Service(process.env.bucket)
             const client = new upyun.Client(bucket, function (bucket, method, path) {
                 const params = {
                     bucket: bucket.bucketName,
@@ -223,10 +222,10 @@ export default {
         display: flex;
         margin-top: 40px;
     }
-    .otp-container {
-        // width: 900px !important;
-        // background-color: #fff;
-    }
+    // .otp-container {
+    //     // width: 900px !important;
+    //     // background-color: #fff;
+    // }
     .close-otp {
         margin: 0 auto;
         width: 200px;

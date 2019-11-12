@@ -1,5 +1,5 @@
 <template>
-    <a-comment :author="comment.commentBy.username" :avatar="comment.commentBy.avatar" :content="comment.content" :datetime="$dayjs().from(comment.createdAt)">
+    <a-comment :author="comment.commentBy.username" :avatar="$getFile(comment.commentBy.avatar)" :content="comment.content" :datetime="$dayjs().from(comment.createdAt)">
         <template slot="actions">
             <span>
                 <a-tooltip title="Like">

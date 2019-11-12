@@ -102,7 +102,7 @@
                     list-type="picture-card"
                     class="avatar-uploader"
                     :show-upload-list="false"
-                    :custom-request="customRequest('title')"
+                    :custom-request="uploadTitleRequest"
                 >
                     <p class="ant-upload-drag-icon">
                     <a-icon type="inbox" />
@@ -126,7 +126,7 @@
                     list-type="picture-card"
                     class="avatar-uploader"
                     :show-upload-list="false"
-                    :custom-request="customRequest('photo')"
+                    :custom-request="uploadPhotoRequest"
                 >
                     <p class="ant-upload-drag-icon">
                     <a-icon type="inbox" />
@@ -234,9 +234,15 @@ export default {
                 }
             }
         },
+        uploadTitleRequest(data) {
+            return this.customRequest(data, 'title')
+        },
+        uploadPhotoRequest(data) {
+            return this.customRequest(data, 'photo')
+        },
         customRequest(data, type) {
             const file = data.file
-            const bucket = new upyun.Service('jscode-top')
+            const bucket = new upyun.Service(process.env.bucket)
             const client = new upyun.Client(bucket, function (bucket, method, path) {
                 const params = {
                     bucket: bucket.bucketName,
@@ -250,13 +256,14 @@ export default {
             const suffixArray = file.name.split('.')
             const suffix = suffixArray[suffixArray.length - 1]
             const path = `/article/${file.uid}.${suffix}`
+            const f_url = this.$getFile(path)
             const _this = this
-            client.putFile(path, file).then(async function (res) {
+            client.putFile(path, file).then(function (res) {
                 toastr(Swal, 'success', '上传成功！')
                 if (type === 'photo') {
-                    this.content += `\n![image](${path})`
+                    _this.content += `\n![image](${f_url})`
                 } else {
-                    this.titlePhoto = path
+                    _this.titlePhoto = f_url
                 }
             }).catch((err) => {
                 console.log('err', err)

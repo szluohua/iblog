@@ -1,7 +1,10 @@
 const axios = require('axios')
 const qs = require('qs')
+// unsplash key
 const key = '7b5bc72cfd053d5ed225f73e07e7e5d8908c6a450c01ac2611eff51b9b4c65ac'
-const auth = require('../auth')
+// const auth = require('../auth')
+let allConfig = require('../../config.json')
+allConfig = process.env.NODE_ENV === 'production' ? allConfig.prod : allConfig.dev
 const request = ({ url, params = {}, method = 'post' }) => {
     const config = {
         method,
@@ -45,8 +48,9 @@ module.exports = {
     },
     fileSignatures(ctx) {
         const req = ctx.request.query
-        if (req && req.key) {
-            const url = auth.fileSign(req.key)
+        if (req && req.path) {
+            // const url = auth.fileSign(req.key)
+            const url = allConfig.cdnUrl + req.path
             ctx.status = 301
             ctx.redirect(url)
         }

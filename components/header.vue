@@ -20,9 +20,7 @@
                     关于
                 </a-menu-item>
                 <a-sub-menu v-if="userInfo">
-                    <span slot="title" class="submenu-title-wrapper">
-                        <a-avatar slot="avatar" rel="noopener noreferrer" :src="userInfo.avatar" />
-                    </span>
+                    <a-avatar v-if="avatarUrl" slot="title" class="submenu-title-wrapper" rel="noopener noreferrer" :src="avatarUrl + userInfo.avatar" />
                     <a-menu-item key="/admin/personal-setting">
                         个人设置
                     </a-menu-item>
@@ -64,7 +62,9 @@ export default {
             data: [],
             value: [],
             fetching: false,
-            current: []
+            current: [],
+            avatarUrl: `${process.env.apiUrl}/v1/getFile?path=`
+            // 使用slot，再是用$getFile,组件props解析报错
         }
     },
     computed: {

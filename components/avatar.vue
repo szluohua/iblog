@@ -1,5 +1,5 @@
 <template>
-    <a-avatar v-if="typeof user === 'object' && user.avatar" :src="user.avatar" :alt="user.username" />
+    <a-avatar v-if="typeof user === 'object' && user.avatar" :src="$getFile(user.avatar)" :alt="user.username" />
     <a-avatar v-else-if="typeof user === 'object' && user.username" style="color: #f56a00; backgroundColor: #fde3cf">
         {{ showStr(user.username) }}
     </a-avatar>
