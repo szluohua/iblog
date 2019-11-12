@@ -215,6 +215,7 @@ export default {
                     desc
                 })
                 this.content = res.content
+                this.titlePhoto = res.titlePhoto
             }
         },
         async addNewCategory() {
