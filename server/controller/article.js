@@ -1,3 +1,4 @@
+const ghGot = require('gh-got')
 const ArticleService = require('../proxy/article')
 const CategoryService = require('../proxy/category')
 // const PhotoController = require('./photo')
@@ -29,12 +30,20 @@ module.exports = {
         ctx.body = articleList
     },
     async getArticleDetail(ctx) {
-        const req = ctx.request.query
+        const { render, ...req } = ctx.request.query
         await ArticleService.updateOne(req, { $inc: { viewed: 1 } })
         const article = await ArticleService.findOne(req)
         if (article) {
             const categorys = await CategoryService.find({ _id: { $in: article.category } })
             article.category = categorys.map((v) => { return { name: v.name, id: v._id } })
+            if (render) {
+                const renderData = await ghGot.post('markdown/raw', {
+                    body: article.content,
+                    headers: { 'content-type': 'text/plain' },
+                    json: false
+                })
+                article.content = renderData.body
+            }
             ctx.body = article
         }
     },

@@ -1,15 +1,18 @@
 <template>
     <div class="MdRender-contaienr">
-        <div class="article-header">
-            <h2>{{ article.title }}</h2>
-            <div class="article-header-info">
-                <span><a-icon type="eye" />{{ article.viewed }}</span>
-                <span><a-icon type="message" />{{ article.comment }}</span>
-                <span><a-icon type="star" />{{ article.stared }}</span>
-                <span><a-icon type="user" />Leo Luo</span>
+        <template v-if="article">
+            <div class="article-header">
+                <h2>{{ article.title }}</h2>
+                <div class="article-header-info">
+                    <span><a-icon type="eye" />{{ article.viewed }}</span>
+                    <span><a-icon type="message" />{{ article.comment }}</span>
+                    <span><a-icon type="star" />{{ article.stared }}</span>
+                    <span><a-icon type="user" />Leo Luo</span>
+                </div>
             </div>
-        </div>
-        <div id="viewerSection" class="markdown-body" />
+            <div v-if="article.content" id="viewerSection" class="markdown-body" v-html="article.content" />
+        </template>
+        <a-icon v-else class="loading-container" type="loading" />
         <comment />
 </div>
 </template>
@@ -23,9 +26,9 @@ export default {
     },
     props: {
         article: {
-            type: Object,
+            type: [Object, String],
             default: () => {
-                return {}
+                return ''
             }
         }
     },
@@ -35,11 +38,11 @@ export default {
         }
     },
     mounted() {
-        tui.Editor.factory({
-            el: document.querySelector('#viewerSection'),
-            viewer: true,
-            initialValue: this.article.content
-        })
+        // tui.Editor.factory({
+        //     el: document.querySelector('#viewerSection'),
+        //     viewer: true,
+        //     initialValue: this.article.content
+        // })
     }
 }
 </script>
@@ -53,6 +56,13 @@ export default {
     // max-width: 980px;
     // margin: 0 auto;
     padding: 40px;
+    .loading-container {
+        font-size: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 500px;
+    }
     .markdown-body {
         margin: 80px 0;
     }

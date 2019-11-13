@@ -17,22 +17,27 @@ export default {
     },
     data() {
         return {
-            article: {}
+            article: ''
         }
     },
     validate({ params }) {
         return params.id && /^\S+$/.test(params.id)
     },
-    async asyncData({ params, redirect }) {
-        const res = await getArticleDetail({ _id: params.id })
-        if (!res) {
-            return redirect('/404')
+    async mounted() {
+        const route = this.$route
+        const id = route.params.id
+        if (id) {
+            const _this = this
+            const res = await getArticleDetail({ _id: route.params.id, render: true })
+            if (res) {
+                _this.$nextTick(function () {
+                    _this.article = res
+                })
+                return
+            }
         }
-        return {
-            article: res
-        }
-    },
-    methods: {}
+        this.$router.push('/404')
+    }
 }
 </script>
 

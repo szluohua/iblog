@@ -30,6 +30,10 @@
         {
             "href": "https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css",
             "rel": "stylesheet"
+        },
+        {
+            "href": "https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css",
+            "rel": "stylesheet"
         }
     ]
 }

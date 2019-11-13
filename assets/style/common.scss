@@ -12,9 +12,11 @@
 	left:0;
 	right:0;
 }
-.tui-editor-contents {
-	font-size: 14px;
-	& .code {
-		color: #ff4c7a;
+.markdown-body {
+	code {
+		color: #e91e63;
+	}
+	pre code {
+		color: inherit;
 	}
 }
