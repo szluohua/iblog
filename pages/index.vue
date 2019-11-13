@@ -108,7 +108,7 @@ export default {
                 width: 284px;
             }
             .article-content {
-                flex: 1 0 auto;
+                flex: 1;
                 display: flex;
                 flex-direction: column;
                 padding-left: 20px;
