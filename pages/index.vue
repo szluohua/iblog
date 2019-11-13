@@ -105,7 +105,7 @@ export default {
             .article-background {
                 display: inline-block;
                 height: 100%;
-                width: auto;
+                width: 284px;
             }
             .article-content {
                 flex: 1 0 auto;
