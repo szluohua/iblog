@@ -89,3 +89,11 @@ export function verifyOTPToken(params) {
 export function youpaiSignHeader(params) {
     return request({ url: '/v1/youpaiSignHeader', params, method: 'get' })
 }
+
+export function getIPs(params) {
+    return request({ url: '/getIPs', params, method: 'get' })
+}
+
+export function createOrUpdateIP(params) {
+    return request({ url: '/createOrUpdateIP', params, method: 'post' })
+}

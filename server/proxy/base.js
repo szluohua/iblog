@@ -28,8 +28,8 @@ class ProxyBase {
         return res
     }
 
-    async updateOne(query, data) {
-        const res = await this.model.updateOne(query, data)
+    async updateOne(query, data, option = {}) {
+        const res = await this.model.updateOne(query, data, option)
         return res
     }
 

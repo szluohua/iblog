@@ -10,6 +10,7 @@ const Redis = require('ioredis')
 const config = require('../nuxt.config.js')
 let allConfig = require('../config.json')
 const router = require('./router')
+const IPService = require('./proxy/ip')
 allConfig = process.env.NODE_ENV === 'production' ? allConfig.prod : allConfig.dev
 // const dbURI = `mongodb://${encodeURIComponent(config.PRIMARY.username)}:${encodeURIComponent(config.PRIMARY.password)}@${config.SECONDARY1},${config.SECONDARY2},${config.PRIMARY.host}/${config.dbName}?slaveOk=true&replicaSet=${config.replicaSet}`;
 const dbURI = `mongodb://${encodeURIComponent(allConfig.mongodbUser)}:${encodeURIComponent(allConfig.mongodbPassword)}@127.0.0.1:27017/iblog`
@@ -28,7 +29,7 @@ Mongoose.connect(dbURI, {
     }
 })
 Mongoose.Promise = global.Promise
-
+app.proxy = true
 // Import and Set Nuxt.js options
 config.dev = !(app.env === 'production')
 
@@ -49,6 +50,13 @@ async function start() {
         await nuxt.ready()
     }
 
+    app.use(async (ctx, next) => {
+        const { url, ip } = ctx.request
+        if (url === '/') {
+            await IPService.createOrUpdateIP({ ip })
+        }
+        await next()
+    })
     // 统一异常捕获处理
     app.use(async (ctx, next) => {
         try {

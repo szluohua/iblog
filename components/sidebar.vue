@@ -21,6 +21,9 @@
         <a-menu-item key="/admin/users">
             <a-icon type="user" /><span>用户管理</span>
         </a-menu-item>
+        <a-menu-item key="/admin/visit">
+            <a-icon type="eye" /><span>访问记录</span>
+        </a-menu-item>
     </a-menu>
 </template>
 
