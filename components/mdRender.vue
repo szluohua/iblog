@@ -35,12 +35,11 @@ export default {
         }
     },
     mounted() {
-        var editor = tui.Editor.factory({
+        tui.Editor.factory({
             el: document.querySelector('#viewerSection'),
             viewer: true,
             initialValue: this.article.content
         })
-        console.log('ed', editor)
     }
 }
 </script>
