@@ -34,8 +34,6 @@
     "koa-route": "^3.2.0",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.11",
-    "markdown": "^0.5.0",
-    "markdown-it-vue": "^1.0.9",
     "mongoose": "^5.6.0",
     "mongoose-validate": "0.0.5",
     "node-sass": "^4.12.0",

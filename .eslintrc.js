@@ -30,9 +30,7 @@ module.exports = {
     'Swal': true,
     'Quill': true,
     'markdownit': true,
-    'marked': true,
-    'tui': true,
-    'hljs': true
+    'tui': true
   }
 }
 

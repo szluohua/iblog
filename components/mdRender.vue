@@ -9,8 +9,7 @@
                 <span><a-icon type="user" />Leo Luo</span>
             </div>
         </div>
-        <!-- <div class="markdown-body" v-html="renderContent" /> -->
-        <markdown-it-vue class="md-body" :content="article.content" />
+        <div id="viewerSection" class="markdown-body" />
         <comment />
 </div>
 </template>
@@ -36,15 +35,12 @@ export default {
         }
     },
     mounted() {
-        // this.$nextTick(() => {
-        //     // highlight.js的同步高亮
-        //     marked.setOptions({
-        //         highlight: function (code) {
-        //             return hljs.highlightAuto(code).value
-        //         }
-        //     })
-        //     this.renderContent = marked(this.article.content)
-        // })
+        var editor = tui.Editor.factory({
+            el: document.querySelector('#viewerSection'),
+            viewer: true,
+            initialValue: this.article.content
+        })
+        console.log('ed', editor)
     }
 }
 </script>

@@ -66,8 +66,7 @@ module.exports = {
     plugins: [
         '@/plugins/antd-ui',
         '@/plugins/dayjs',
-        '@/plugins/util',
-        { src: '@/plugins/markdown-it', ssr: false }
+        '@/plugins/util'
     ],
     router: {
         middleware: ['auth']
