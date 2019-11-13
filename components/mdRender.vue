@@ -7,7 +7,7 @@
                     <span><a-icon type="eye" />{{ article.viewed }}</span>
                     <span><a-icon type="message" />{{ article.comment }}</span>
                     <span><a-icon type="star" />{{ article.stared }}</span>
-                    <span><a-icon type="user" />Leo Luo</span>
+                    <span><a-icon type="user" />{{article.createBy.username}}</span>
                 </div>
             </div>
             <div v-if="article.content" id="viewerSection" class="markdown-body" v-html="article.content" />
