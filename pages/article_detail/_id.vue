@@ -33,10 +33,10 @@ export default {
                 _this.$nextTick(function () {
                     _this.article = res
                 })
-                return
             }
+        } else {
+            this.$router.push('/404')
         }
-        this.$router.push('/404')
     }
 }
 </script>
