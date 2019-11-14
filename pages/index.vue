@@ -67,7 +67,10 @@ export default {
             return value.titlePhoto ? value.titlePhoto : `https://source.unsplash.com/${imageWidth}x${imageHeight}/?wallpapers`
         },
         clickArticle(value) {
-            return this.$router.push(`/article_detail/${value._id}`)
+            const routeUrl = this.$router.resolve({
+                path: `/article_detail/${value._id}`
+            })
+            window.open(routeUrl.href, '_blank')
         },
         imageStyle(value) {
             return value.urls.small.replace(/w=400/, 'w=450')

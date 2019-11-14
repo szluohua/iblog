@@ -23,19 +23,32 @@ export default {
     validate({ params }) {
         return params.id && /^\S+$/.test(params.id)
     },
-    async mounted() {
-        const route = this.$route
-        const id = route.params.id
-        if (id) {
-            const _this = this
-            const res = await getArticleDetail({ _id: route.params.id })
-            if (res) {
-                _this.$nextTick(function () {
-                    _this.article = res
-                })
-            }
-        } else {
-            this.$router.push('/404')
+    async asyncData({ params, redirect }) {
+        const res = await getArticleDetail({ _id: params.id })
+        if (!res) {
+            return redirect('/404')
+        }
+        return {
+            article: res
+        }
+    },
+    head() {
+        const { _id, title, category, desc } = this.article
+        if (!_id) {
+            return {}
+        }
+        let categoryContent = category.map((v) => {
+            return v.name
+        })
+        categoryContent = categoryContent.join(' ')
+        return {
+            title,
+            meta: [
+                { hid: `${_id}title`, name: 'description', content: title },
+                { hid: `${_id}desc`, name: 'description', content: desc },
+                { hid: `${_id}category`, name: 'keywords', content: categoryContent },
+                { hid: `${_id}revisit`, name: 'revisit-after', content: '30 days' }
+            ]
         }
     }
 }
