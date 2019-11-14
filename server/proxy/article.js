@@ -16,7 +16,8 @@ class ArticleServiceModel extends Base {
             data.category = { $in: [category] }
         }
         const fields = {
-            content: false
+            content: false,
+            renderContent: false
         }
         let res
         let limit = data.limit
@@ -29,7 +30,7 @@ class ArticleServiceModel extends Base {
         return res
     }
     async findHotArticleList() {
-        const res = await this.model.find({}, { content: false }).sort({ viewed: -1, comment: -1 }).limit(5)
+        const res = await this.model.find({}, { content: false, renderContent: false }).sort({ viewed: -1, comment: -1 }).limit(5)
         return res
     }
     async updateArticle(id, data) {

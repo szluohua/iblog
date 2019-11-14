@@ -13,6 +13,10 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
+    renderContent: {
+        type: String,
+        required: true
+    },
     desc: {
         type: String
     },

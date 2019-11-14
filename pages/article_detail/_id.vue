@@ -28,7 +28,7 @@ export default {
         const id = route.params.id
         if (id) {
             const _this = this
-            const res = await getArticleDetail({ _id: route.params.id, render: true })
+            const res = await getArticleDetail({ _id: route.params.id })
             if (res) {
                 _this.$nextTick(function () {
                     _this.article = res

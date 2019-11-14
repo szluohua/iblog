@@ -9,7 +9,7 @@
                 style="text-align: right; margin-right: 16px;"
                 :wrapper-col="{ span: 12, offset: 5 }"
             >
-                <a-button type="primary" html-type="submit">
+                <a-button type="primary" html-type="submit" :loading="loading">
                     Submit
                 </a-button>
             </a-form-item>
@@ -178,7 +178,8 @@ export default {
             newCategory: '',
             categoryList: [],
             editId: '',
-            uploadTitlePhoto: false
+            uploadTitlePhoto: false,
+            loading: false
         }
     },
     computed: {
@@ -302,7 +303,9 @@ export default {
                         },
                         values
                     )
+                    this.loading = true
                     const res = await createArticle(values)
+                    this.loading = false
                     if (res) {
                         toastr(Swal, 'success', `${this.editId ? '编辑' : '创建'}文章成功！`)
                         this.form.resetFields([
