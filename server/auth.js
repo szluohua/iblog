@@ -50,5 +50,13 @@ module.exports = {
         const bucket = new upyun.Service(youpaiBucket, youpaiUser, youpaiPass)
         const headSign = upyun.sign.getHeaderSign(bucket, payload.method, payload.path, payload.contentMD5)
         return headSign
+    },
+    checkUpdatePermission(ctx, checkId) {
+        const user_id = ctx.state.user._id
+        const role = ctx.state.user.role
+        if (role.indexOf('admin') === -1) {
+            return user_id === checkId
+        }
+        return true
     }
 }

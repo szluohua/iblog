@@ -85,6 +85,7 @@ export default {
         },
         deleteRecord(record) {
             const _this = this
+            const userInfo = this.$store.state.user
             Swal.fire({
                 title: '您确定吗？',
                 text: '该操作不可恢复',
@@ -96,7 +97,7 @@ export default {
                 reverseButtons: true
             }).then(async (result) => {
                 if (result.value) {
-                    const res = await deleteArticle({ _id: record._id })
+                    const res = await deleteArticle({ _id: record._id, userId: userInfo._id })
                     if (res) {
                         Swal.fire(
                             '删除成功！',

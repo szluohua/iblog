@@ -22,6 +22,9 @@ module.exports = {
     },
     async updateUser(ctx) {
         const { userId, email, role, avatar } = ctx.request.body
+        if (!auth.checkUpdatePermission(ctx, userId)) {
+            ctx.throw(403, '用户角色不正确')
+        }
         const data = {}
         if (email) {
             data.email = email
@@ -58,7 +61,7 @@ module.exports = {
                 user = user.toObject()
                 delete user.password
                 ctx.body = Object.assign({
-                    jwt: auth.getToken({ user: req.username }),
+                    jwt: auth.getToken({ role: user.role, _id: user._id }),
                     expires: 7
                 }, user)
             } else {
@@ -129,7 +132,7 @@ module.exports = {
             throw new Error('验证token不正确')
         }
         let user = await UserService.findOne({
-            username: result.user
+            _id: result._id
         })
         if (!user) {
             throw new Error('找不到用户')
@@ -142,7 +145,7 @@ module.exports = {
         delete user.password
         delete user.token
         ctx.body = Object.assign({
-            jwt: auth.getToken({ user: user.user }),
+            jwt: auth.getToken({ _id: user._id, role: user.role }),
             expires: 7
         }, user)
     },

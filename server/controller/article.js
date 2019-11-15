@@ -1,6 +1,7 @@
 const ghGot = require('gh-got')
 const ArticleService = require('../proxy/article')
 const CategoryService = require('../proxy/category')
+const Auth = require('../auth')
 // const PhotoController = require('./photo')
 const renderHTML = async (content) => {
     const renderData = await ghGot.post('markdown/raw', {
@@ -18,6 +19,9 @@ module.exports = {
         req.renderContent = await renderHTML(req.content)
         if (id) {
             delete req._id
+            if (!Auth.checkUpdatePermission(ctx, id)) {
+                ctx.throw(403, '用户角色不正确')
+            }
             createResult = await ArticleService.updateArticle(id, req)
         } else {
             createResult = await ArticleService.create(req)
@@ -53,7 +57,11 @@ module.exports = {
         ctx.body = articleList
     },
     async deleteArticleById(ctx) {
-        const result = await ArticleService.removeById(ctx.request.body._id)
+        const { _id, userId } = ctx.request.body
+        if (!Auth.checkUpdatePermission(ctx, userId)) {
+            ctx.throw(403, '用户角色不正确')
+        }
+        const result = await ArticleService.removeById(_id)
         ctx.body = result
     }
 }
