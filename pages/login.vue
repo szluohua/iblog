@@ -2,8 +2,8 @@
   <a-form
     id="components-form-demo-normal-login"
     :form="form"
-    class="login-form"
     @submit="handleSubmit"
+    class="login-form"
   >
     <a-form-item>
       <a-input

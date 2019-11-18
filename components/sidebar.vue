@@ -1,10 +1,10 @@
 <template>
     <a-menu
         v-model="current"
-        style="width: 256px"
         :open-keys.sync="openKeys"
-        mode="inline"
         @click="handleClick"
+        style="width: 256px"
+        mode="inline"
     >
         <a-sub-menu key="article" @titleClick="titleClick">
             <span slot="title"><a-icon type="book" /><span>内容管理</span></span>

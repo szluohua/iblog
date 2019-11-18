@@ -1,11 +1,11 @@
 <template>
 <div>
     <a-table
-    bordered
     :data-source="dataSource"
     :columns="columns"
-    row-key="_id"
     :loading="loading"
+    bordered
+    row-key="_id"
     >
         <template slot="createdAt" slot-scope="record">
             <p>
@@ -18,14 +18,14 @@
             </a-tag>
         </template>
         <template slot="operation" slot-scope="text, record">
-            <a-button type="primary" @click="editRecord(record)">
+            <a-button @click="editRecord(record)" type="primary">
                 编辑
             </a-button>
         </template>
     </a-table>
     <editUser
-      v-if="userData"
       ref="collectionForm"
+      v-if="userData"
       :visible="visible"
       :user="userData"
       @cancel="handleCancel"

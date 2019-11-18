@@ -1,11 +1,11 @@
 <template>
 <div>
     <a-table
-    bordered
     :data-source="dataSource"
     :columns="columns"
-    row-key="_id"
     :loading="loading"
+    bordered
+    row-key="_id"
     >
         <template slot="updatedAt" slot-scope="record">
             <p>

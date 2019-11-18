@@ -2,11 +2,11 @@
 <div class="personal-setting-container">
     <h3>更改用户头像: </h3>
     <a-upload
+        :show-upload-list="false"
+        :custom-request="customRequest"
         name="file"
         list-type="picture-card"
         class="avatar-uploader"
-        :show-upload-list="false"
-        :custom-request="customRequest"
     >
         <img v-if="imageUrl" :src="$getFile(imageUrl)" width="100" height="100" alt="avatar">
         <div v-else>
@@ -24,7 +24,7 @@
             </a-tooltip>
             :
         </h3>
-        <a-switch v-model="authSwitch" style="margin-left: 10px;" @change="changeAuthSwitch" />
+        <a-switch v-model="authSwitch" @change="changeAuthSwitch" style="margin-left: 10px;" />
     </div>
     <div v-if="showContainer" class="otp-container">
         <template v-if="showContainer === 'open'">
@@ -43,13 +43,13 @@
                 </div>
             </div>
             <div class="steps-action">
-                <a-button v-if="current < steps.length - 1" type="primary" @click="next">
+                <a-button v-if="current < steps.length - 1" @click="next" type="primary">
                     下一步
                 </a-button>
-                <a-button v-if="current == steps.length - 1" type="primary" @click="verify('auth')">
+                <a-button v-if="current == steps.length - 1" @click="verify('auth')" type="primary">
                     完成
                 </a-button>
-                <a-button v-if="current>0" style="margin-left: 8px" @click="prev">
+                <a-button v-if="current>0" @click="prev" style="margin-left: 8px">
                     上一步
                 </a-button>
             </div>
@@ -58,7 +58,7 @@
             <div class="close-otp">
                 <h5>请输入验证码</h5>
                 <a-input v-model="code" />
-                <a-button type="primary" style="margin-top: 20px;" @click="verify('close')">
+                <a-button @click="verify('close')" type="primary" style="margin-top: 20px;">
                     关闭双因素认证
                 </a-button>
             </div>
@@ -68,10 +68,10 @@
 </template>
 
 <script>
-import { signQRCode, setOtpAuth, getUploadToken, updateUser, youpaiSignHeader } from '@/api/index'
 import { mapState } from 'vuex'
-import { toastr } from '@/utils/index'
 import upyun from 'upyun'
+import { signQRCode, setOtpAuth, getUploadToken, updateUser, youpaiSignHeader } from '@/api/index'
+import { toastr } from '@/utils/index'
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
     data() {

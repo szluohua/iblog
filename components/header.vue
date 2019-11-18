@@ -2,16 +2,16 @@
     <a-layout-header class="header-container">
         <nuxt-link class="logo" to="/" />
         <div class="right-header">
-            <a-input-search placeholder="搜索..." style="width: 200px" @search="fetchUser">
-                <a-spin v-if="fetching" slot="notFoundContent" size="small" />
+            <a-input-search @search="fetchUser" placeholder="搜索..." style="width: 200px">
+                <a-spin slot="notFoundContent" v-if="fetching" size="small" />
             </a-input-search>
             <a-menu
                 v-model="current"
-                theme="light"
-                mode="horizontal"
                 :default-selected-keys="['2']"
                 :style="{ lineHeight: '64px' }"
                 @click="changeMenu"
+                theme="light"
+                mode="horizontal"
                 >
                 <!-- <a-menu-item key="">
                     文章
@@ -20,7 +20,7 @@
                     关于
                 </a-menu-item>
                 <a-sub-menu v-if="userInfo">
-                    <a-avatar v-if="avatarUrl" slot="title" class="submenu-title-wrapper" rel="noopener noreferrer" :src="avatarUrl + userInfo.avatar" />
+                    <a-avatar slot="title" v-if="avatarUrl" :src="avatarUrl + userInfo.avatar" class="submenu-title-wrapper" rel="noopener noreferrer" />
                     <a-menu-item key="/admin/personal-setting">
                         个人设置
                     </a-menu-item>

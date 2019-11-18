@@ -1,23 +1,23 @@
 <template>
     <div class="create-article-container">
-        <a-form :form="form" style="position: relative" @submit="handleSubmit">
+        <a-form :form="form" @submit="handleSubmit" style="position: relative">
             <div v-if="titlePhoto" class="review-img">
                 <img :src="titlePhoto" width="200" height="200">
-                <a-icon type="delete" @click="titlePhoto = ''" />
+                <a-icon @click="titlePhoto = ''" type="delete" />
             </div>
             <a-form-item
-                style="text-align: right; margin-right: 16px;"
                 :wrapper-col="{ span: 12, offset: 5 }"
+                style="text-align: right; margin-right: 16px;"
             >
-                <a-button type="primary" html-type="submit" :loading="loading">
+                <a-button :loading="loading" type="primary" html-type="submit">
                     Submit
                 </a-button>
             </a-form-item>
             <a-form-item
-                class="form-item-limit"
-                label="标题"
                 :label-col="{ span: 5 }"
                 :wrapper-col="{ span: 12 }"
+                class="form-item-limit"
+                label="标题"
             >
                 <a-input
                     v-decorator="[
@@ -34,10 +34,10 @@
                 />
             </a-form-item>
             <a-form-item
-                class="form-item-limit"
-                label="文章简介"
                 :label-col="{ span: 5 }"
                 :wrapper-col="{ span: 12 }"
+                class="form-item-limit"
+                label="文章简介"
             >
                 <a-textarea
                     v-decorator="[
@@ -60,15 +60,15 @@
             </a-form-item>
             <a-form-item v-if="addCategory" class="form-item-limit">
                 <a-input v-model="newCategory" />
-                <a-button type="primary" @click="addNewCategory">
+                <a-button @click="addNewCategory" type="primary">
                     新增标签
                 </a-button>
             </a-form-item>
             <a-form-item
-                class="form-item-limit"
-                label="标签"
                 :label-col="{ span: 5 }"
                 :wrapper-col="{ span: 12 }"
+                class="form-item-limit"
+                label="标签"
             >
                 <a-select
                     v-decorator="[
@@ -82,10 +82,10 @@
                             ]
                         }
                     ]"
+                    @change="categoryChange"
                     label-in-value
                     mode="multiple"
                     placeholder="请选择文章标签"
-                    @change="categoryChange"
                 >
                 <a-select-option v-for="(item, index) in filteredOptions" :key="index" :value="item._id">
                 {{ item.name }}
@@ -98,11 +98,11 @@
             </a-form-item>
             <a-form-item v-if="uploadTitlePhoto">
                 <a-upload-dragger
+                    :show-upload-list="false"
+                    :custom-request="uploadTitleRequest"
                     name="file"
                     list-type="picture-card"
                     class="avatar-uploader"
-                    :show-upload-list="false"
-                    :custom-request="uploadTitleRequest"
                 >
                     <p class="ant-upload-drag-icon">
                     <a-icon type="inbox" />
@@ -122,11 +122,11 @@
             </a-form-item>
             <a-form-item v-if="showUpload">
                 <a-upload-dragger
+                    :show-upload-list="false"
+                    :custom-request="uploadPhotoRequest"
                     name="file"
                     list-type="picture-card"
                     class="avatar-uploader"
-                    :show-upload-list="false"
-                    :custom-request="uploadPhotoRequest"
                 >
                     <p class="ant-upload-drag-icon">
                     <a-icon type="inbox" />
@@ -141,9 +141,9 @@
                 <div />
             </a-form-item>
             <a-form-item
-                label="文章内容"
                 :label-col="{ span: 5 }"
                 :wrapper-col="{ span: 12 }"
+                label="文章内容"
             >
                 <markdown-editor ref="markdownEditor" v-model="content" />
             </a-form-item>
@@ -155,9 +155,9 @@
 import {
     mapState
 } from 'vuex'
+import upyun from 'upyun'
 import MarkdownEditor from '@/components/markdown-editor'
 import { createArticle, getCategoryList, getUploadToken, createCategory, getArticleDetail, youpaiSignHeader } from '@/api/index'
-import upyun from 'upyun'
 import { toastr } from '@/utils/index'
 export default {
     name: 'Article',

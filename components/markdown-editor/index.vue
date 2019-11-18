@@ -75,7 +75,7 @@ export default {
     methods: {
         initEditor() {
             this.editor = new tui.Editor({
-                el: document.querySelector(`#markdown-editor`),
+                el: document.querySelector('#markdown-editor'),
                 ...this.editorOptions
             })
             if (this.value) {

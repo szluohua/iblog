@@ -4,12 +4,12 @@
             <a-card
                 v-for="(value, index) in list"
                 :key="value._id"
+                @click="clickArticle(value)"
                 hoverable
                 style="width: 950px; border-radius: 5px; margin-bottom: 40px;"
-                @click="clickArticle(value)"
             >
                 <div class="article-container">
-                    <img class="article-background" :src="showPhoto(value, index)">
+                    <img :src="showPhoto(value, index)" class="article-background">
                     <div class="article-content">
                         <h3 class="article-content-title">
                             {{ value.title }}

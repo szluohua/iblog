@@ -1,10 +1,10 @@
 <template>
     <a-table
-    bordered
     :data-source="dataSource"
     :columns="columns"
-    row-key="_id"
     :loading="loading"
+    bordered
+    row-key="_id"
     >
         <template slot="createdAt" slot-scope="record">
             <p>
@@ -17,10 +17,10 @@
             </p>
         </template>
         <template slot="operation" slot-scope="text, record">
-            <a-button type="primary" @click="editRecord(record)">
+            <a-button @click="editRecord(record)" type="primary">
                 编辑
             </a-button>
-            <a-button style="margin-left: 1rem;" type="danger" @click="deleteRecord(record)">
+            <a-button @click="deleteRecord(record)" style="margin-left: 1rem;" type="danger">
                 删除
             </a-button>
         </template>

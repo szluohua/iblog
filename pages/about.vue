@@ -1,7 +1,7 @@
 <template>
     <div class="profile-container">
         <div class="wrapper">
-            <div class="profile-card js-profile-card" :class="{ active }">
+            <div :class="{ active }" class="profile-card js-profile-card">
                 <!-- <div class="profile-card__img">
                     <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1537638518/Ba%C5%9Fl%C4%B1ks%C4%B1z-1.jpg" alt="profile card">
                 </div> -->
@@ -66,7 +66,7 @@
                         </a> -->
                     </div>
                     <div class="profile-card-ctr">
-                        <button class="profile-card__button button--blue js-message-btn" @click="active = true">
+                        <button @click="active = true" class="profile-card__button button--blue js-message-btn">
                             留言
                         </button>
                         <button class="profile-card__button button--orange">
@@ -88,7 +88,7 @@
                             </button>
                         </div>
                     </form>
-                    <div class="profile-card__overlay js-message-close" @click.prevent="active = false" />
+                    <div @click.prevent="active = false" class="profile-card__overlay js-message-close" />
                 </div>
             </div>
         </div>
