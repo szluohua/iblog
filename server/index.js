@@ -12,6 +12,7 @@ let allConfig = require('../config.json')
 const router = require('./router')
 const IPService = require('./proxy/ip')
 const RoleService = require('./proxy/role')
+const UserService = require('./proxy/user')
 allConfig = process.env.NODE_ENV === 'production' ? allConfig.prod : allConfig.dev
 // const dbURI = `mongodb://${encodeURIComponent(config.PRIMARY.username)}:${encodeURIComponent(config.PRIMARY.password)}@${config.SECONDARY1},${config.SECONDARY2},${config.PRIMARY.host}/${config.dbName}?slaveOk=true&replicaSet=${config.replicaSet}`;
 const dbURI = `mongodb://${encodeURIComponent(allConfig.mongodbUser)}:${encodeURIComponent(allConfig.mongodbPassword)}@127.0.0.1:27017/iblog`
@@ -30,6 +31,15 @@ Mongoose.connect(dbURI, {
         const adminRole = await RoleService.findOne({ roleId: 'admin' })
         if (!adminRole) {
             await RoleService.create({ name: '管理员', roleId: 'admin' })
+        }
+        const user = await UserService.findOne({ role: 'admin' })
+        if (!user) {
+            await UserService.create({
+                username: allConfig.adminUser,
+                role: ['admin', 'user'],
+                email: `${allConfig.adminUser}@admin.com`,
+                password: allConfig.adminUPass
+            })
         }
         consola.ready({
             message: 'mongodb connectd',

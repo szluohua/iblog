@@ -1,16 +1,44 @@
 {
     "dev": {
+        "adminUser": "admin",
+        "adminUPass": "admin1fsd2s3",
         "apiUrl": "http://localhost:3000/api",
-        "mongodbUser": "iblog",
+        "youpaiCdnUrl": "https://cdn1.jscode.top",
+        "mongodbUser": "user",
         "mongodbPassword": "password" ,
         "redisPass": "",
-        "port": 3000
+        "port": 3000,
+        "secret": "secret",
+        "otp_redirect_secret": "otp_redirect_secret",
+        "otp_user": "jscode",
+        "otp_service": "jscode-top",
+        "qiniuAccessKey": "2ggKxYmve6LqD4432fsdY0QfgW0T3Yx192-WvEMaCxWrwy",
+        "qiniuSecretKey": "0Tm6lAuHvTXvBYqs3_fasdULGoPYJ-Z4ebSxHx6UySM4",
+        "qiniuEncryptKey": "099ae9b9d5b8bca87798fsadffasd7fb8cd9b6e8a61a9119a",
+        "qiniuDomain": "https//cdn.jscode.top",
+        "youpaiBucket": "jscode-top",
+        "youpaiUser": "upload",
+        "youpaiPass": "MVvAyC296PZtZjcfdasfas7EYdE8i8CuXNLGpbi"
     },
     "prod": {
-        "apiUrl": "http://localhost:3000/api",
-        "mongodbUser": "iblog",
+        "adminUser": "admin",
+        "adminUPass": "admin1fsdfs23",
+        "apiUrl": "https://jscode.top/api",
+        "youpaiCdnUrl": "https://cdn1.jscode.top",
+        "mongodbUser": "user",
         "mongodbPassword": "password" ,
-        "redisPass": "",
-        "port": 3000
+        "redisPass": "root1fs23",
+        "port": 3000,
+        "secret": "secfsret",
+        "otp_redirect_secret": "otp_redirect_secret",
+        "otp_user": "jscode",
+        "otp_service": "jscode-top",
+        "qiniuAccessKey": "2ggKxYmve6LqD4Y0QfgW0T3Ygffdsx192-WvEMaCxWrwy",
+        "qiniuSecretKey": "0Tm6lAuHvTXvBYqs3_ULGofsdfsdPYJ-Z4ebSxHx6UySM4",
+        "qiniuEncryptKey": "099ae9b9d5b8bca877987fbfsdfsdf8cd9b6e8a61a9119a",
+        "qiniuDomain": "https//cdn.jscode.top",
+        "youpaiBucket": "jscode-top",
+        "youpaiUser": "upload",
+        "youpaiPass": "MVvAyC296PZfstfsdfsfZjc7EYdE8i8CuXNLGpbi"
     }
 }
