@@ -11,6 +11,7 @@ const config = require('../nuxt.config.js')
 let allConfig = require('../config.json')
 const router = require('./router')
 const IPService = require('./proxy/ip')
+const RoleService = require('./proxy/role')
 allConfig = process.env.NODE_ENV === 'production' ? allConfig.prod : allConfig.dev
 // const dbURI = `mongodb://${encodeURIComponent(config.PRIMARY.username)}:${encodeURIComponent(config.PRIMARY.password)}@${config.SECONDARY1},${config.SECONDARY2},${config.PRIMARY.host}/${config.dbName}?slaveOk=true&replicaSet=${config.replicaSet}`;
 const dbURI = `mongodb://${encodeURIComponent(allConfig.mongodbUser)}:${encodeURIComponent(allConfig.mongodbPassword)}@127.0.0.1:27017/iblog`
@@ -18,10 +19,18 @@ Mongoose.set('useCreateIndex', true)
 Mongoose.connect(dbURI, {
     keepAlive: true,
     useNewUrlParser: true
-}, (err) => {
+}, async (err) => {
     if (err) {
         throw err
     } else {
+        const userRole = await RoleService.findOne({ roleId: 'user' })
+        if (!userRole) {
+            await RoleService.create({ name: '用户', roleId: 'user' })
+        }
+        const adminRole = await RoleService.findOne({ roleId: 'admin' })
+        if (!adminRole) {
+            await RoleService.create({ name: '管理员', roleId: 'admin' })
+        }
         consola.ready({
             message: 'mongodb connectd',
             badge: true
