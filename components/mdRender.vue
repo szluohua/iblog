@@ -10,7 +10,7 @@
                     <span><a-icon type="user" />{{ article.createBy.username }}</span>
                 </div>
             </div>
-            <div id="viewerSection" v-if="article.content" v-html="article.renderContent" class="markdown-body" />
+            <div v-if="article.content" id="viewerSection" class="markdown-body" v-html="article.renderContent" />
         </template>
         <a-icon v-else class="loading-container" type="loading" />
         <comment />

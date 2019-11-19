@@ -17,10 +17,10 @@
             </p>
         </template>
         <template slot="operation" slot-scope="text, record">
-            <a-button @click="editRecord(record)" type="primary">
+            <a-button type="primary" @click="editRecord(record)">
                 编辑
             </a-button>
-            <a-button @click="deleteRecord(record)" style="margin-left: 1rem;" type="danger">
+            <a-button style="margin-left: 1rem;" type="danger" @click="deleteRecord(record)">
                 删除
             </a-button>
         </template>

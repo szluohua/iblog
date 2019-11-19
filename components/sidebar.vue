@@ -2,9 +2,9 @@
     <a-menu
         v-model="current"
         :open-keys.sync="openKeys"
-        @click="handleClick"
         style="width: 256px"
         mode="inline"
+        @click="handleClick"
     >
         <a-sub-menu key="article" @titleClick="titleClick">
             <span slot="title"><a-icon type="book" /><span>内容管理</span></span>

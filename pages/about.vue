@@ -66,7 +66,7 @@
                         </a> -->
                     </div>
                     <div class="profile-card-ctr">
-                        <button @click="active = true" class="profile-card__button button--blue js-message-btn">
+                        <button class="profile-card__button button--blue js-message-btn" @click="active = true">
                             留言
                         </button>
                         <button class="profile-card__button button--orange">
@@ -88,7 +88,7 @@
                             </button>
                         </div>
                     </form>
-                    <div @click.prevent="active = false" class="profile-card__overlay js-message-close" />
+                    <div class="profile-card__overlay js-message-close" @click.prevent="active = false" />
                 </div>
             </div>
         </div>

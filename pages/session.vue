@@ -3,7 +3,7 @@
     <div class="logo" />
     <h5>验证码</h5>
     <a-input v-model="code" />
-    <a-button @click="verify" type="primary" style="width: 100%; margin-top: 20px;">
+    <a-button type="primary" style="width: 100%; margin-top: 20px;" @click="verify">
         校验
     </a-button>
     </div>

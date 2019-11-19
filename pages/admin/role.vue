@@ -1,6 +1,6 @@
 <template>
 <div class="role-container">
-    <a-form :form="form" :layout="'inline'" @submit="handleSubmit" style="height: 80px;">
+    <a-form :form="form" :layout="'inline'" style="height: 80px;" @submit="handleSubmit">
     <a-form-item
         class="form-item-limit"
         label="名称"
@@ -55,8 +55,8 @@
         <a-input
           v-if="record.editable"
           :value="text"
-          @change="e => handleChange(e.target.value, record, col)"
           style="margin: -5px 0"
+          @change="e => handleChange(e.target.value, record, col)"
         />
         <template v-else>
         {{ text }}
@@ -66,7 +66,7 @@
     <template slot="operation" slot-scope="text, record">
       <div class="editable-row-operations">
             <!-- Todo: 暂未关联用户model，暂时不能删除          -->
-            <a-button :disabled="true" @click="deleteRecord(record)" style="margin-left: 1rem;" type="danger">
+            <a-button :disabled="true" style="margin-left: 1rem;" type="danger" @click="deleteRecord(record)">
                 Delete
             </a-button>
       </div>

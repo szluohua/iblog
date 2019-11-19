@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="display: inline-block;">
     <a-avatar v-if="typeof user === 'object' && user.avatar" :src="avatarUrl + user.avatar" :alt="user.username" />
     <a-avatar v-else-if="typeof user === 'object' && user.username" style="color: #f56a00; backgroundColor: #fde3cf">
         {{ showStr(user.username) }}

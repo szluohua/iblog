@@ -1,9 +1,9 @@
 <template>
     <div class="create-article-container">
-        <a-form :form="form" @submit="handleSubmit" style="position: relative">
+        <a-form :form="form" style="position: relative" @submit="handleSubmit">
             <div v-if="titlePhoto" class="review-img">
                 <img :src="titlePhoto" width="200" height="200">
-                <a-icon @click="titlePhoto = ''" type="delete" />
+                <a-icon type="delete" @click="titlePhoto = ''" />
             </div>
             <a-form-item
                 :wrapper-col="{ span: 12, offset: 5 }"
@@ -60,7 +60,7 @@
             </a-form-item>
             <a-form-item v-if="addCategory" class="form-item-limit">
                 <a-input v-model="newCategory" />
-                <a-button @click="addNewCategory" type="primary">
+                <a-button type="primary" @click="addNewCategory">
                     新增标签
                 </a-button>
             </a-form-item>
@@ -82,10 +82,10 @@
                             ]
                         }
                     ]"
-                    @change="categoryChange"
                     label-in-value
                     mode="multiple"
                     placeholder="请选择文章标签"
+                    @change="categoryChange"
                 >
                 <a-select-option v-for="(item, index) in filteredOptions" :key="index" :value="item._id">
                 {{ item.name }}

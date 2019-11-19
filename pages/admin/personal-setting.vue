@@ -24,7 +24,7 @@
             </a-tooltip>
             :
         </h3>
-        <a-switch v-model="authSwitch" @change="changeAuthSwitch" style="margin-left: 10px;" />
+        <a-switch v-model="authSwitch" style="margin-left: 10px;" @change="changeAuthSwitch" />
     </div>
     <div v-if="showContainer" class="otp-container">
         <template v-if="showContainer === 'open'">
@@ -43,13 +43,13 @@
                 </div>
             </div>
             <div class="steps-action">
-                <a-button v-if="current < steps.length - 1" @click="next" type="primary">
+                <a-button v-if="current < steps.length - 1" type="primary" @click="next">
                     下一步
                 </a-button>
-                <a-button v-if="current == steps.length - 1" @click="verify('auth')" type="primary">
+                <a-button v-if="current == steps.length - 1" type="primary" @click="verify('auth')">
                     完成
                 </a-button>
-                <a-button v-if="current>0" @click="prev" style="margin-left: 8px">
+                <a-button v-if="current>0" style="margin-left: 8px" @click="prev">
                     上一步
                 </a-button>
             </div>
@@ -58,7 +58,7 @@
             <div class="close-otp">
                 <h5>请输入验证码</h5>
                 <a-input v-model="code" />
-                <a-button @click="verify('close')" type="primary" style="margin-top: 20px;">
+                <a-button type="primary" style="margin-top: 20px;" @click="verify('close')">
                     关闭双因素认证
                 </a-button>
             </div>

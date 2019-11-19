@@ -5,8 +5,8 @@
                 <a-tooltip title="Like">
                 <a-icon
                     :theme="action === 'liked' ? 'filled' : 'outlined'"
-                    @click="like"
                     type="like"
+                    @click="like"
                 />
                 </a-tooltip>
                 <span style="padding-left: '8px';cursor: 'auto'">
@@ -17,8 +17,8 @@
                 <a-tooltip title="Dislike">
                 <a-icon
                     :theme="action === 'disliked' ? 'filled' : 'outlined'"
-                    @click="dislike"
                     type="dislike"
+                    @click="dislike"
                 />
                 </a-tooltip>
                 <span style="padding-left: '8px';cursor: 'auto'">

@@ -1,11 +1,11 @@
 <template>
   <a-modal
     :visible="visible"
-    @cancel="() => { $emit('cancel') }"
-    @ok="() => { $emit('create') }"
     title="更新用户信息"
     ok-text="保存"
     cancel-text="取消"
+    @cancel="() => { $emit('cancel') }"
+    @ok="() => { $emit('create') }"
   >
     <a-form :form="form" @submit="handleSubmit">
       <a-form-item v-bind="formItemLayout" label="E-mail">
@@ -41,10 +41,10 @@
                         ]
                     }
                 ]"
-          @change="roleChange"
           label-in-value
           mode="multiple"
           placeholder="请选择用户角色"
+          @change="roleChange"
         >
           <a-select-option
             v-for="(item, index) in filteredOptions"

@@ -1,8 +1,8 @@
 <template>
   <a-form
     :form="form"
-    @submit="handleSubmit"
     class="register-form"
+    @submit="handleSubmit"
   >
 <a-form-item
       v-bind="formItemLayout"

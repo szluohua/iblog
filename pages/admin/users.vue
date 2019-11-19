@@ -18,14 +18,14 @@
             </a-tag>
         </template>
         <template slot="operation" slot-scope="text, record">
-            <a-button @click="editRecord(record)" type="primary">
+            <a-button type="primary" @click="editRecord(record)">
                 编辑
             </a-button>
         </template>
     </a-table>
     <editUser
-      ref="collectionForm"
       v-if="userData"
+      ref="collectionForm"
       :visible="visible"
       :user="userData"
       @cancel="handleCancel"
