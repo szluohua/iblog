@@ -22,7 +22,7 @@ const request = ({ url, params = {}, method = 'post', baseURL = '' }) => {
                     resolve(res.data || {})
                 })
                 .catch((err) => {
-                    console.log(err)
+                    console.log({ err })
                     resolve()
                 })
         } catch (error) {

@@ -13,9 +13,6 @@
                 mode="horizontal"
                 @click="changeMenu"
                 >
-                <!-- <a-menu-item key="">
-                    文章
-                </a-menu-item> -->
                 <a-menu-item key="/about">
                     关于
                 </a-menu-item>
@@ -27,9 +24,6 @@
                     <a-menu-item key="/admin/article">
                         系统管理
                     </a-menu-item>
-                    <!-- <a-menu-item key="about">
-                        关于
-                    </a-menu-item> -->
                     <a-menu-item key="logout">
                         注销
                     </a-menu-item>
@@ -40,9 +34,9 @@
                     登录
                 </nuxt-link>
                 <a-divider type="vertical" />
-                <!-- <nuxt-link to="/register">
+                <nuxt-link to="/register">
                     注册
-                </nuxt-link> -->
+                </nuxt-link>
             </div>
         </div>
     </a-layout-header>

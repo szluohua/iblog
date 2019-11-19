@@ -180,7 +180,7 @@ router.use(async (ctx, next) => {
         if (user) {
             const user_role = user.role
             if (user_role && user_role.indexOf(adminRole) === -1 && user_role.indexOf(c_router.role) === -1) {
-                ctx.throw(403, '角色不正确')
+                ctx.throw(403, '用户角色不正确')
             }
         }
     }
