@@ -146,7 +146,7 @@ export default {
         },
         async changeAuthSwitch(value) {
             if (value) {
-                const res = await signQRCode({ userId: this.userInfo._id })
+                const res = await signQRCode()
                 if (res) {
                     this.qrurl = res.url
                     this.showContainer = 'open'
@@ -161,8 +161,7 @@ export default {
             }
             const res = await setOtpAuth({
                 type,
-                token: this.code,
-                userId: this.userInfo._id
+                token: this.code
             })
             if (res) {
                 this.showContainer = ''

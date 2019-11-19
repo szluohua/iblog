@@ -53,7 +53,7 @@ module.exports = {
             if (checkPassword) {
                 if (user.otpAuth) {
                     ctx.body = {
-                        otp_token: auth.getRedirectToken({ user: req.username }),
+                        otp_token: auth.getRedirectToken({ role: user.role, _id: user._id }),
                         expires: 0.25
                     }
                     return
@@ -84,13 +84,13 @@ module.exports = {
         }
     },
     async signQRCode(ctx) {
-        const { userId } = ctx.request.body
-        const user = await UserService.findOne({ _id: userId })
+        const { _id } = ctx.state.user
+        const user = await UserService.findOne({ _id })
         if (user) {
             let userSecret = user.token
             if (!userSecret) {
                 userSecret = auth.generateOTPSecret()
-                await UserService.updateOne({ _id: userId }, { $set: { token: userSecret } })
+                await UserService.updateOne({ _id }, { $set: { token: userSecret } })
             }
             const url = await auth.signQRCode(userSecret)
             ctx.body = {
@@ -101,8 +101,9 @@ module.exports = {
         }
     },
     async setOtpAuth(ctx) {
-        const { type, token, userId } = ctx.request.body
-        const user = await UserService.findOne({ _id: userId })
+        const { type, token } = ctx.request.body
+        const { _id } = ctx.state.user
+        const user = await UserService.findOne({ _id })
         if (!user) {
             throw new Error('找不到用户')
         }
@@ -121,7 +122,7 @@ module.exports = {
                 token: ''
             }
         }
-        const res = await UserService.updateOne({ _id: userId }, { $set: data })
+        const res = await UserService.updateOne({ _id }, { $set: data })
         ctx.body = res
     },
     async verifyOTPToken(ctx) {
