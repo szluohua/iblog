@@ -5,7 +5,7 @@ class RoleServiceModel extends Base {
         super(IPModel)
     }
     async find(data = {}) {
-        const res = await IPModel.find(data).exec()
+        const res = await IPModel.find(data).sort({ updatedAt: -1 }).exec()
         return res
     }
     async createOrUpdateIP(ip, data) {

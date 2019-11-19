@@ -2,7 +2,7 @@ const IPService = require('../proxy/ip')
 module.exports = {
     async getIPs(ctx) {
         const req = ctx.request.query
-        const res = await IPService.find(req).sort({ _id: -1 })
+        const res = await IPService.find(req)
         ctx.body = res
     },
     async createOrUpdateIP(ctx) {
