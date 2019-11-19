@@ -33,8 +33,17 @@ export default {
                 title: 'IP',
                 dataIndex: 'ip'
             }, {
-                title: '区域',
-                dataIndex: 'address'
+                title: '国家',
+                dataIndex: 'country'
+            }, {
+                title: '省份/州',
+                dataIndex: 'region'
+            }, {
+                title: '城市',
+                dataIndex: 'city'
+            }, {
+                title: '运营商',
+                dataIndex: 'isp'
             }, {
                 title: '最后更新时间',
                 dataIndex: 'updatedAt',

@@ -10,7 +10,6 @@ const Redis = require('ioredis')
 const config = require('../nuxt.config.js')
 let allConfig = require('../config.json')
 const router = require('./router')
-const IPService = require('./proxy/ip')
 const RoleService = require('./proxy/role')
 const UserService = require('./proxy/user')
 allConfig = process.env.NODE_ENV === 'production' ? allConfig.prod : allConfig.dev
@@ -69,13 +68,6 @@ async function start() {
         await nuxt.ready()
     }
 
-    app.use(async (ctx, next) => {
-        const { url, ip } = ctx.request
-        if (url === '/') {
-            await IPService.createOrUpdateIP({ ip })
-        }
-        await next()
-    })
     // 统一异常捕获处理
     app.use(async (ctx, next) => {
         try {

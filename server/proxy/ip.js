@@ -8,8 +8,8 @@ class RoleServiceModel extends Base {
         const res = await IPModel.find(data).exec()
         return res
     }
-    async createOrUpdateIP(data) {
-        const res = await IPModel.updateOne({ ip: data.ip }, { $set: data }, { upsert: true })
+    async createOrUpdateIP(ip, data) {
+        const res = await IPModel.updateOne({ ip }, { $set: data }, { upsert: true })
         return res
     }
 }

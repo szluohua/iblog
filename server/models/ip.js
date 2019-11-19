@@ -6,7 +6,37 @@ const UserSchema = new Mongoose.Schema({
         required: true,
         unique: true
     },
-    address: {
+    brower: {
+        type: String,
+        trim: true,
+        default: ''
+    },
+    os: {
+        type: String,
+        trim: true,
+        default: ''
+    },
+    device: {
+        type: String,
+        trim: true,
+        default: ''
+    },
+    country: {
+        type: String,
+        trim: true,
+        default: ''
+    },
+    region: {
+        type: String,
+        trim: true,
+        default: ''
+    },
+    city: {
+        type: String,
+        trim: true,
+        default: ''
+    },
+    isp: {
         type: String,
         trim: true,
         default: ''
