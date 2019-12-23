@@ -8,10 +8,10 @@
                 <nuxt />
             </a-layout-content>
             <a-layout-footer style="text-align: center; background: transparent;">
-                Blog ©2019 Created by Leo
-                <nuxt-link to="http://beian.miit.gov.cn" style="color: inherit; margin-left: 10px;">
-                    粤ICP备18003965号-1
-                </nuxt-link>
+                Blog ©2019 Leo
+                <a href="http://beian.miit.gov.cn" class="beian" target="_blank">
+                    粤ICP备18003965号
+                </a>
                 <a class="youpai-link" target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
                     <img src="../assets/logo/youpaiyun.svg">
                 </a>
@@ -68,6 +68,14 @@ export default {
         top: -20px;
         left: -17px;
         width: 80px;
+    }
+}
+.beian {
+    color: inherit;
+    margin-left: 10px;
+    text-decoration: none;
+    &:hover {
+        color: #1890ff;
     }
 }
 </style>
