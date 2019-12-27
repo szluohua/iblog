@@ -57,8 +57,12 @@ module.exports = {
         ctx.body = articleList
     },
     async deleteArticleById(ctx) {
-        const { _id, userId } = ctx.request.body
-        if (!Auth.checkUpdatePermission(ctx, userId)) {
+        const { _id } = ctx.request.body
+        const article = await ArticleService.findById(_id)
+        if (!article) {
+            ctx.throw(405, '文章不存在')
+        }
+        if (!Auth.checkUpdatePermission(ctx, article.createBy._id)) {
             ctx.throw(403, '用户角色不正确')
         }
         const result = await ArticleService.removeById(_id)

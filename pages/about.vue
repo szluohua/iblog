@@ -7,7 +7,7 @@
                 </div> -->
                 <div class="profile-card__cnt js-profile-cnt">
                     <div class="profile-card__name">
-                        Leo Luo
+                        {{ author }}
                     </div>
                     <div class="profile-card__txt">
                         <strong>涸辙遗鲋，旦暮成枯；人而无志，与彼何殊</strong>
@@ -55,10 +55,10 @@
                         </div>
                     </div>
                     <div class="profile-card-social">
-                        <a href="https://github.com/szluohua" class="profile-card-social__item facebook" target="_blank">
+                        <a :href="github" class="profile-card-social__item facebook" target="_blank">
                             <a-icon type="github" />
                         </a>
-                        <a href="mailto:luohuasz@163.com" class="profile-card-social__item twitter" target="_blank">
+                        <a :href="`mailto:${email}`" class="profile-card-social__item twitter" target="_blank">
                             <a-icon type="mail" />
                         </a>
                         <!-- <a href="https://www.instagram.com/iamuhammederdem" class="profile-card-social__item instagram" target="_blank">
@@ -106,7 +106,10 @@ export default {
             time: '',
             articleCount: 0,
             commentCount: 0,
-            pv: 0
+            pv: 0,
+            author: process.env.author,
+            email: process.env.email,
+            github: process.env.github
         }
     },
     beforeMount() {

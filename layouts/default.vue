@@ -8,9 +8,9 @@
                 <nuxt />
             </a-layout-content>
             <a-layout-footer style="text-align: center; background: transparent;">
-                Blog ©2019 Leo
+                Blog ©{{ (new Date()).getFullYear() }} {{ author }}
                 <a href="http://beian.miit.gov.cn" class="beian" target="_blank">
-                    粤ICP备18003965号
+                    {{ recordNumber }}
                 </a>
                 <a class="youpai-link" target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
                     <img src="../assets/logo/youpaiyun.svg">
@@ -27,6 +27,12 @@ export default {
     name: 'Layout',
     components: {
         Header
+    },
+    data() {
+        return {
+            author: process.env.author,
+            recordNumber: process.env.recordNumber
+        }
     },
     mounted() {
         this.$nextTick(function () {

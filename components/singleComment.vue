@@ -25,7 +25,7 @@
                 {{ dislikes }}
                 </span>
             </span>
-            <span @click="reply">Reply to</span>
+            <span @click="reply">回复</span>
         </template>
         <singleComment v-for="(item, index) in comment.children" :key="index" :comment="item" />
     </a-comment>

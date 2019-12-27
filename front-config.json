@@ -2,11 +2,19 @@
     "dev": {
         "apiUrl": "http://localhost:3000/api",
         "youpaiCdnUrl": "https://cdn1.jscode.top",
-        "bucket": "jscode-top"
+        "bucket": "jscode-top",
+        "author": "jscode",
+        "email": "luohuasz@163.com",
+        "github": "https://github.com/szluohua",
+        "recordNumber": "粤ICP备18003965号"
     },
     "prod": {
         "apiUrl": "https://jscode.top/api",
         "youpaiCdnUrl": "https://cdn1.jscode.top",
-        "bucket": "jscode-top"
+        "bucket": "jscode-top",
+        "author": "jscode",
+        "email": "luohuasz@163.com",
+        "github": "https://github.com/szluohua",
+        "recordNumber": "粤ICP备18003965号"
     }
 }

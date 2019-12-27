@@ -9,15 +9,15 @@
 				</a-form-item>
 				<a-form-item>
 					<a-button v-if="r_comment || value.length" html-type="submit" style="margin-right: 20px;" @click="cancelSubmit">
-						Cancel
+						取消
 					</a-button>
 					<a-button :loading="submitting" html-type="submit" type="primary" @click="handleSubmit">
-						Add Comment
+						评论
 					</a-button>
 				</a-form-item>
 			</div>
 		</a-comment>
-		<a-list v-if="filterList.length" :data-source="filterList" :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`" item-layout="horizontal">
+		<a-list v-if="filterList.length" :data-source="filterList" :header="`总 ${comments.length} 条评论`" item-layout="horizontal">
 			<a-list-item slot="renderItem" slot-scope="item">
 				<singleComment :comment="item" />
 			</a-list-item>
