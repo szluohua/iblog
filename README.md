@@ -26,6 +26,8 @@
 
 ## Build Setup
 
+- 需要安装： `Redis`，`Mongodb`
+
 ``` bash
 # install dependencies
 $ npm install
