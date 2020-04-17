@@ -107,6 +107,18 @@ const roleRouteMaps = [
         method: 'get',
         handler: IPController.getIPs,
         role: adminRole
+    },
+    {
+        path: '/api/createSetting',
+        method: 'post',
+        handler: SettingController.createSetting,
+        role: adminRole
+    },
+    {
+        path: '/api/getAllSetting',
+        method: 'get',
+        handler: SettingController.getAllSetting,
+        role: adminRole
     }
 ]
 const unlessRoleRouteMaps = [
@@ -161,9 +173,9 @@ const unlessRoleRouteMaps = [
         handler: SettingController.updatePV
     },
     {
-        path: '/api/v1/getSettingByKey',
+        path: '/api/v1/getPublicSettingByKey',
         method: 'get',
-        handler: SettingController.getSettingByKey
+        handler: SettingController.getPublicSettingByKey
     },
     {
         path: '/api/v1/youpaiSignHeader',

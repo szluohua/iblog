@@ -3,8 +3,8 @@ class ProxyBase {
         this.model = model
     }
 
-    async create(data) {
-        const res = await this.model.create(data)
+    async create(data, option = {}) {
+        const res = await this.model.create(data, option)
         return res
     }
 

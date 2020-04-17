@@ -71,8 +71,8 @@ export function updatePV(params) {
     return request({ url: '/v1/updatePV', params, method: 'get' })
 }
 
-export function getSettingByKey(params) {
-    return request({ url: '/v1/getSettingByKey', params, method: 'get' })
+export function getPublicSettingByKey(params) {
+    return request({ url: '/v1/getPublicSettingByKey', params, method: 'get' })
 }
 
 export function signQRCode(params) {
@@ -96,4 +96,11 @@ export function getIPs(params) {
 
 export function createOrUpdateIP(params) {
     return request({ url: '/createOrUpdateIP', params, method: 'post' })
+}
+
+export function createSetting(params) {
+    return request({ url: '/createSetting', params, method: 'post' })
+}
+export function getAllSetting(params) {
+    return request({ url: '/getAllSetting', params, method: 'get' })
 }

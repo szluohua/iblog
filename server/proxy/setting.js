@@ -9,7 +9,19 @@ class SettingServiceModel extends Base {
         const res = await SettingModel.find(data).exec()
         return res
     }
-
+    async bulkWrite(data) {
+        const ops = data.map((val) => {
+            return {
+                updateOne: {
+                    filter: { key: val.key },
+                    update: { value: val.value },
+                    upsert: true
+                }
+            }
+        })
+        const res = await SettingModel.bulkWrite(ops)
+        return res
+    }
     async updateOne(key, data) {
         const res = await SettingModel.updateOne({ key }, { $set: { value: data } }, { upsert: true })
         return res
@@ -20,7 +32,7 @@ class SettingServiceModel extends Base {
         return res
     }
 
-    async getSettingByKey(key) {
+    async getPublicSettingByKey(key) {
         const res = await SettingModel.findOne({ key })
         return res
     }

@@ -3,6 +3,7 @@ const userAgent = require('user-agent-parse')
 const axios = require('axios')
 const SettingService = require('../proxy/setting')
 const IPService = require('../proxy/ip')
+const privateKey = ['email', 'email_password']
 const ipRequest = (ip) => {
     return new Promise((resolve) => {
         try {
@@ -10,20 +11,28 @@ const ipRequest = (ip) => {
                 .then((res) => {
                     resolve(res.data || {})
                 })
+                // eslint-disable-next-line handle-callback-err
                 .catch((err) => {
-                    console.log(err)
                     resolve()
                 })
         } catch (error) {
-            console.log(error)
             resolve()
         }
     })
 }
 module.exports = {
     async createSetting(ctx) {
-        const { key, value } = ctx.request.body
-        const createResult = await SettingService.updateOne(key, value)
+        const values = ctx.request.body
+        const data = []
+        for (const key in values) {
+            if (values.hasOwnProperty(key)) {
+                data.push({
+                    key,
+                    value: values[key]
+                })
+            }
+        }
+        const createResult = await SettingService.bulkWrite(data)
         ctx.body = createResult
     },
     async updatePV(ctx) {
@@ -46,13 +55,20 @@ module.exports = {
         res.ip = ip
         ctx.body = res
     },
-    async getSettingByKey(ctx) {
+    async getPublicSettingByKey(ctx) {
         const key = ctx.request.query.key
         if (!key) {
             ctx.body = {}
             return
         }
-        const res = await SettingService.getSettingByKey(key)
+        if (privateKey.includes(key)) {
+            ctx.throw(405, '找不到该设置')
+        }
+        const res = await SettingService.getPublicSettingByKey(key)
+        ctx.body = res
+    },
+    async getAllSetting(ctx) {
+        const res = await SettingService.find()
         ctx.body = res
     }
 }

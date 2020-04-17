@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { getAllCount, getSettingByKey } from '@/api/index'
+import { getAllCount, getPublicSettingByKey } from '@/api/index'
 export default {
     name: 'About',
     components: {},
@@ -120,7 +120,7 @@ export default {
                 this.commentCount = res.allComment
             }
         })
-        getSettingByKey({ key: 'pv' }).then((res) => {
+        getPublicSettingByKey({ key: 'pv' }).then((res) => {
             if (res && res.value) {
                 this.pv = res.value
             }

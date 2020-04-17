@@ -3,7 +3,8 @@ const UserSchema = new Mongoose.Schema({
     key: {
         type: String,
         trim: true,
-        required: true
+        required: true,
+        unique: true
     },
     value: {
         type: Mongoose.Schema.Types.Mixed,
