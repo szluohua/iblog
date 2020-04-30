@@ -36,5 +36,16 @@ class SettingServiceModel extends Base {
         const res = await SettingModel.findOne({ key })
         return res
     }
+
+    async getEmailInfo() {
+        const email_type = await SettingModel.findOne({ key: 'email_type' })
+        const email = await SettingModel.findOne({ key: 'email' })
+        const email_pass = await SettingModel.findOne({ key: 'email_password' })
+        return {
+            email_type: email_type ? email_type.value : '',
+            email: email ? email.value : '',
+            pass: email_pass ? email_pass.value : ''
+        }
+    }
 }
 module.exports = new SettingServiceModel()
