@@ -8,7 +8,8 @@
 <script>
 import mdRender from '@/components/mdRender'
 import rightSidebar from '@/components/rightSidebar'
-import { getArticleDetail } from '@/api/index'
+import { getArticleDetail, getPublicSettingByKey } from '@/api/index'
+import { pushBaiduSite } from '@/utils/index'
 export default {
     name: 'ArticleDetail',
     components: {
@@ -46,10 +47,25 @@ export default {
             meta: [
                 { hid: `${_id}title`, name: 'description', content: title },
                 { hid: `${_id}desc`, name: 'description', content: desc },
-                { hid: `${_id}category`, name: 'keywords', content: categoryContent },
-                { hid: `${_id}revisit`, name: 'revisit-after', content: '30 days' }
+                {
+                    hid: `${_id}category`,
+                    name: 'keywords',
+                    content: categoryContent
+                },
+                {
+                    hid: `${_id}revisit`,
+                    name: 'revisit-after',
+                    content: '30 days'
+                }
             ]
         }
+    },
+    mounted() {
+        getPublicSettingByKey({ key: 'push_baidu' }).then((res) => {
+            if (res && res.value === 'true') {
+                pushBaiduSite()
+            }
+        })
     }
 }
 </script>

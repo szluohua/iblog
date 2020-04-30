@@ -1,22 +1,40 @@
 <template>
-  <a-form :form="form" @submit="handleSubmit">
-    <a-form-item label="系统邮箱" v-bind="formItemLayout">
-      <a-input
-        v-decorator="['email', { rules: [{ required: true, message: '请输入系统邮箱' }] }]"
-      />
-    </a-form-item>
-    <a-form-item label="授权码(密码)" v-bind="formItemLayout">
-      <a-input
-        v-decorator="['email_password', { rules: [{ required: true, message: '请输入邮箱授权码(密码)' }] }]"
-      />
-    </a-form-item>
+    <a-form :form="form" @submit="handleSubmit">
+        <a-form-item label="系统邮箱" v-bind="formItemLayout">
+            <a-input
+                v-decorator="[
+                    'email',
+                    { rules: [{ required: true, message: '请输入系统邮箱' }] }
+                ]"
+            />
+        </a-form-item>
+        <a-form-item label="授权码(密码)" v-bind="formItemLayout">
+            <a-input
+                v-decorator="[
+                    'email_password',
+                    {
+                        rules: [
+                            {
+                                required: true,
+                                message: '请输入邮箱授权码(密码)'
+                            }
+                        ]
+                    }
+                ]"
+            />
+        </a-form-item>
+        <a-form-item label="url自动提交至百度" v-bind="formItemLayout">
+            <a-switch
+                v-decorator="['push_baidu', { valuePropName: 'checked' }]"
+            />
+        </a-form-item>
 
-    <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-      <a-button type="primary" :loading="loading" html-type="submit">
-        Submit
-      </a-button>
-    </a-form-item>
-  </a-form>
+        <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+            <a-button type="primary" :loading="loading" html-type="submit">
+                Submit
+            </a-button>
+        </a-form-item>
+    </a-form>
 </template>
 
 <script>
@@ -66,9 +84,11 @@ export default {
                     })
                     return tmp || {}
                 }
+                console.log(field('push_baidu').value)
                 this.form.setFieldsValue({
                     email: field('email').value,
-                    email_password: field('email_password').value
+                    email_password: field('email_password').value,
+                    push_baidu: field('push_baidu').value === 'true'
                 })
             }
         }
