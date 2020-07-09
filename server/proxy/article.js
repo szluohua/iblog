@@ -33,6 +33,14 @@ class ArticleServiceModel extends Base {
         const res = await this.model.find({}, { content: false, renderContent: false }).sort({ viewed: -1, comment: -1 }).limit(5)
         return res
     }
+    async findArticleByName(input) {
+        if (!input) {
+            return []
+        }
+        const reg = new RegExp(input, 'i')
+        const res = await this.model.find({ title: reg }, { content: false, renderContent: false }).sort({ viewed: -1, comment: -1 }).limit(5)
+        return res
+    }
     async updateArticle(id, data) {
         const res = await this.model.updateOne({ _id: id }, { $set: data })
         return res

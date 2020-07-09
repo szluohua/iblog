@@ -37,6 +37,9 @@ export function getCategoryList(params) {
 export function findHotArticleList(params) {
     return request({ url: '/v1/findHotArticleList', params, method: 'get' })
 }
+export function findArticleByName(params) {
+    return request({ url: '/v1/findArticleByName', params, method: 'post' })
+}
 
 export function getComment(params) {
     return request({ url: '/v1/getComment', params, method: 'get' })

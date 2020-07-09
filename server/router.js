@@ -163,6 +163,11 @@ const unlessRoleRouteMaps = [
         handler: ArticleController.findHotArticleList
     },
     {
+        path: '/api/v1/findArticleByName',
+        method: 'post',
+        handler: ArticleController.findArticleByName
+    },
+    {
         path: '/api/v1/getAllCount',
         method: 'get',
         handler: CommentController.getAllCount

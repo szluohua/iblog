@@ -56,6 +56,11 @@ module.exports = {
         const articleList = await ArticleService.findHotArticleList()
         ctx.body = articleList
     },
+    async findArticleByName(ctx) {
+        const { name } = ctx.request.body
+        const articleList = await ArticleService.findArticleByName(name)
+        ctx.body = articleList
+    },
     async deleteArticleById(ctx) {
         const { _id } = ctx.request.body
         const article = await ArticleService.findById(_id)

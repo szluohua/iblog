@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const pkg = require('./package')
 const env =
     process.env.NODE_ENV === 'production'
@@ -106,6 +107,9 @@ module.exports = {
                 })
             }
         },
+        plugins: [
+            new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-au|zh-cn/)
+        ],
         publicPath: 'https://cdn1.jscode.top/blog'
     }
 }
