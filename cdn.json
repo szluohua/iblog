@@ -1,6 +1,9 @@
 {
     "js": [
         {
+            "src": "https://hm.baidu.com/hm.js?30c4255c1ad0737ad4582926722db5c0"
+        },
+        {
             "src": "https://cdn.staticfile.org/particles.js/2.0.0/particles.min.js"
         },
         {
